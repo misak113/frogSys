@@ -1,0 +1,287 @@
+10
+
+dir
+0
+http://svn3.xp-dev.com/svn/avantcore_repository/workout/frogSys/js/tiny_mce/plugins
+http://svn3.xp-dev.com/svn/avantcore_repository
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+b559eb40-af79-4c98-abbf-f2787eb43c89
+
+advhr
+dir
+
+
+
+add
+
+advimage
+dir
+
+
+
+add
+
+advlink
+dir
+
+
+
+add
+
+advlist
+dir
+
+
+
+add
+
+autolink
+dir
+
+
+
+add
+
+autoresize
+dir
+
+
+
+add
+
+autosave
+dir
+
+
+
+add
+
+bbcode
+dir
+
+
+
+add
+
+contextmenu
+dir
+
+
+
+add
+
+directionality
+dir
+
+
+
+add
+
+emotions
+dir
+
+
+
+add
+
+example
+dir
+
+
+
+add
+
+fullpage
+dir
+
+
+
+add
+
+fullscreen
+dir
+
+
+
+add
+
+iespell
+dir
+
+
+
+add
+
+inlinepopups
+dir
+
+
+
+add
+
+insertdatetime
+dir
+
+
+
+add
+
+layer
+dir
+
+
+
+add
+
+legacyoutput
+dir
+
+
+
+add
+
+lists
+dir
+
+
+
+add
+
+media
+dir
+
+
+
+add
+
+nonbreaking
+dir
+
+
+
+add
+
+noneditable
+dir
+
+
+
+add
+
+pagebreak
+dir
+
+
+
+add
+
+paste
+dir
+
+
+
+add
+
+preview
+dir
+
+
+
+add
+
+print
+dir
+
+
+
+add
+
+save
+dir
+
+
+
+add
+
+searchreplace
+dir
+
+
+
+add
+
+spellchecker
+dir
+
+
+
+add
+
+style
+dir
+
+
+
+add
+
+tabfocus
+dir
+
+
+
+add
+
+table
+dir
+
+
+
+add
+
+template
+dir
+
+
+
+add
+
+visualchars
+dir
+
+
+
+add
+
+wordcount
+dir
+
+
+
+add
+
+xhtmlxtras
+dir
+
+
+
+add
+

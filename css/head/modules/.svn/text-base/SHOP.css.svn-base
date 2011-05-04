@@ -1,0 +1,357 @@
+/* CSS Document */
+
+.shop_menu_item {
+    position: relative;
+    float: left;
+    /*border: 1px solid black;*/
+    margin: 0px 5px;
+
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.shop_menu_item a {
+display:block;
+float:left;
+margin-right:10px;
+position:relative;
+width:auto;
+text-decoration:none;
+color:white;
+
+}
+
+
+.btn-left {
+position:absolute;
+left:0;
+top:0;
+float:left;
+width:9px;
+height:36px;
+    background-image: url('../../../../frogSys/images/modules/SHOP/btn-left.png');
+}
+
+.btn-right {
+background:url("../../../../frogSys/images/modules/SHOP/btn-right.png") no-repeat scroll right top transparent;
+display:block;
+float:left;
+height:24px;
+margin-left:9px;
+padding:11px 10px 1px;
+width:auto;
+}
+
+.shop_menu {
+    position: relative;
+    /*width: 100%;*/
+}
+
+.shop {
+    position: relative;
+    /*width: 100%;*/
+    clear: left;
+    padding: 10px;
+}
+
+/* Nastaveno pro mrizkove zobrazeni, dodelat tabulkové*/
+.shop_item {
+    position: relative;
+    width: 42%;
+    height: 230px;
+    /*border: 1px solid black;*/
+    float: left;
+    margin: 10px 10px 35px 20px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.shop_item .nazev {
+    position: absolute;
+    top: 1px;
+    left: 86px;
+    height: 36px;
+    font-weight: bold;
+        margin: 5px;
+    color: green;
+
+}
+
+.shop_item .nazev a {
+    color: #1d6c01;
+        font-size: 13px;
+        text-decoration:none;
+
+}
+
+
+
+
+.shop_item .popis {
+  height:132px;
+  left:86px;
+  overflow:hidden;
+  padding:6px;
+  position:absolute;
+  top:76px;
+}
+
+.shop_item .popis, .shop_item .popis p {
+  font-size:11px;
+  text-align:justify;
+  line-height:17px;
+}
+
+.shop_item .cena {
+  background: url("../../../../frogSys/images/modules/SHOP/bg-cena.png") no-repeat scroll center top transparent;
+  color:orange;
+  font-size:20px;
+  font-weight:bold;
+  height:27px;
+  left:86px;
+  padding:5px 10px;
+  position:absolute;
+  top:40px;
+  width:135px;
+}
+
+.shop_item .cena .sdph {
+    font-size: 12px;
+}
+
+.shop_item .add_kosik {
+    position: absolute;
+    top: 40px;
+    right: 1px;
+    width: 43px;
+    height: 37px;
+}
+
+.shop_item .image {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    max-width: 80px;
+    max-height: 150px;
+}
+
+.shop_item .vyrobce {
+    display: none;
+}
+
+
+
+
+
+
+
+
+.shop_produkt {
+    position: relative;
+    
+}
+
+.shop_produkt .nazev {
+    position: relative;
+    color: green;
+    font-size: 25px;
+    margin: 10px;
+    margin-left:0;
+    
+}
+
+.shop_produkt .ceny {
+    position: relative;
+    padding:10px;
+    background:#e3f8d7;
+}
+.shop_produkt .cena {
+  color:orange;
+  float:left;
+  font-size:17px;
+  font-weight:bold;
+  height:37px;
+  margin-left:10px;
+}
+.shop_produkt .sdph {
+    font-size: 13px;
+}
+.form-kosik {
+  display:block;
+  float:left;
+  margin-left:10px;
+}
+
+.shop_produkt .cena_bez {
+  color:black;
+  float:left;
+  font-size:17px;
+  height:37px;
+}
+.shop_produkt .cena_dph {
+  color:black;
+  display:block;
+  float:left;
+  font-size:13px;
+  height:12px;
+  margin-left:10px;
+  padding-top:2px;
+}
+
+.shop_produkt .cena_sdph {
+    position: relative;
+    font-size: 20px;  
+}
+
+.shop_produkt .popis {
+  float: left;
+  margin: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.shop_produkt .add_kosik {
+    position: relative;
+    margin: 0px 10px;
+    
+}
+
+.shop_produkt .image {
+    position: relative;
+    float: left;
+    margin: 10px;
+    clear: left;
+    max-width: 80px;
+    max-height: 150px;
+}
+
+.shop_produkt .vyrobce {
+    position: relative;
+    clear: left;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.shop_produkt .code {
+    position: relative;
+    clear: left;
+    margin: 10px;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+}
+.shop_produkt .normal {
+    font-weight: normal;
+}
+
+.shop_produkt .je_videt {
+    clear: left;
+    margin: 10px;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+}
+
+.shop_produkt .doporucujeme {
+    clear: left;
+    margin: 10px;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+}
+
+.shop_produkt .skladem {
+    position: relative;
+    clear: left;
+    margin: 10px;
+    margin-top:4px;
+    margin-left:0;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+}
+
+.shop_produkt .kategorie {
+    clear: left;
+    margin: 10px;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+}
+
+.shop_produkt .underline {
+    font-weight: normal;
+    text-decoration: underline;
+}
+
+.shop_produkt .dalsi_obrazky {
+    clear: left;
+    margin: 10px;
+    font-weight: bold;
+}
+
+.shop_produkt .image_next {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+
+
+
+
+.shop .add_shop_produkt {
+    position: relative;
+    width: 42%;
+    height: 230px;
+    /*border: 1px solid black;*/
+    float: left;
+    margin: 10px 10px 35px 20px;
+}
+
+
+
+
+
+
+
+
+#naseptavac {
+    position: absolute;
+    z-index: 40;
+    left: 2px;
+    top: 40px;
+    border: 1px black solid;
+}
+#naseptavac div {
+    width: 100px;
+    background-color: white;
+}
+
+#naseptavac div:hover {
+    background-color: yellow;
+}
+
+
+.image_a_href {
+    position: relative;
+    float: left;
+    margin: 10px;
+    position: relative;
+}
+
+
+.shop_produkt h1 {
+  
+}
+
+.main-img-product {
+  float:left;
+  width:176px;
+}
+
+
+
+
+#shop_objednavky {
+    width: 100%;
+}
+#shop_objednavky th {
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+}

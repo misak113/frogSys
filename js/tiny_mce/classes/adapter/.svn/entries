@@ -1,0 +1,34 @@
+10
+
+dir
+62
+http://svn3.xp-dev.com/svn/avantcore_repository/workout/frogSys/js/tiny_mce/classes/adapter
+http://svn3.xp-dev.com/svn/avantcore_repository
+
+
+
+2011-03-13T14:29:50.163837Z
+3
+avantcore
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+b559eb40-af79-4c98-abbf-f2787eb43c89
+
+jquery
+dir
+
+prototype
+dir
+

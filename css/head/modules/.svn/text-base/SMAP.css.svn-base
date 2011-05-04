@@ -1,0 +1,14 @@
+/* Mapa stránky */
+
+ul.sitemap li {
+	font-weight: bold;
+}
+
+ul.sitemap li ul li {
+	font-weight: normal;
+}
+
+
+
+
+

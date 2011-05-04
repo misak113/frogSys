@@ -1,0 +1,13 @@
+<h1>Nápověda</h1>
+<p>
+    Tento jednoduchý Redakční Systém se ovládá velmi jednoduše. U každého objektu který je vytvořen, je kontextová nabídka v pravo nahoře. Obsahuje základní funkce editovat, smazat a další funkce příhodné k danému objektu.
+</p>
+<p>
+    Pro vytvoření menu je třeba nejprve vytvořit hlavní menu. Do něj lze vkládat položky. Hlavních menu může být více. Po kliknutí na danou položku menu můžete nastavovat obsah té stránky. V kontextovém menu si vybíráte např. modul který má být zobrazen.
+</p>
+<p>
+    Další možnosti naleznete v hlavním administrátorském menu vlevo nahoře. Jednotlivé funkce jsou přehledné.
+</p>
+<p>
+    Lze editovat i 2 editovatelné texty, které budou staticky na každé stránce a to jeden v hlavičce a další v patičce stránky.
+</p>
