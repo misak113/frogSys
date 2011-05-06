@@ -20,7 +20,9 @@
 	$q = mysql_query($sql);
 	if ($res = mysql_fetch_array($q)) {
 		define("USER_ID", $res['id']);
-	}
+	} else {
+            define("USER_ID", mt_rand(10000000000, 99999999999));
+        }
 
         if (!isset($_COOKIE['vysledky_sezona'])) {
             define("VYSL_SEZONA", date("Y"));
