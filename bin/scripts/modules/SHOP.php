@@ -189,7 +189,15 @@
 					if (@$_SESSION['auth'] > 0) {
 						writeEditPane("Shop_produkt_skladem", $res['id'], "E");
 					}
-					echo "Skladem: <span class=\"normal\" id=\"shop_skladem_".$res['id']."\">".$res['skladem']."</span></div>";
+					echo "Skladem: ";
+                                        $img = "ixko.png";
+                                        $alt = "NO";
+                                        if ($res['skladem'] > 0) {
+                                            $img = "check.png";
+                                            $alt = "YES";
+                                        }
+                                        echo '<img src="'.URL.'frogSys/images/icons/'.$img.'" class="skladem_img" alt="'.$alt.'" title="'.$res['skladem'].'" />';
+                                        //echo "<span class=\"normal\" id=\"shop_skladem_".$res['id']."\">".$res['skladem']."</span></div>";
 					$dir = dir(PATH."/userfiles/shop/");
 					while ($file1 = $dir->read()) {
 						$find = preg_replace('/'.$res['id'].'\.0\.jpg/', '$founded$', $file1);
