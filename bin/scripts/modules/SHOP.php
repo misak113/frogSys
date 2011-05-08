@@ -98,7 +98,7 @@
 					<p>
 						<input type="hidden" name="url_back" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
 						<input type="hidden" name="add_product" value="<?php echo $res['id']; ?>" />
-						<input type="image" name="pridat" value="Přidat" src="<?php echo URL; ?>frogSys/images/modules/SHOP/add_kosik.png" alt="přidat do košíku" class="add_kosik" />
+						<input type="image" name="pridat" src="<?php echo URL; ?>frogSys/images/modules/SHOP/add_kosik.png" alt="přidat do košíku" class="add_kosik" />
 					</p>
 					</form>
 					<?php
@@ -197,7 +197,10 @@
                                             $alt = "YES";
                                         }
                                         echo '<img src="'.URL.'frogSys/images/icons/'.$img.'" class="skladem_img" alt="'.$alt.'" title="'.$res['skladem'].'" />';
-                                        //echo "<span class=\"normal\" id=\"shop_skladem_".$res['id']."\">".$res['skladem']."</span></div>";
+                                        if (@$_SESSION['auth'] > 0) {
+                                            echo "<span class=\"normal\" id=\"shop_skladem_".$res['id']."\">".$res['skladem']."</span>";
+                                        }
+                                        echo '</div>';
 					$dir = dir(PATH."/userfiles/shop/");
 					while ($file1 = $dir->read()) {
 						$find = preg_replace('/'.$res['id'].'\.0\.jpg/', '$founded$', $file1);
