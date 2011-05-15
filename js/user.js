@@ -16,6 +16,25 @@ addLoadEvent(init);
 
 function init() {
 	//createWindow("<p>Na našich stránkách jsou prováděny nutné změny, děkujeme za pochopení.</p>");
+        loadRightURLs();
+}
+
+function loadRightURLs() {
+    var jqel;
+    var imgs = jQuery("img");
+    for(var i =0;i < imgs.length;i++) {
+        jqel = jQuery(imgs[i]);
+        if (jqel.attr("src").charAt(0) == '/') {
+            jqel.attr("src", URL+jqel.attr("src").substr(1, jqel.attr("src").length));
+        }
+    }
+    var as = jQuery("a");
+    for(var i =0;i < as.length;i++) {
+        jqel = jQuery(as[i]);
+        if (jqel.attr("href").charAt(0) == '/') {
+            jqel.attr("href", URL+jqel.attr("href").substr(1, jqel.attr("href").length));
+        }
+    }
 }
 
 function openPodrobnost(id) {
@@ -313,4 +332,17 @@ function kontrolovatVysledekUtkani(id_utkani) {
     }
     jQuery("#utkani_vysledek_skore_hoste_"+id_utkani).val(hoste);
     }
+}
+
+
+
+
+
+
+
+
+
+function setShopZobrazeni(typ) {
+    jQuery(".shop_item").attr("class", "shop_"+typ);
+    jQuery(".shop_table").attr("class", "shop_"+typ);
 }

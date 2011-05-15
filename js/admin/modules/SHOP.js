@@ -1,9 +1,44 @@
 // JavaScript Document
 
+
+
+function moveShop_menu(event, id, target) {
+	actual_page_part = target;
+	moveItem(event, id, "shop_menu_item_", saveShop_menuPosition);
+}
+function saveShop_menuPosition(id, changeWith) {
+	if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=shop&action=sort_menu&id="+id+"&change_with="+changeWith, shop_menuRefresh)) {
+		//pokud nefunguje ajax
+		return;
+	}
+}
+
+
+
+function moveShop_produkt(event, page_part, shop_id, id) {
+	actual_page_part = page_part;
+        actual_shop_id = shop_id;
+	moveItem(event, id, "shop_produkt_item_", saveShop_produktPosition);
+}
+function saveShop_produktPosition(id, changeWith) {
+	if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=shop&action=sort_produkt&id="+id+"&change_with="+changeWith, shopProduktyRefresh)) {
+		//pokud nefunguje ajax
+		return;
+	}
+}
+
+function shopProduktyRefresh(text) {
+    loadShopCategory(actual_page_part, actual_shop_id, actual_link);
+    //history.go(0);
+    createAlert(text);
+}
+
+
 var actual_page_part;
 function loadShopCategory(page_part, shop_id, link) {
     hashMark(link+"#loadShopCategory("+page_part+", "+shop_id+", '"+link+"')");
 	actual_page_part = page_part;
+        actual_link = link;
 	if (!postAjaxRequest(URL+"frogSys/bin/ajax/modules/SHOP.php", "action=produkty&page_part="+page_part+"&shop_id="+shop_id, shopLoaded)) {
 		//pokud nefunguje ajax
 		return;
@@ -66,11 +101,11 @@ function deleteShop_menu2(id) {
 }
 
 function setActualPagePart(text) {
-	actual_page_part = text;
+	actual_page_part = parseInt(text);
 }
 
 function addShop_menu(parent) {
-	actual_page_part = parent;
+	actual_page_part = parseInt(parent);
 	if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=shop&action=add_menu&parent="+parent, editShop_menu)) {
 		//pokud nefunguje ajax
 		return;
@@ -132,6 +167,52 @@ function saveShop_produkt_popis(id) {
 	}
 }
 
+
+
+
+
+
+
+function editShop_produkt_anotace(id) {
+	aktualSubTarget = aktualClickPart;
+	aktualSubPage = id;
+	var contentIn = document.getElementById("anotace_"+id);
+	contentIn.removeChild(getElementsByClassNameMy("edit_pane_Shop_produkt_anotace", contentIn)[0]);
+	var textarea = "<form action=\"javascript: saveShop_produkt_anotace("+id+");\">"+
+		"<div name=\"edited_anotace_"+id+"\" id=\"edited_anotace_"+id+"\" class=\"edited_anotace\" style=\"height: "+(contentIn.offsetHeight)+"px;\">"+
+		//contentIn.innerHTML+
+		"</div>"+
+		"</form>";
+	var text = contentIn.innerHTML;
+	contentIn.innerHTML = textarea;
+	produkt_editing = true;
+	var ed = loadTinyMCE("edited_anotace_"+id);
+	//ed.setContent(text);
+	document.getElementById("edited_anotace_"+id).innerHTML = text;
+
+	// fix vyska
+	//var objekt2 = document.getElementById("page_in");
+	//var vyska1 = objekt2.offsetHeight;
+	//objekt2.style.height = "auto";
+	//var vyska2 = objekt2.offsetHeight;
+	//objekt2.style.height = vyska1+"px";
+	changeWindow("page_in", false, "auto", false, false);
+}
+
+function saveShop_produkt_anotace(id) {
+	var text = tinyMCE.get("edited_anotace_"+id).getContent();
+	tinyMCE.remove(tinyMCE.get("edited_anotace_"+id));
+	if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=shop&action=save_produkt_anotace&id="+id+"&text="+fixQuery(text), shopProduktRefresh)) {
+		//pokud nefunguje ajax
+		return;
+	}
+}
+
+
+
+
+
+
 function shopProduktRefresh(text) {
 	loadShopProdukt(actual_page_part, actual_shop_produkt_id);
 	createAlert(text);
@@ -146,6 +227,15 @@ function setShowProdukt(id, checkb) {
 		//pokud nefunguje ajax
 		return;
 	}
+}
+
+function checkboxSelectShop_produkt(page_part, shop_id, id, el) {
+    setShowProdukt(id, el);
+    var color = "#D3D3D3";
+    if (el.checked) {
+        color = "transparent";
+    }
+    jQuery(el).parent().parent().css("background-color", color);
 }
 
 function setDoporucujemeProdukt(id, checkb) {
@@ -439,6 +529,25 @@ function shopObjednavkaSendMail2(id) {
 
 function showObjednavka(id) {
     if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=shop&action=show_objednavka&id="+id, createWindow)) {
+        //pokud nefunguje ajax
+        return;
+    }
+}
+
+
+
+
+function save_postovne() {
+    var postovne = jQuery("#shop_postovne").val();
+    if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=shop&action=set_postovne&postovne="+postovne, createAlert)) {
+        //pokud nefunguje ajax
+        return;
+    }
+}
+
+function save_dph() {
+    var dph = jQuery("#shop_dph").val();
+    if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=shop&action=set_dph&dph="+dph, createAlert)) {
         //pokud nefunguje ajax
         return;
     }

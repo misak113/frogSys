@@ -13,7 +13,7 @@ function addHtml(id) {
 function deleteHtml(idHtml, id) {
 	aktualSubTarget = aktualClickPart;
 	aktualSubPage = id;
-	createDialog('Opravdu chcete smazat tuto HTML stránku?', deleteHtml2, idHtml);
+	createDialog('Opravdu chcete smazat tento editovatelný obsah?', deleteHtml2, idHtml);
 }
 
 function deleteHtml2(id) {

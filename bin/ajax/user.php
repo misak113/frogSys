@@ -31,7 +31,9 @@ if (isset($_POST['add_product'])) {
 		$q = mysql_query($sql);
 	}
 	$url = $_POST['url_back'];
-	header("Location: $url");
+	//header("Location: $url?add_product=1");
+        echo '<script type="text/javascript">document.location.href="'.$url.'?add_product=1";</script>
+            <a href="'.$url.'?add_product=1">Pokračujte zde</a>';
 }
 if ($_POST['predmet'] == "diskuse") {
     if ($_POST['action'] == "add_prispevek") {

@@ -27,7 +27,7 @@
 <script src="<?php echo URL; ?>frogSys/js/user.js" type="text/javascript"></script>
 <script src="<?php echo URL; ?>frogSys/js/kalendar.js" type="text/javascript"></script>
 
-<script type="text/javascript" src="<?php echo URL; ?>frogSys/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript">
     jQuery.noConflict();
 </script>

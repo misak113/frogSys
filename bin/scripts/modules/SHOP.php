@@ -1,3 +1,4 @@
+
 <?php
 	function writeShop($page_part) {
 		?>
@@ -17,11 +18,15 @@
 			?>
 		</div>
 		<?php
-		/*if (@$_SESSION['auth'] > 0) {
-			if ($isEmpty) {
-				//writeZmenaTypu($page_part);
-			}
-		} */
+		if (isset($_GET['add_product'])) {
+                    ?>
+<script type="text/javascript">
+    addLoadEvent(function () {
+        createAlert("Položka byla přidána do košíku.", "center", "midle");
+    });
+</script>
+                    <?php
+                }
 	}
 
 	function writeShopProdukty($page_part, $shop_id) {
@@ -30,7 +35,7 @@
 			$sql = "SELECT * FROM `shop_menu` WHERE `id` = ".$shop_id."";
 			$q = mysql_query($sql);
 			if ($res = mysql_fetch_array($q)) {
-				echo "<h1>".$res['nazev']."</h1>";
+				echo "<div><h1>".$res['nazev']."</h1></div>";
 			}
 		} else {
 
@@ -40,12 +45,21 @@
                             $sql = "SELECT `name` FROM `menu` WHERE `id` = ".$res['parent']."";
                             $q = mysql_query($sql);
                             if ($res = mysql_fetch_array($q)) {
-                                echo "<h1>".$res['name']."</h1>";
+                                echo "<div><h1>".$res['name']."</h1></div>";
                             }
 
                         }
 
+                        
+
 		}
+                echo '<div class="shop_zobrazeni">Zobrazení:
+                    <a href="javascript: setShopZobrazeni(\'table\');">Tabulka</a>,
+                    <a href="javascript: setShopZobrazeni(\'item\');">Mřížka</a></div>';
+                $zobraz = "item";
+                if (@$_SESSION['auth'] > 0) {
+                    $zobraz = "table";
+                }
 		if ($shop_id == 0) {
 				$sql = "SELECT `id` FROM `shop_menu` WHERE `parent` = $page_part";
 				$q = mysql_query($sql);
@@ -61,16 +75,20 @@
 			if (!(@$_SESSION['auth'] > 0)) {
 				$filter .= " AND `show` = 1";
 			}
-			$sql = "SELECT * FROM `shop` WHERE $filter ORDER BY `nazev`";
+			$sql = "SELECT * FROM `shop` WHERE $filter ORDER BY `order`";
 			if ($q = mysql_query($sql)) {
 				while ($res = mysql_fetch_array($q)) {
 					$style = "";
 					if ($res['show'] == 0) {
 						$style = " style=\"background-color: #D3D3D3;\"";
 					}
-					echo "<div class=\"shop_item\"$style>";
+					echo "<div id=\"shop_produkt_item_".$res['id']."\" class=\"shop_$zobraz\"$style>";
 					if (@$_SESSION['auth'] > 0) {
-						writeEditPane("Shop_produkt", $page_part.", ".(0+$shop_id).", ".$res['id'], "D");
+                                            $ch = "C";
+                                            if ($res['show'] == 1) {
+                                                $ch = "Č";
+                                            }
+						writeEditPane("Shop_produkt", $page_part.", ".(0+$shop_id).", ".$res['id'].", this", "DM".$ch);
 					}
 					$dir = dir(PATH."/userfiles/shop/");
 					while ($file1 = $dir->read()) {
@@ -86,14 +104,25 @@
 							break;
 						}
 					}
+                                        echo "<div class=\"skladem\">";
+					echo "Skladem: ";
+                                        $img = "ixko.png";
+                                        $alt = "NO";
+                                        if ($res['skladem'] > 0) {
+                                            $img = "check.png";
+                                            $alt = "YES";
+                                        }
+                                        echo '<img src="'.URL.'frogSys/images/icons/'.$img.'" class="skladem_img" alt="'.$alt.'" title="'.$res['skladem'].'" />';
+                                        echo '</div>';
 					echo "<div class=\"nazev\">";
 					if (@$_SESSION['auth'] > 0) {
 						echo "<a href=\"javascript: loadShopProdukt(".$page_part.", ".$res['id'].", '".$menulink."/".$res['link']."');\">";
 					} else {
 						echo "<a href=\"".URL.$menulink."/".$res['link']."/\">";
 					}
-					echo "".$res['nazev']."</a></div><div class=\"popis\">".$res['popis']."</div><div class=\"cena\">".round($res['cena']*(1+$res['dph']/100))." Kč <span class=\"sdph\">s DPH</span></div><div class=\"vyrobce\">".$res['vyrobce']."</div>";
-					?>
+					echo "".$res['nazev']."</a></div><div class=\"popis\">".$res['anot']."</div><div class=\"cena\">".round($res['cena']*(1+$res['dph']/100))." Kč <span class=\"sdph\">s DPH</span></div><div class=\"vyrobce\">".$res['vyrobce']."</div>";
+
+                                        ?>
 					<form action="<?php echo URL; ?>frogSys/bin/ajax/user.php" method="post">
 					<p>
 						<input type="hidden" name="url_back" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
@@ -119,19 +148,19 @@
 			$menulink = getMenuLink($page_part);
 			echo "<div class=\"shop_menu_item\">";
 			if (@$_SESSION['auth'] > 0) {
-				echo "<span class=\"btn-left\"></span><span class=\"btn-right\"><a href=\"javascript: loadShopCategory(".$page_part.", 0);\">";
+				echo "<span class=\"btn-left show_all\"></span><span class=\"btn-right show_all\"><a href=\"javascript: loadShopCategory(".$page_part.", 0, '".$menulink."');\">";
 			} else {
-				echo "<span class=\"btn-left\"></span><span class=\"btn-right\"><a href=\"".URL.$menulink."/\">";
+				echo "<span class=\"btn-left show_all\"></span><span class=\"btn-right show_all\"><a href=\"".URL.$menulink."/\">";
 			}
-			echo "Všechny typy</a></span></div>";
-			$sql = "SELECT * FROM `shop_menu` WHERE `parent` = ".$page_part." ORDER BY `nazev`";
+			echo "Zobrazit vše</a></span></div>";
+			$sql = "SELECT * FROM `shop_menu` WHERE `parent` = ".$page_part." ORDER BY `sort`";
 			$q = mysql_query($sql);
 			$isEmpty = true;
 			while ($res = mysql_fetch_array($q)) {
 				$isEmpty = false;
-				echo "<div class=\"shop_menu_item\">";
+				echo "<div class=\"shop_menu_item\" id=\"shop_menu_item_".$res['id']."\">";
 				if (@$_SESSION['auth'] > 0) {
-					writeEditPane("Shop_menu", $res['id'], "DE");
+					writeEditPane("Shop_menu", $res['id'].", ".$page_part, "DEM");
 					echo "<span class=\"btn-left\"></span><span class=\"btn-right\"><a href=\"javascript: loadShopCategory(".$page_part.", ".$res['id'].", '".$menulink."/".$res['link']."');\">";
 				} else {
 					echo "<span class=\"btn-left\"></span><span class=\"btn-right\"><a href=\"".URL.$menulink."/".$res['link']."/\">";
@@ -180,7 +209,7 @@
 						<input type="hidden" name="url_back" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
 						<input type="hidden" name="add_product" value="<?php echo $res['id']; ?>" />
 						<span class="form-kosik"><input type="text" name="pocet" value="1" />    </span>
-						<input type="image" name="pridat" value="Přidat" src="<?php echo URL; ?>frogSys/images/modules/SHOP/add_kosik.png" alt="přidat do košíku" class="add_kosik" />
+						<input type="image" name="pridat" src="<?php echo URL; ?>frogSys/images/modules/SHOP/add_kosik.png" alt="přidat do košíku" class="add_kosik" />
 					</p>
 					</form>
 					<?php
@@ -198,7 +227,7 @@
                                         }
                                         echo '<img src="'.URL.'frogSys/images/icons/'.$img.'" class="skladem_img" alt="'.$alt.'" title="'.$res['skladem'].'" />';
                                         if (@$_SESSION['auth'] > 0) {
-                                            echo "<span class=\"normal\" id=\"shop_skladem_".$res['id']."\">".$res['skladem']."</span>";
+                                            echo " <span class=\"normal\" id=\"shop_skladem_".$res['id']."\">".$res['skladem']."</span>";
                                         }
                                         echo '</div>';
 					$dir = dir(PATH."/userfiles/shop/");
@@ -215,7 +244,13 @@
 						echo "<hr />";
 					}
 
-					echo "<div class=\"popis\" id=\"popis_".$res['id']."\">";
+                                        echo "<h2>Krátký popis</h2><div class=\"anotace\" id=\"anotace_".$res['id']."\">";
+					if (@$_SESSION['auth'] > 0) {
+						writeEditPane("Shop_produkt_anotace", $res['id'], "E");
+					}
+					echo "".$res['anot']."</div><hr />";
+
+					echo "<h2>Dlouhý popis</h2><div class=\"popis\" id=\"popis_".$res['id']."\">";
 					if (@$_SESSION['auth'] > 0) {
 						writeEditPane("Shop_produkt_popis", $res['id'], "E");
 					}
@@ -325,7 +360,7 @@
 							echo "<hr />";
 						}
 
-						echo "<div class=\"kategorie\">Kategorie: <span class=\"normal\">";
+						echo "<div class=\"kategorie\">Kategorie: ";
 
 						echo "<select id=\"shop_modul_parent_".$res['id']."\" onchange=\"shop_change_category(".$res['id'].");\">";
 						echo "<option value=\"0\">-</option>";
@@ -386,7 +421,4 @@
 			}
 	}
 
-
-
-
-?>
+        ?>

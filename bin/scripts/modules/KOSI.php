@@ -55,6 +55,7 @@ function writeShop_kosik() {
 }
 
 function writeShop_obsah_kosiku($page_part) {
+    global $_SETING;
     if (@$_GET['krok'] == 2) {
         echo '
 				<img src="' . URL . 'frogSys/images/modules/SHOP/shop_faze_2.png" alt="fáze 2" />
@@ -64,7 +65,7 @@ function writeShop_obsah_kosiku($page_part) {
 				<h1>Způsob dopravy a platby:</h1>
 				<p>
 				<input type="radio" name="doprava" value="Osobní odběr, platba v hotovosti" /> <label>Osobní odběr, platba v hotovosti</label><br />
-				<input type="radio" name="doprava" value="Dobírka" /> <label>Dobírka</label><br />
+				<input type="radio" name="doprava" value="Dobírka" /> <label>Dobírka ('.$_SETING['postovne'].')</label><br />
 				</p>
 			';
         echo '
@@ -92,7 +93,7 @@ function writeShop_obsah_kosiku($page_part) {
 				<p>
 				<input type="hidden" name="doprava" value="' . @$_POST['doprava'] . '" />
 				</p>
-				<h1>Informace o vás:</h1>
+				<h1>Zaslat na adresu:</h1>
 				<h2>Kontaktní údaje</h2>
 				<table>
 				<tr><td>Jméno: </td><td><input type="text" name="jmeno" value="' . $res['jmeno'] . '" /></td></tr>
@@ -150,7 +151,7 @@ function writeShop_obsah_kosiku($page_part) {
 
         $postovne = 0;
         if ($_POST['doprava'] == "Dobírka") {
-            $postovne = 80;
+            $postovne = $_SETING['postovne'];
         }
 
         echo '
@@ -166,15 +167,15 @@ function writeShop_obsah_kosiku($page_part) {
 				<input type="hidden" name="stat" value="' . $_POST['stat'] . '" />
 				<input type="hidden" name="poznamka" value="' . $_POST['poznamka'] . '" />
 				<input type="hidden" name="cenabezdph" value="' . round($cenabezdph + $postovne) . '" />
-				<input type="hidden" name="cenasdph" value="' . round($cena + $postovne * (1 + DPH / 100)) . '" />
+				<input type="hidden" name="cenasdph" value="' . round($cena + $postovne * (1 + $_SETING['DPH'] / 100)) . '" />
 				</p>
-				<h1>Shrnutí informací:</h1>
+				<h1>Rekapitulace objednávky:</h1>
 					<table class="kosik-summ">
 				<tr><th colspan="3"><h2>Nákup</h2></th></tr>
 				<tr><th>Cena</th><th>Cena bez DPH</th><th>Cena s DPH</th></tr>
 				<tr><td>Cena položek:</td><td>' . round($cenabezdph) . '&nbsp;Kč</td><td>' . round($cena) . '&nbsp;Kč</td></tr>
-				<tr><td>Cena poštovné a balné:</td><td>' . $postovne . '&nbsp;Kč</td><td>' . round($postovne * (1 + DPH / 100)) . '&nbsp;Kč</td></tr>
-				<tr><td>Cena celkem:</td><td>' . round($cenabezdph + $postovne) . '&nbsp;Kč</td><td>' . round($cena + $postovne * (1 + DPH / 100)) . '&nbsp;Kč</td></tr>
+				<tr><td>Cena poštovné a balné:</td><td>' . $postovne . '&nbsp;Kč</td><td>' . round($postovne * (1 + $_SETING['DPH'] / 100)) . '&nbsp;Kč</td></tr>
+				<tr><td>Cena celkem:</td><td>' . round($cenabezdph + $postovne) . '&nbsp;Kč</td><td>' . round($cena + $postovne * (1 + $_SETING['DPH'] / 100)) . '&nbsp;Kč</td></tr>
 				<tr><th colspan="3"><h3>Způsob dopravy a platby</h3></th></tr>
 				<tr><td colspan="3">' . $_POST['doprava'] . '</td></tr>
 				<tr><th colspan="3"><h3>Kontaktní údaje</h3></th></tr>
@@ -245,22 +246,23 @@ function writeShop_obsah_kosiku($page_part) {
             $postovne = 80;
         }
 
-        $text = '
+        $texth = '
 				<html>
 					<head>
 						<META http-equiv=3D"Content-Type" content=3D"text/html;chars=et=3Dutf-8">
 					</head>
-					<body>
-					<p>Dobrý den ' . $_POST['jmeno'] . ' ' . $_POST['prijmeni'] . ',</p>
-					<p>Vaše objednávka byla zařazena do zpracování. </p>
-				<h1>Číslo objednávky: ' . $cislo . '</h1>
+					<body>';
+			$text = '<p>Dobrý den ' . $_POST['jmeno'] . ' ' . $_POST['prijmeni'] . ',</p>
+					<p>Vaše objednávka byla zařazena do zpracování. </p>';
+                        $text_admin = '<p>Byla zaznamenána objednávka. Detajl níže:</p>';
+			$textp = '<h1>Číslo objednávky: ' . $cislo . '</h1>
 				<h2>Shrnutí informací:</h2>
 				<table class="kosik-summ">
 				<tr><th colspan="3"><h2>Nákup</h2></th></tr>
 				<tr><th>Cena</th><th><h3>Cena bez DPH</h3></th><th>Cena s DPH</th></tr>
 				<tr><td>Cena položek:</td><td>' . round($cenabezdph) . '&nbsp;Kč</td><td>' . round($cena) . '&nbsp;Kč</td></tr>
-				<tr><td>Cena poštovné a balné:</td><td>' . $postovne . '&nbsp;Kč</td><td>' . round($postovne * (1 + DPH / 100)) . '&nbsp;Kč</td></tr>
-				<tr><td>Cena celkem:</td><td>' . round($cenabezdph + $postovne) . '&nbsp;Kč</td><td>' . round($cena + $postovne * (1 + DPH / 100)) . '&nbsp;Kč</td></tr>
+				<tr><td>Cena poštovné a balné:</td><td>' . $postovne . '&nbsp;Kč</td><td>' . round($postovne * (1 + $_SETING['DPH'] / 100)) . '&nbsp;Kč</td></tr>
+				<tr><td>Cena celkem:</td><td>' . round($cenabezdph + $postovne) . '&nbsp;Kč</td><td>' . round($cena + $postovne * (1 + $_SETING['DPH'] / 100)) . '&nbsp;Kč</td></tr>
 				<tr><th colspan="3"><h3>Způsob dopravy a platby</h3></th></tr>
 				<tr><td colspan="3">' . $_POST['doprava'] . '</td></tr>
 				<tr><th colspan="3"><h3>Kontaktní údaje</h3></th></tr>
@@ -277,9 +279,9 @@ function writeShop_obsah_kosiku($page_part) {
 				<tr><td colspan="3">' . $_POST['poznamka'] . '</td></tr>
 				</table>';
 
-        $text .= '<h1>Zakoupené produkty</h1>
+        $textp .= '<h1>Zakoupené produkty</h1>
 				<table class="shop_kosik_table">
-				<tr><th>Obrázek</th><th>Název</th>
+				<tr><th>Název</th>
 				<th>Počet</th><th>Cena bez DPH</th>
 				<th>Cena s DPH</th></tr>';
         $sql = "SELECT * FROM `shop_kosik` WHERE `user` = -" . $id_obednavky . "";
@@ -289,16 +291,9 @@ function writeShop_obsah_kosiku($page_part) {
         $celkemsdph = 0;
         while ($res = mysql_fetch_array($q)) {
             $prazdny = false;
-            $text .= '<tr><td>';
+            $textp .= '<tr>';
             $dir = dir(PATH . "/userfiles/shop/");
-            while ($file1 = $dir->read()) {
-                $find = preg_replace('/' . $res['id_produkt'] . '\.0\.(png|jpg|gif)/', '$founded$', $file1);
-                if (strstr($find, '$founded$')) {
-                    $text .= "<img src=\"" . URL . "userfiles/shop/" . $file1 . "\" height=\"30\" class=\"image\" alt=\"obrázek produktu\" />";
-                    break;
-                }
-            }
-            $text .= '</td>';
+            
             $sql = "SELECT * FROM `shop` WHERE `id` = " . $res['id_produkt'] . "";
             $q2 = mysql_query($sql);
             if ($res2 = mysql_fetch_array($q2)) {
@@ -307,32 +302,37 @@ function writeShop_obsah_kosiku($page_part) {
                 if ($res3 = mysql_fetch_array($q3)) {
                     $menulink = getMenuLink($res3['parent']);
                 }
-                $text .= '<td><a href="' . URL . $menulink . "/" . $res2['link'] . '/">' . $res2['nazev'] . '</a><br />' . $res2['code'] . '</td>';
-                $text .= '<td>' . $res['pocet'] . '&nbsp;ks</td>';
+                $textp .= '<td><a href="' . URL . $menulink . "/" . $res2['link'] . '/">' . $res2['nazev'] . '</a><br />' . $res2['code'] . '</td>';
+                $textp .= '<td>' . $res['pocet'] . '&nbsp;ks</td>';
                 $celkem += $res['pocet'] * $res2['cena'];
-                $text .= '<td>' . round($res['pocet'] * $res2['cena']) . '&nbsp;Kč</td>';
+                $textp .= '<td>' . round($res['pocet'] * $res2['cena']) . '&nbsp;Kč</td>';
                 $celkemsdph += $res['pocet'] * $res2['cena'] * (1 + $res2['dph'] / 100);
-                $text .= '<td>' . round($res['pocet'] * $res2['cena'] * (1 + $res2['dph'] / 100)) . '&nbsp;Kč</td>';
+                $textp .= '<td>' . round($res['pocet'] * $res2['cena'] * (1 + $res2['dph'] / 100)) . '&nbsp;Kč</td>';
             }
 
-            $text .= '</tr>';
+            $textp .= '</tr>';
         }
         if ($prazdny == true) {
-            $text .= '<tr><td colspan="6">Košík je prázdný</td></tr>';
+            $textp .= '<tr><td colspan="6">Košík je prázdný</td></tr>';
         }
-        $text .= '<tr><td colspan="3"><strong>Celková cena položek:</strong></td><td><strong>' . round($celkem) . '&nbsp;Kč</strong></td><td><strong>' . round($celkemsdph) . '&nbsp;Kč</strong></td></tr>';
-        $text .= '</table>';
+        $textp .= '<tr><td colspan="2"><strong>Celková cena položek:</strong></td><td><strong>' . round($celkem) . '&nbsp;Kč</strong></td><td><strong>' . round($celkemsdph) . '&nbsp;Kč</strong></td></tr>';
+        $textp .= '</table>';
 
-        $text .= '<p>S pozdravem Náš tým</p>
+        $textk .= '<p>S pozdravem Náš tým</p>
 					</body>
 				</html>
 			';
 
+        $text = $texth.$text.$textp.$textk;
+        $text_admin = $texth.$text_admin.$textp.$textk;
+
+
         $headers = get_mail_header("Potvrzení přijetí objednávky - číslo: $cislo", "Info " . PAGE_NAME, ADMIN_MAIL);
 
 
-        imap_mail("" . $_POST['email'] . ", " . ADMIN_MAIL . "", "", $text, $headers
-        );
+        imap_mail("" . $_POST['email'], "Potvrzení přijetí objednávky - číslo: $cislo", $text, $headers);
+
+        imap_mail("" . ADMIN_MAIL, "Potvrzení přijetí objednávky - číslo: $cislo", $text_admin, $headers);
 
         echo '
 				<img src="' . URL . 'frogSys/images/modules/SHOP/shop_faze_5.png" alt="fáze 5" />
@@ -405,6 +405,7 @@ function writeShop_obsah_kosiku($page_part) {
             echo '
 				<div class="left_kosik_tlacitko">
 					<input type="image" src="' . URL . 'frogSys/images/modules/SHOP/btn-prepocitat.png" name="prepocitat" value="přepočítat" class="shop_left_button" />
+                                        <a href="javascript: history.go(-1);"><img src="' . URL . 'frogSys/images/modules/SHOP/btn-forgot.png" alt="na něco jste zapoměl(a)?"></a>
 				</div>
 			</form>
 			<form name="objednat" action="?krok=2" method="post">

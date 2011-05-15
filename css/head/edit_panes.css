@@ -269,6 +269,7 @@
 	position: absolute;
 	right: 1px;
 	top: 1px;
+        z-index: 20;
 }
 
 .edit_pane_Shop_menu .delete {
@@ -287,6 +288,14 @@
 	height: 10px;
 }
 
+.edit_pane_Shop_menu .move {
+	position: absolute;
+	right: 6px;
+	top: 0px;
+	width: 10px;
+	height: 10px;
+}
+
 /* edit panel shop_produkt */
 .edit_pane_Shop_produkt {
 	position: absolute;
@@ -296,10 +305,30 @@
 
 .edit_pane_Shop_produkt .delete {
 	position: absolute;
-	right: 30px;
-	top: -20px;
-	width: 15px;
-	height: 15px;
+	right: 10px;
+	top: 10px;
+	width: 10px;
+	height: 10px;
+        z-index: 10;
+}
+
+
+.edit_pane_Shop_produkt .move {
+	position: absolute;
+	right: 22px;
+	top: 10px;
+	width: 10px;
+	height: 10px;
+        z-index: 10;
+}
+
+.edit_pane_Shop_produkt .checkbox {
+	position: absolute;
+	right: 34px;
+	top: 10px;
+	width: 10px;
+	height: 10px;
+        z-index: 10;
 }
 
 .edit_pane_Shop_produkt_popis .edit {
@@ -486,13 +515,6 @@
 	top: 1px;
 }
 
-.edit_pane_Shop_produkt .delete {
-	position: absolute;
-	right: 30px;
-	top: 0px;
-	width: 15px;
-	height: 15px;
-}
 
 .edit_pane_Shop_produkt_popis .edit {
 	position: absolute;

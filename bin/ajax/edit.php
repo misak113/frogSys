@@ -93,5 +93,5 @@
 		echo "Nemáte právo pro administraci!";
 	}
 
+mysql_close();
 ?>
-<?php mysql_close(); ?>
