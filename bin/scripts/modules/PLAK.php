@@ -28,7 +28,7 @@ function writePlanAkci($page_part) {
             $vs = $date.($backvs+1);
             $sql = "INSERT INTO `plan_akci_prihlaseni` VALUES(NULL, '".@$_POST['jmeno']."', '".@$_POST['prijmeni']."', '".@$_POST['email']."', ".@$_POST['prihlasit_akce'].", ".$vs.", 0, '".@$_POST['tel']."', '".@$_POST['adresa']."', '".@$_POST['poznamka']."', 0)";
             $q = mysql_query($sql);
-            $headers = get_mail_header("Přihlášení na akci - ".$akce, "Info ".PAGE_NAME, ADMIN_MAIL);
+            //$headers = get_mail_header("Přihlášení na akci - ".$akce, "Info ".PAGE_NAME, ADMIN_MAIL);
 
             $text = 'Dobrý den '.@$_POST['jmeno'].' '.@$_POST['prijmeni'].',<br>
 děkujeme za zájem o akci, na kterou jste byl/a tímto závazně přihlášen/a.<br>
@@ -39,10 +39,25 @@ Mějte hezké dny,<br>
 <br>
 Jana Randaková';
 
-            imap_mail("".@$_POST['email']."",
+            /*imap_mail("".@$_POST['email']."",
                 "",	$text,
                 $headers
-            );
+            );*/
+
+            $message = Swift_Message::newInstance()
+                            //Give the message a subject
+                            ->setSubject("Přihlášení na akci - ".$akce)
+                            //Set the From address with an associative array
+                            ->setFrom(array(ADMIN_MAIL => "Info ".PAGE_NAME))
+                            //Set the To addresses with an associative array
+                            ->setTo(array(@$_POST['email']))
+                            //Give it a body
+                            //->setBody('Here is the message itself')
+                            //And optionally an alternative body
+                            ->addPart($text, 'text/html')
+                            //Optionally add any attachments
+                            //->attach(Swift_Attachment::fromPath('my-document.pdf'))
+                    ;
 
             //echo "Byl jste přihlášen na akci.";
             echo '<script>

@@ -176,6 +176,11 @@ function create_dirs($path)
 }
 
 
+
+require_once PATH.'/frogSys/ext_libs/swiftmailer/swift_required.php';
+
+
+
 function get_mail_header($predmet, $from_name="Info", $from_mail="no-replay") {
   $headers = "MIME-Version: 1.0\r\n";
   $headers .= "Content-Type: text/html; charset=utf-8\r\n";

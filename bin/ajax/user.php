@@ -4,14 +4,30 @@
 
 if ($_POST['predmet'] == "kontakt") {
 	if ($_POST['action'] == "send") {
-		$headers = get_mail_header("Dotaz ze stránky ".PAGE_NAME, $_POST['jmeno'], $_POST['email']);
+		//$headers = get_mail_header("Dotaz ze stránky ".PAGE_NAME, $_POST['jmeno'], $_POST['email']);
 
-		imap_mail("".ADMIN_MAIL."",
+		/*imap_mail("".ADMIN_MAIL."",
 			"",
 			$_POST['text'].
 			"\n\ntelefon: ".$_POST['tel'],
 			$headers
-			);
+			);*/
+                $text = $_POST['text'].
+			"\n\ntelefon: ".$_POST['tel'];
+                 $message = Swift_Message::newInstance()
+                            //Give the message a subject
+                            ->setSubject("Dotaz ze stránky ".PAGE_NAME)
+                            //Set the From address with an associative array
+                            ->setFrom(array($_POST['email'] => $_POST['jmeno']))
+                            //Set the To addresses with an associative array
+                            ->setTo(array(ADMIN_MAIL))
+                            //Give it a body
+                            //->setBody('Here is the message itself')
+                            //And optionally an alternative body
+                            ->addPart($text, 'text/html')
+                            //Optionally add any attachments
+                            //->attach(Swift_Attachment::fromPath('my-document.pdf'))
+                    ;
 		echo "Zpráva byla odeslána.";
 	}
 }
