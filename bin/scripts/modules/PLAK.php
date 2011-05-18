@@ -58,6 +58,8 @@ Jana Randaková';
                             //Optionally add any attachments
                             //->attach(Swift_Attachment::fromPath('my-document.pdf'))
                     ;
+            global $mailer;
+            $result = $mailer->send($message);
 
             //echo "Byl jste přihlášen na akci.";
             echo '<script>

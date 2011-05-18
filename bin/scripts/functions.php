@@ -178,7 +178,12 @@ function create_dirs($path)
 
 
 require_once PATH.'/frogSys/ext_libs/swiftmailer/swift_required.php';
+$transport = Swift_SmtpTransport::newInstance(SMTP_SERVER, SMTP_PORT)
+  ->setUsername(SMTP_USERNAME)
+  ->setPassword(SMTP_PASSWORD);
 
+//Create the Mailer using your created Transport
+$mailer = Swift_Mailer::newInstance($transport);
 
 
 function get_mail_header($predmet, $from_name="Info", $from_mail="no-replay") {

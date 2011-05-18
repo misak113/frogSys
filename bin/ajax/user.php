@@ -28,6 +28,8 @@ if ($_POST['predmet'] == "kontakt") {
                             //Optionally add any attachments
                             //->attach(Swift_Attachment::fromPath('my-document.pdf'))
                     ;
+                  global $mailer;
+                 $result = $mailer->send($message);
 		echo "Zpráva byla odeslána.";
 	}
 }
