@@ -252,6 +252,14 @@ function changeSezona(el) {
 
 
 function openUtkaniPodrobnosti(id) {
+<<<<<<< HEAD
+    /*var selects = jQuery(".select_hrac");
+    for (var i=0;i<selects.length;i++) {
+        var sel = dhtmlXComboFromSelect(selects[i].id);
+        dhx.event(sel, "change", function(e) {changeHrac(sel);});
+    }*/
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     var all = jQuery(".vysledky_zapasy_head");
     var img = jQuery(".podrobnosti_img_utkani");
     img.attr("src", URL+"frogSys/images/icons/podrobnosti_open.png")
@@ -345,4 +353,15 @@ function kontrolovatVysledekUtkani(id_utkani) {
 function setShopZobrazeni(typ) {
     jQuery(".shop_item").attr("class", "shop_"+typ);
     jQuery(".shop_table").attr("class", "shop_"+typ);
+<<<<<<< HEAD
+}
+
+
+
+
+function statistikyFiltr(pr, el) {
+    if (el.value == "null") return;
+    window.location.href = addToRequestQuery(pr, el.value);
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 }

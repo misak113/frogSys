@@ -31,6 +31,10 @@
 	}
 	if (@$_POST['echo'] == "true") {
             require_once "../../../config/database.php";
+<<<<<<< HEAD
+            include "../../bin/scripts.php";
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 		writeKalendar($k_id, $k_start, $k_stop, $k_mesic, $k_rok, $k_editable);
 	}
 

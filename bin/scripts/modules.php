@@ -12,6 +12,11 @@
         include PATH."/frogSys/bin/scripts/modules/VYSL.php";
         include PATH."/frogSys/bin/scripts/modules/VTAB.php";
         include PATH."/frogSys/bin/scripts/modules/VSTA.php";
+<<<<<<< HEAD
+        include PATH."/frogSys/bin/scripts/modules/VTYM.php";
+        include PATH."/frogSys/bin/scripts/modules/NSOU.php";
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 
 	
 	
@@ -62,6 +67,15 @@
                                 case "VSTA":
 					writeStatistiky($page_part);
 					break;
+<<<<<<< HEAD
+                                case "VTYM":
+					writeVyhledavaniTymu($page_part);
+					break;
+                                case "NSOU":
+					writeNovinkySouhrne($page_part);
+					break;
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 				default:
 					if (@$_SESSION['auth'] > 0) {
 						//writeZmenaTypu($page_part);

@@ -1,3 +1,18 @@
+<<<<<<< HEAD
+
+.vysledky_tabulka th a {
+    text-decoration: none;
+}
+
+.filter div {
+    float: left;
+    margin: 3px 5px 3px 15px;
+}
+
+.filter select {
+    width: 125px;
+}
+=======
 /* 
     Document   : VSTA
     Created on : 16.4.2011, 20:19:44
@@ -15,3 +30,4 @@ root {
     display: block;
 }
 
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227

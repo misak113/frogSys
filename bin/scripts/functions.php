@@ -5,8 +5,13 @@ $rok = array("leden", "únor", "březen", "duben", "květen", "červen", "červe
 
 function createLink($name) {
     $name = strtolower($name);
+<<<<<<< HEAD
+    $co = array("ě", "ř", "ť", "š", "ď", "č", "ň", "é", "ú", "í", "ó", "á", "ý", "ů", "ž"," ","Ě", "Ř", "Ť", "Š", "Ď", "Č", "Ň", "É", "Ú", "Í", "Ó", "Á", "Ý", "Ů", "Ž");
+    $cim = array("e", "r", "t", "s", "d", "c", "n", "e", "u", "i", "o", "a", "y", "u", "z","-","e", "r", "t", "s", "d", "c", "n", "e", "u", "i", "o", "a", "y", "u", "z");
+=======
     $co = array("ě", "ř", "ť", "š", "ď", "č", "ň", "é", "ú", "í", "ó", "á", "ý", "ů", "ž"," ");
     $cim = array("e", "r", "t", "s", "d", "c", "n", "e", "u", "i", "o", "a", "y", "u", "z","-");
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     $allowedChars = array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","-","0","1","2","3","4","5","6","7","8","9");
 
     $name = str_replace($co, $cim, $name);
@@ -20,6 +25,121 @@ function createLink($name) {
     return $link;
 }
 
+<<<<<<< HEAD
+if (!function_exists('subval_sort')) {
+    function subval_sort($a, $subkey, $order=null) {
+        $order = strtoupper($order);
+        if (count($a) != 0 || (!empty($a))) {
+            foreach($a as $k=>$v) {
+                $b[$k] = function_exists('mb_strtolower') ? mb_strtolower($v[$subkey]) : strtolower($v[$subkey]);
+            }
+            if($order==null || $order != 'DESC') {
+                asort($b);
+            } else {
+                if($order == 'DESC') {
+                    arsort($b);
+                }
+            }
+            foreach($b as $key=>$val) {
+                $c[] = $a[$key];
+            }
+            return $c;
+        }
+    }
+}
+
+if (!function_exists('orderBy')) {
+    /*
+    * @param array $ary the array we want to sort
+    * @param string $clause a string specifying how to sort the array similar to SQL ORDER BY clause
+    * @param bool $ascending that default sorts fall back to when no direction is specified
+    * @return null
+    */
+    function orderBy(&$ary, $clause, $ascending = true) {
+        $clause = str_ireplace('order by', '', $clause);
+        $clause = preg_replace('/\s+/', ' ', $clause);
+        $keys = explode(',', $clause);
+        $dirMap = array('desc' => 1, 'asc' => -1);
+        $def = $ascending ? -1 : 1;
+
+        $keyAry = array();
+        $dirAry = array();
+        foreach($keys as $key) {
+            $key = explode(' ', trim($key));
+            $keyAry[] = trim($key[0]);
+            if(isset($key[1])) {
+                $dir = strtolower(trim($key[1]));
+                $dirAry[] = $dirMap[$dir] ? $dirMap[$dir] : $def;
+            } else {
+                $dirAry[] = $def;
+            }
+        }
+
+        $fnBody = '';
+        for($i = count($keyAry) - 1; $i >= 0; $i--) {
+            $k = $keyAry[$i];
+            $t = $dirAry[$i];
+            $f = -1 * $t;
+            $aStr = '$a[\''.$k.'\']';
+            $bStr = '$b[\''.$k.'\']';
+            if(strpos($k, '(') !== false) {
+                $aStr = '$a->'.$k;
+                $bStr = '$b->'.$k;
+            }
+
+            if($fnBody == '') {
+                $fnBody .= "if({$aStr} == {$bStr}) { return 0; }\n";
+                $fnBody .= "return ({$aStr} < {$bStr}) ? {$t} : {$f};\n";
+            } else {
+                $fnBody = "if({$aStr} == {$bStr}) {\n" . $fnBody;
+                $fnBody .= "}\n";
+                $fnBody .= "return ({$aStr} < {$bStr}) ? {$t} : {$f};\n";
+            }
+        }
+
+        if($fnBody) {
+            $sortFn = create_function('$a,$b', $fnBody);
+            usort($ary, $sortFn);
+        }
+    }
+}
+
+if (!function_exists('html_attr_output')) {
+    function html_attr_output($str) {
+        $str2 = str_replace(array('"', '<', '>', '&'), array('&quot;','&lt;','&gt;', '&amp;'), $str);
+        return $str2;
+    }
+}
+
+if (!function_exists('js_string_output')) {
+    function js_string_output($str) {
+        $str2 = str_replace(array('"'), array('\"'), $str);
+        return $str2;
+    }
+}
+
+if (!function_exists('addToRequestQuery')) {
+    function addToRequestQuery($prom, $val, $rq) {
+        $out = "";
+        $rq2 = explode("&", $rq);
+        $is = false;
+        foreach ($rq2 as $hod) {
+            $ho = explode("=", $hod);
+            if ($ho[0] == $prom) {
+                if ($val != null) {
+                    $out .= $prom."=".$val."&";
+                }
+                $is = true;
+            } else {
+                $out .= $hod."&";
+            }
+        }
+        if (!$is) {
+            $out .= $prom."=".$val."&";
+        }
+        return substr($out, 0, strlen($out)-1);
+    }
+=======
 function subval_sort($a,$subkey) {
 	foreach($a as $k=>$v) {
 		$b[$k] = strtolower($v[$subkey]);
@@ -29,6 +149,7 @@ function subval_sort($a,$subkey) {
 		$c[] = $a[$key];
 	}
 	return $c;
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 }
 
 function strip_html_tags( $text )
@@ -212,4 +333,83 @@ function strip_no_a_html_tags($text) {
     return $t;
 }
 
+<<<<<<< HEAD
+
+/**
+ * Naloaduje css styly a vypíše
+ */
+function loadCss($in = array(), $root = '/', $logged_in = false, $url = '/', $path = '') {
+    if ($path == '') {
+        $path = $_SERVER['DOCUMENT_ROOT'];
+    }
+    foreach ($in as $i) {
+        $i2 = explode(": ", $i);
+        $val = substr($i, strlen($i2[0])+2);
+        $t = explode("&", $i2[0]);
+        $show = isset($t[1]) && $t[1]=='admin'?$logged_in:true;
+        $media = isset($t[2])?$t[2]:"screen";
+        if ($show) {
+            switch ($t[0]) {
+                case '#fil':
+                    $val2 = explode("?", $val);
+                    $val2 = $val2[0];
+                    if (file_exists($path.$root.$val2)) {
+                        $mtime = filemtime($path.$root.$val2);
+                    } else {
+                        $mtime = 'cache';
+                    }
+                    echo "<link rel=\"stylesheet\" href=\"".$url.$root.$val.(strstr($val, "?") ? "&" : '?').$mtime."\" type=\"text/css\" media=\"".$media."\"></link>\n";
+                    break;
+                case '#url':
+                    echo "<link rel=\"stylesheet\" href=\"".$val."\" type=\"text/css\" media=\"".$media."\"></link>\n";
+                    break;
+                case '#app':
+                    echo "<style>\n".$val."\n</style>\n";
+                    break;
+                default :
+                    continue;
+            }
+        }
+    }
+}
+
+/**
+ * Naloaduje js scripty a vypíše
+ */
+function loadJs($in = array(), $root = '/', $logged_in = false, $url = '/', $path = '') {
+    if ($path == '') {
+        $path = $_SERVER['DOCUMENT_ROOT'];
+    }
+    foreach ($in as $i) {
+        $i2 = explode(": ", $i);
+        $val = substr($i, strlen($i2[0])+2);
+        $t = explode("&", $i2[0]);
+        $show = isset($t[1]) && $t[1]=='admin'?$logged_in:true;
+        if ($show) {
+            switch ($t[0]) {
+                case '#fil':
+                    $val2 = explode("?", $val);
+                    $val2 = $val2[0];
+                    if (file_exists($path.$root.$val2)) {
+                        $mtime = filemtime($path.$root.$val2);
+                    } else {
+                        $mtime = 'cache';
+                    }
+                    echo "<script type=\"text/javascript\" src=\"".$url.$root.$val.(strstr($val, "?") ? "&" : '?').$mtime."\"></script>\n";
+                    break;
+                case '#url':
+                    echo "<script type=\"text/javascript\" src=\"".$val."\"></script>\n";
+                    break;
+                case '#app':
+                    echo "<script type=\"text/javascript\">\n".$val."\n</script>\n";
+                    break;
+                default :
+                    continue;
+            }
+        }
+    }
+}
+
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 ?>

@@ -1,3 +1,41 @@
+<<<<<<< HEAD
+
+
+.vysledky_tabulka {
+    width: 540px;
+}
+
+.vysledky_tabulka th {
+    text-align: center;
+    background-color: #cccccc;
+}
+
+.vysledky_tabulka td {
+    padding: 2px 4px;
+    background-color: #dddddd;
+    border: 3px solid transparent;
+    text-align: center;
+
+}
+
+.vysledky_tabulka .body {
+    font-weight: bold;
+}
+
+.vysledky_tabulka .nazev {
+    text-align: left;
+    font-weight: bold;
+}
+
+.vysledky_tabulka .web {
+    font-style: italic;
+}
+
+.vysledky_kola {
+    margin: 10px 15px;
+    font-size: 13px;
+}
+=======
 /* 
     Document   : VTAB
     Created on : 16.4.2011, 20:19:34
@@ -15,3 +53,4 @@ root {
     display: block;
 }
 
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227

@@ -5,7 +5,13 @@ function writeDisk($page_part) {
     $count_on_page = 5;
     $menulink = getMenuLink($page_part);
 
+<<<<<<< HEAD
+    //echo '<h1>Diskuse</h1>';
+    writeHtmlEditArea($page_part, '<h1>Diskuse</h1>');
+
+=======
     echo '<h1>Diskuse</h1>';
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     $sql = "SELECT * FROM `users` WHERE `id` = ".USER_ID."";
     $q = mysql_query($sql);
     if ($res = mysql_fetch_array($q)) {

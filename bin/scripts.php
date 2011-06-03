@@ -1,7 +1,15 @@
 <?php
 	session_start();
+<<<<<<< HEAD
+
+        
+	include PATH."/frogSys/bin/scripts/mysql.php";
+        
+        include PATH."/frogSys/bin/users_loging.php";
+=======
 	
 	include PATH."/frogSys/bin/scripts/mysql.php";
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 
         include PATH."/frogSys/bin/scripts/menu.php";
 	

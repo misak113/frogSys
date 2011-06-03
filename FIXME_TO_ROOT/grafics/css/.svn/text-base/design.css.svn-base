@@ -1,0 +1,201 @@
+body {
+    background-color:  #626878;
+    background-repeat: repeat-x;
+}
+
+#top {
+    background: url('/grafics/images/design/top/top_.jpg') no-repeat scroll top center;
+    width: 980px;
+    height: 360px;
+    margin-top: 0px;
+}
+
+#logo {
+    left: 23px;
+    top: 170px;
+}
+#menu {
+    position: relative;
+    left: 0px;
+    float: left;
+    top: 0px;
+    width: 219px;
+    min-height: 200px;
+    padding-left: 0px;
+    padding-top: 45px;
+    padding-bottom: 20px;
+    font-family: Arial;
+    font-weight: bold;
+    font-size:12px;
+    background-image: url('/grafics/images/design/menu_bg.png');
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    margin-right: 31px;
+}
+
+div#menu:after {
+    background-image: url('/grafics/images/design/menu_bg_bottom.png');
+    background-repeat: no-repeat;
+    display: block;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    height: 20px;
+    width: 250px;
+    left: 0px;
+    bottom: 0px;
+    content: "";
+}
+
+#midle {
+    position: relative;
+    float: left;
+    width: 730px;
+}
+
+#body {
+    width: 980px;
+}
+
+#page {
+
+    width: 730px;
+}
+
+#page_in {
+    width: 730px;
+}
+
+#copyright {
+    background-image: none;
+    background-color: #4e515e;
+    margin-bottom: 0px;
+    padding-top: 0;
+}
+#copyright_center {
+
+    background-color: transparent;
+    width: 980px;
+    
+}
+#copyright_left, #copyright_right {
+    bottom: 12px;
+}
+
+#copyright_right a {
+    font-family: Arial;
+    font-size:11px;
+    text-decoration: none;
+    color: #79898e;
+}
+
+#top_title {
+    background: url('/grafics/images/design/top_title.png') repeat top left transparent scroll;
+    left: 20px;
+    top: 100px;
+    width: 700px;
+    height: 15px;
+    padding: 15px 20px;
+    position: absolute;
+    color: white;
+}
+
+#top_title a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+h2 {
+    font-family: Arial;
+    font-size: 16px;
+    color: #863a29;
+    margin-top: 3px;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+h1 {
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+
+.content_radek {
+    background-image: url('/grafics/images/design/content_radek.png');
+    background-repeat: no-repeat;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    padding-right: 10px;
+    padding-bottom: 20px;
+    background-color: #e4e4e4;
+}
+
+div.content_radek:after {
+    background-image: url('/grafics/images/design/content_radek_bottom.png');
+    background-repeat: no-repeat;
+    display: block;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    height: 20px;
+    width: 730px;
+    left: 0px;
+    bottom: 0px;
+    content: "";
+}
+
+.menu_left_head {
+   float: left;
+   padding:25px 0px 5px 15px;
+   margin-top: 5px;
+   margin-bottom: 10px;
+   background-image: url('/grafics/images/design/menu_separator.png');
+   background-repeat: no-repeat;
+   width: 205px;
+}
+
+.menu_left_head a {
+    text-decoration: none;
+}
+
+.menu_left {
+    display: block;
+    width: 220px;
+}
+
+.menu_left_item {
+    background: url('/userfiles/image/icons/odrazka.png') no-repeat left top transparent scroll;
+    padding-left: 25px;
+    margin-left: 15px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-top: 3px;
+    padding-top: 0px;
+    width: 160px;
+    float:none;
+}
+
+.menu_left_in {
+
+    width: 220px;
+}
+
+.menu_left_item a {
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.edit_pane_MenuHead {
+    right: -5px;
+    top: 0px;
+}
+
+#content_about_85 {
+    left: 982px;
+    top: 400px;
+}

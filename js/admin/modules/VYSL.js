@@ -393,11 +393,36 @@ function saveZapasy(utkani) {
         req += "&typ["+id_zapasu+"]="+fixQuery(typ);
         
         var vysledky = getElementsByClassNameMy("vysledky_vysledek", zapas);
+<<<<<<< HEAD
+=======
         //var pom = 0;
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
         for (var j=0;j < vysledky.length;j++) {
             var id_v = vysledky[j].id;
             var dh = id_v.split("_")[2];
             var vys = id_v.split("_")[4];
+<<<<<<< HEAD
+            req += "&vysledek["+id_zapasu+"]["+vys+"]["+dh+"]="+fixQuery(vysledky[j].value);
+        }
+
+        var dom = jQuery("#vysledky_zapas_hraci_"+id_zapasu).children(".domaci").children("select");
+        for (j=0;j < dom.length;j++) {
+            var p = dom[j].id.split("_");
+            var hrac = p[3];
+            if (hrac != "-") {
+                req += "&dom_hrac["+id_zapasu+"][]="+hrac;
+            }
+        }
+
+        var hos = jQuery("#vysledky_zapas_hraci_"+id_zapasu).children(".hoste").children("select");
+        for (j=0;j < hos.length;j++) {
+            var pe = hos[j].id.split("_");
+            var hrace = pe[3];
+            if (hrace != "-") {
+                req += "&hos_hrac["+id_zapasu+"][]="+hrace;
+            }
+        }
+=======
             /*if (vys == -1) {
                 pom++;
                 if (pom == 3) {
@@ -409,6 +434,7 @@ function saveZapasy(utkani) {
         }
         
         
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
         
         
     }
@@ -425,6 +451,84 @@ function prepocitejZapasy(utkani) {
 }
 
 function deleteZapas(utkani, zapas) {
+<<<<<<< HEAD
+    var op = "transparent";
+    if (document.getElementById("zapas_smazat_"+zapas).checked) {
+        op = "#444444";
+    }
+    jQuery("#vysledky_zapas_"+zapas).parent().children("td").css("background-color", op);
+    prepocitejZapasy(utkani);
+}
+
+
+
+jQuery.fn.selectVal = function(value) {
+    var opt = this.children("option");
+    opt.select(false);
+    for (var i=0;i < opt.length;i++) {
+        if (opt[i].value == value) {
+            opt[i].selected = true;
+            break;
+        }
+    }
+}
+
+
+function changeHrac(el) {
+    el = jQuery(el);
+    var p = el.attr("id").split("_");
+    var dh = p[0];
+    var zapas = p[2];
+    var hrac = p[3];
+    var n_hrac = el.val();
+    if (n_hrac == "new") {
+        el.selectVal("-");
+        if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=vysledky&action=new_player_form&id="+el.attr("id"), createWindow)) {
+            //pokud nefunguje ajax
+            return;
+        }
+        return;
+    }
+    if (hrac == "-") {
+        // přidej nový prázdný select
+        var temp = el.outerHTML();
+        el.attr("id", dh+"_hrac_"+zapas+"_"+n_hrac);
+        el.parent().append(temp);
+    } else {
+        el.attr("id", dh+"_hrac_"+zapas+"_"+n_hrac);
+    }
+    if (n_hrac == "-") {
+        // smaz tohoto hrace select
+        el.remove();
+    }
+}
+
+
+
+
+var aktual_select_opt, aktual_new_opt;
+function createHrac(id, rand) {
+    aktual_select_opt = jQuery("#"+id);
+    var jmeno = jQuery("#new_hrac_jmeno_"+rand).val();
+    var tym = jQuery("#new_hrac_tym_"+rand).val();
+    var rozhodci = jQuery("#new_hrac_rozhodci_"+rand).attr("checked");
+    aktual_new_jmeno = jmeno;
+    zavriWindow();
+    if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=vysledky&action=new_player&jmeno="+fixQuery(jmeno)+"&rozhodci="+rozhodci+"&tym="+tym, createHrac2)) {
+        //pokud nefunguje ajax
+        return;
+    }
+}
+
+function createHrac2(id) {
+    id = parseInt(id);
+    if (id > 0) {
+        var opt = '<option value="'+id+'">'+aktual_new_jmeno+'</option>';
+        jQuery("select.select_hrac").append(opt);
+        aktual_select_opt.selectVal(""+id);
+        changeHrac(aktual_select_opt);
+    }
+=======
     var op = 1;
     if (document.getElementById("zapas_smazat_"+zapas).checked) {
         op = 0.2;
@@ -437,4 +541,5 @@ function deleteZapas(utkani, zapas) {
     //changeOpacity("vysledky_sety_"+zapas, op);
     changeOpacity("vysledky_stav_"+zapas, op);
     prepocitejZapasy(utkani);
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 }

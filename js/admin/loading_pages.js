@@ -128,6 +128,34 @@ var goBack = true;
 function hashMark(link) {
     var casti = link.split('#');
     if (window.location.hash != '#'+link && casti[0] != 'undefined') {
+<<<<<<< HEAD
+        //goBack = false;
+        //jQuery(window).unbind("hashchange", onChangeHashmark);
+        window.location.hash = link;
+        actual_history++;
+        historyCache[actual_history] = link;
+        //jQuery(window).bind("hashchange", onChangeHashmark);
+        //goBack = true;
+    }
+}
+
+var actual_history = 0;
+var historyCache = new Array();
+var onChangeHashmark = function(e) {
+    var hash = window.location.hash;
+    if ('#'+historyCache[actual_history-1] == hash) {
+        actual_history--;
+        var casti = hash.split('#');
+        //alert("vracim");
+        if (casti[1] != 'undefined') {
+            eval(casti[2]);
+        }
+    }
+    if ('#'+historyCache[actual_history+1] == hash) {
+        actual_history++;
+        var casti = hash.split('#');
+        //alert("vracim");
+=======
         goBack = false;
         window.location.hash = link;
         goBack = true;
@@ -138,9 +166,16 @@ jQuery(window).bind("hashchange", function(e) {
     if (goBack == true) {
         var hash = window.location.hash;
         var casti = hash.split('#');
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
         if (casti[1] != 'undefined') {
             eval(casti[2]);
         }
     }
     //createAlert(casti[2]);
+<<<<<<< HEAD
+}
+
+jQuery(window).bind("hashchange", onChangeHashmark);
+=======
 });
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227

@@ -5,6 +5,10 @@ header("Cache-Control: no-cache,must-revalidate,max_age=0");
 header("Expires: 0");
 
 require_once "../../config/database.php";
+<<<<<<< HEAD
+include PATH."/bin/scripts.php";
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>

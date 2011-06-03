@@ -395,6 +395,11 @@ if ($_POST['action'] == "save_zapasy") {
     if ($utkani = mysql_fetch_array($q)) {
             $typy = $_POST['typ'];
             $vysledky = $_POST['vysledek'];
+<<<<<<< HEAD
+            $dom_hrac = $_POST['dom_hrac'];
+            $hos_hrac = $_POST['hos_hrac'];
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
             if ($typy) {
             foreach ($typy as $zapas => $typ) {
                 if (0 + $zapas == 0) {
@@ -421,6 +426,22 @@ if ($_POST['action'] == "save_zapasy") {
                         }
                     }
                 }
+<<<<<<< HEAD
+
+                $sql = "DELETE FROM `vysledky_hrac_hraje` WHERE `id_zapasu` = ".$zapas;
+                mysql_query($sql);
+                if (isset($dom_hrac[$zapas]))
+                foreach ($dom_hrac[$zapas] as $hrac) {
+                    $sql = "INSERT INTO `vysledky_hrac_hraje` VALUES(".$hrac.", ".$zapas.", 'D')";
+                    mysql_query($sql);
+                }
+                if (isset($hos_hrac[$zapas]))
+                foreach ($hos_hrac[$zapas] as $hrac) {
+                    $sql = "INSERT INTO `vysledky_hrac_hraje` VALUES(".$hrac.", ".$zapas.", 'H')";
+                    mysql_query($sql);
+                }
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
             }
             }
             $delete = @$_POST['delete'];
@@ -441,4 +462,35 @@ if ($_POST['action'] == "save_zapasy") {
         
     }
 }
+<<<<<<< HEAD
+
+if ($_POST['action'] == "new_player_form") {
+    $rand = mt_rand(1000,9999);
+    $tymy = '<select id="new_hrac_tym_'.$rand.'">';
+    $sql = "SELECT * FROM `vysledky_tym` ORDER BY `nazev`";
+    $q = mysql_query($sql);
+    while ($tym = mysql_fetch_array($q)) {
+        $tymy .= '<option value="'.$tym['id_tymu'].'">'.$tym['nazev'].'</option>';
+    }
+    $tymy .= '</select>';
+    echo '<table>
+        <tr><td>Jméno:</td><td><input type="text" value="" id="new_hrac_jmeno_'.$rand.'" /></td></tr>
+        <tr><td>Tým:</td><td>'.$tymy.'</td></tr>
+        <tr><td>Rozhodčí:</td><td><input type="checkbox" id="new_hrac_rozhodci_'.$rand.'" /></td></tr>
+        <tr><td colspan="2"><input type="button" value="Vytvořit" onclick="createHrac(\''.$_POST['id'].'\', '.$rand.');" /></td></tr>
+        </table>
+';
+}
+
+if ($_POST['action'] == "new_player") {
+    $q = mysql_query("SHOW TABLE STATUS LIKE 'vysledky_hrac'");
+    $res = mysql_fetch_array($q);
+    $id = $res['Auto_increment'];
+    $sql = "INSERT INTO `vysledky_hrac` VALUES(NULL, NULL, ".$_POST['tym'].", '".$_POST['jmeno']."', ".($_POST['rozhodci']=="true"?1:0).", NULL, '".createLink($_POST['jmeno'])."')";
+    if (mysql_query($sql)) {
+        echo $id;
+    }
+}
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 ?>

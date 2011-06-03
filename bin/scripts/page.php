@@ -94,4 +94,30 @@ function writeZmenaTypu($page_part) {
 }
 
 
+<<<<<<< HEAD
+function writeHtmlEditArea($page_part, $defalt_value) {
+    $sql = "SELECT * FROM `html` WHERE `parent` = " . $page_part . " ORDER BY `sort`";
+    $q = mysql_query($sql);
+    if ($res = mysql_fetch_array($q)) {
+        echo "<div class=\"content_in_class\" id=\"content_in_".$res['id']."\">";
+        echo $res['content'];
+        $id_html = $res['id'];
+    } else {
+        $q = mysql_query("SHOW TABLE STATUS LIKE 'html'");
+        $res = mysql_fetch_array($q);
+        $id_html = $res['Auto_increment'];
+        echo "<div id=\"content_in_".$id_html."\">";
+        $sql = "INSERT INTO `html` VALUES(NULL, '$defalt_value', $page_part, 0, 0)";
+        mysql_query($sql);
+        echo $defalt_value;
+    }
+    if (@$_SESSION['auth'] > 0) {
+        writeEditPane("Html", $id_html.", ".$page_part, "E");
+    }
+    echo '</div>';
+}
+
+
+=======
+>>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 ?>
