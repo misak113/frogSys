@@ -1,9 +1,5 @@
 // JavaScript Document
-<<<<<<< HEAD
  
-=======
-
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 function loadScript(url)
 {
    var e = document.createElement("script");
@@ -82,11 +78,7 @@ function getFunctionName(func) {
   if ( typeof func == "function" || typeof func == "object" )
   var fName = (""+func).match(
     /function\s*([\w\$]*)\s*\(/
-<<<<<<< HEAD
   );if ( fName !== null ) return fName[1];
-=======
-  ); if ( fName !== null ) return fName[1];
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 }
 
 function clearSelection () {
@@ -305,11 +297,7 @@ function getScrollY() {
 
     if (!window.opera && typeof event.offsetX != 'undefined') {
       // Use offset coordinates and find common offsetParent
-<<<<<<< HEAD
       var pos = {x: event.offsetX, y: event.offsetY};
-=======
-      var pos = { x: event.offsetX, y: event.offsetY };
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 
       // Send the coordinates upwards through the offsetParent chain.
       var e = el;
@@ -323,11 +311,7 @@ function getScrollY() {
 
       // Look for the coordinates starting from the reference element.
       var e = reference;
-<<<<<<< HEAD
       var offset = {x: 0, y: 0}
-=======
-      var offset = { x: 0, y: 0 }
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
       while (e) {
         if (typeof e.mouseX != 'undefined') {
           x = e.mouseX - offset.x;
@@ -354,19 +338,11 @@ function getScrollY() {
       y = event.pageY - pos.y;
     }
     // Subtract distance to middle
-<<<<<<< HEAD
     return {x: x, y: y};
   }
   
   function getAbsolutePosition(element) {
     var r = {x: element.offsetLeft, y: element.offsetTop};
-=======
-    return { x: x, y: y };
-  }
-  
-  function getAbsolutePosition(element) {
-    var r = { x: element.offsetLeft, y: element.offsetTop };
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     if (element.offsetParent) {
       var tmp = getAbsolutePosition(element.offsetParent);
       r.x += tmp.x;
@@ -400,7 +376,6 @@ function stripHTML(oldString) {
 
    return newString;
 }
-<<<<<<< HEAD
 
 
 jQuery.fn.outerHTML = function(s) {
@@ -433,5 +408,3 @@ function addToRequestQuery(prom, val) {
         return "?"+prom+"="+val;
     }
 }
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227

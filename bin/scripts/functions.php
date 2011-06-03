@@ -5,13 +5,8 @@ $rok = array("leden", "únor", "březen", "duben", "květen", "červen", "červe
 
 function createLink($name) {
     $name = strtolower($name);
-<<<<<<< HEAD
     $co = array("ě", "ř", "ť", "š", "ď", "č", "ň", "é", "ú", "í", "ó", "á", "ý", "ů", "ž"," ","Ě", "Ř", "Ť", "Š", "Ď", "Č", "Ň", "É", "Ú", "Í", "Ó", "Á", "Ý", "Ů", "Ž");
     $cim = array("e", "r", "t", "s", "d", "c", "n", "e", "u", "i", "o", "a", "y", "u", "z","-","e", "r", "t", "s", "d", "c", "n", "e", "u", "i", "o", "a", "y", "u", "z");
-=======
-    $co = array("ě", "ř", "ť", "š", "ď", "č", "ň", "é", "ú", "í", "ó", "á", "ý", "ů", "ž"," ");
-    $cim = array("e", "r", "t", "s", "d", "c", "n", "e", "u", "i", "o", "a", "y", "u", "z","-");
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     $allowedChars = array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","-","0","1","2","3","4","5","6","7","8","9");
 
     $name = str_replace($co, $cim, $name);
@@ -25,7 +20,6 @@ function createLink($name) {
     return $link;
 }
 
-<<<<<<< HEAD
 if (!function_exists('subval_sort')) {
     function subval_sort($a, $subkey, $order=null) {
         $order = strtoupper($order);
@@ -139,17 +133,6 @@ if (!function_exists('addToRequestQuery')) {
         }
         return substr($out, 0, strlen($out)-1);
     }
-=======
-function subval_sort($a,$subkey) {
-	foreach($a as $k=>$v) {
-		$b[$k] = strtolower($v[$subkey]);
-	}
-	arsort($b, SORT_NUMERIC);
-	foreach($b as $key=>$val) {
-		$c[] = $a[$key];
-	}
-	return $c;
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 }
 
 function strip_html_tags( $text )
@@ -333,7 +316,6 @@ function strip_no_a_html_tags($text) {
     return $t;
 }
 
-<<<<<<< HEAD
 
 /**
  * Naloaduje css styly a vypíše
@@ -410,6 +392,4 @@ function loadJs($in = array(), $root = '/', $logged_in = false, $url = '/', $pat
     }
 }
 
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 ?>

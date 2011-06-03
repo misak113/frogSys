@@ -14,10 +14,7 @@ function writeNohejbalHead($page_part) {
         $set_id = $res['soutez'];
     } else {
         $select = " selected";
-<<<<<<< HEAD
         $set_id = '`id_souteze`';
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     }
 
     if (@$_SESSION['auth'] > 0) {
@@ -46,17 +43,12 @@ function writeNohejbalHead($page_part) {
     }
     $sql = "SELECT * FROM `vysledky_soutez` WHERE `id_souteze` = " . $set_id;
     $q = mysql_query($sql);
-<<<<<<< HEAD
     if ($set_id != '`id_souteze`') {
         if ($res = mysql_fetch_array($q)) {
             $nazev = $res['nazev'];
         }
     } else {
         $nazev = "Všechny soutěže";
-=======
-    if ($res = mysql_fetch_array($q)) {
-        $nazev = $res['nazev'];
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     }
     ?>
     <h1 id="nazev_soutez"><?php
@@ -71,7 +63,6 @@ function writeNohejbalHead($page_part) {
 
 function writeVysledky($page_part) {
     global $tyden;
-<<<<<<< HEAD
     global $_SETING;
     $statistics = $_SETING['statistics'];
     
@@ -82,11 +73,6 @@ function writeVysledky($page_part) {
 
     writeHtmlEditArea($page_part, "<h2>Výsledky</h2>");
 
-=======
-
-    $set_id = writeNohejbalHead($page_part);
-
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     if (@$_GET['kolo']) {
         $actual_poradi = $_GET['kolo'];
     } else {
@@ -155,21 +141,13 @@ function writeVysledky($page_part) {
                     $sql = "SELECT * FROM `vysledky_tym` WHERE `id_tymu` = " . $utkani['id_domaci'];
                     $q3 = mysql_query($sql);
                     if ($domaci = mysql_fetch_array($q3)) {
-<<<<<<< HEAD
                         echo '<a href="' . URL .$statistics. '/' . $domaci['link'] . '/">' . $domaci['nazev'] . '</a>';
-=======
-                        echo '<a href="' . URL . 'profil/' . $domaci['link'] . '/">' . $domaci['nazev'] . '</a>';
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
                     }
                     echo " - ";
                     $sql = "SELECT * FROM `vysledky_tym` WHERE `id_tymu` = " . $utkani['id_host'];
                     $q3 = mysql_query($sql);
                     if ($hoste = mysql_fetch_array($q3)) {
-<<<<<<< HEAD
                         echo '<a href="' . URL.$statistics . '/' . $hoste['link'] . '/">' . $hoste['nazev'] . '</a>';
-=======
-                        echo '<a href="' . URL . 'profil/' . $hoste['link'] . '/">' . $hoste['nazev'] . '</a>';
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
                     }
                     ?></div>
                             <div class="skore" id="vysledky_skore_<?php echo $utkani['id_utkani']; ?>"><?php
@@ -238,12 +216,9 @@ USING (`id_zapasu`) order by `id_zapasu`
 }
 
 function writeVysledkyZapasy($utkani) {
-<<<<<<< HEAD
     global $_SETING;
     $statistics = $_SETING['statistics'];
     
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     if ($utkani['overeno'] == 1) {
     ?>
     <table class="vysledky_zapasy" id="vysledky_zapasy_<?php echo $utkani['id_utkani']; ?>">
@@ -281,7 +256,6 @@ function writeVysledkyZapasy($utkani) {
                     ?></td>
                     <td id="vysledky_zapas_hraci_<?php echo $zapas['id_zapasu']; ?>">
                         <div class="domaci"><?php
-<<<<<<< HEAD
                         $options = array();
                         $options[0] = ' value="-">&nbsp;</option>';
                         $options[-1] = ' value="new">Nový hráč</option>';
@@ -323,17 +297,10 @@ function writeVysledkyZapasy($utkani) {
                     $opt[0] = " selected=\"selected\"".$opt[0];
                     echo "<option".implode("<option", $opt);
                     echo '</select>';
-=======
-                $sql = "SELECT * FROM `vysledky_hrac_hraje` JOIN `vysledky_hrac` USING (`id_hrace`) WHERE `id_zapasu` = " . $zapas['id_zapasu'] . " AND `typ` = 'D'";
-                $q4 = mysql_query($sql);
-                while ($hrac = mysql_fetch_array($q4)) {
-                    echo '<a href="' . URL . 'profil/' . $hrac['link'] . '/">' . $hrac['jmeno'] . "</a>, ";
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
                 }
                 ?>
                         </div>
                         <div class="hoste"><?php
-<<<<<<< HEAD
                         $options = array();
                         $options[0] = ' value="-">&nbsp;</option>';
                         $options[-1] = ' value="new">Nový hráč</option>';
@@ -375,12 +342,6 @@ function writeVysledkyZapasy($utkani) {
                     $opt[0] = " selected=\"selected\"".$opt[0];
                     echo "<option".implode("<option", $opt);
                     echo '</select>';
-=======
-                $sql = "SELECT * FROM `vysledky_hrac_hraje` JOIN `vysledky_hrac` USING (`id_hrace`) WHERE `id_zapasu` = " . $zapas['id_zapasu'] . " AND `typ` = 'H'";
-                $q4 = mysql_query($sql);
-                while ($hrac = mysql_fetch_array($q4)) {
-                    echo '<a href="' . URL . 'profil/' . $hrac['link'] . '/">' . $hrac['jmeno'] . "</a>, ";
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
                 }
                 ?>
                         </div>
@@ -490,22 +451,14 @@ function writeVysledkyZapasy($utkani) {
             $sql = "SELECT * FROM `vysledky_hriste` WHERE `id_hriste` = " . $utkani['id_hriste'];
             $q3 = mysql_query($sql);
             if ($hriste = @mysql_fetch_array($q3)) {
-<<<<<<< HEAD
                 echo '<a href="' . URL.$statistics . '/' . $hriste['link'] . '/">' . $hriste['nazev'] . '</a>';
-=======
-                echo '<a href="' . URL . 'profil/' . $hriste['link'] . '/">' . $hriste['nazev'] . '</a>';
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
             }
             ?></div></div>
         <div class="vysledky_item">Rozhodčí: <div class="vysledky_rozhodci" id="vysledky_rozhodci_<?php echo $utkani['id_utkani']; ?>"><?php
             $sql = "SELECT * FROM `vysledky_hrac` JOIN `vysledky_rozhodci` USING (`id_hrace`) WHERE `id_utkani` = " . $utkani['id_utkani'];
             $q3 = mysql_query($sql);
             while ($rozhodci = @mysql_fetch_array($q3)) {
-<<<<<<< HEAD
                 echo '<a href="' . URL.$statistics . '/' . $rozhodci['link'] . '/">' . $rozhodci['jmeno'] . '</a>, ';
-=======
-                echo '<a href="' . URL . 'profil/' . $rozhodci['link'] . '/">' . $rozhodci['jmeno'] . '</a>, ';
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
             }
             ?></div></div>
     </div>
@@ -531,7 +484,6 @@ function writeVysledky_sezona() {
         echo '</select></div>';
     }
 }
-<<<<<<< HEAD
 
 
 function createProfiles() {
@@ -566,6 +518,4 @@ function createProfiles() {
 
     }
 }
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 ?>

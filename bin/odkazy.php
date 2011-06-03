@@ -1,9 +1,6 @@
 <?php
     require_once "../../config/database.php";
-<<<<<<< HEAD
     include PATH."/bin/scripts.php";
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 if (isset($_GET['domain'])) {
     echo '<div class="content_in_id">';
     echo "<h1>Odkazy</h1>";

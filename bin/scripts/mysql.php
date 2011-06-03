@@ -1,13 +1,10 @@
 <?php
 
-<<<<<<< HEAD
         $chyba = "Nastala chyba při komunikaci s databází.";
 	mysql_connect(DB_SERV, DB_USER, DB_PASS) or die($chyba);
 	mysql_select_db(DB_NAME) or die($chyba);
 	mysql_query('SET CHARACTER SET utf8');
 
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 $dotazy =  explode(";", file_get_contents(PATH."/frogSys/sql/mySQL.sql"));
 
 foreach($dotazy as $dotaz) {

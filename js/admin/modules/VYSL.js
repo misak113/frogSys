@@ -393,15 +393,10 @@ function saveZapasy(utkani) {
         req += "&typ["+id_zapasu+"]="+fixQuery(typ);
         
         var vysledky = getElementsByClassNameMy("vysledky_vysledek", zapas);
-<<<<<<< HEAD
-=======
-        //var pom = 0;
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
         for (var j=0;j < vysledky.length;j++) {
             var id_v = vysledky[j].id;
             var dh = id_v.split("_")[2];
             var vys = id_v.split("_")[4];
-<<<<<<< HEAD
             req += "&vysledek["+id_zapasu+"]["+vys+"]["+dh+"]="+fixQuery(vysledky[j].value);
         }
 
@@ -422,19 +417,6 @@ function saveZapasy(utkani) {
                 req += "&hos_hrac["+id_zapasu+"][]="+hrace;
             }
         }
-=======
-            /*if (vys == -1) {
-                pom++;
-                if (pom == 3) {
-                    vys = vysled--;
-                    pom = 0;
-                }
-            }*/
-            req += "&vysledek["+id_zapasu+"]["+vys+"]["+dh+"]="+fixQuery(vysledky[j].value);
-        }
-        
-        
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
         
         
     }
@@ -451,7 +433,6 @@ function prepocitejZapasy(utkani) {
 }
 
 function deleteZapas(utkani, zapas) {
-<<<<<<< HEAD
     var op = "transparent";
     if (document.getElementById("zapas_smazat_"+zapas).checked) {
         op = "#444444";
@@ -528,18 +509,4 @@ function createHrac2(id) {
         aktual_select_opt.selectVal(""+id);
         changeHrac(aktual_select_opt);
     }
-=======
-    var op = 1;
-    if (document.getElementById("zapas_smazat_"+zapas).checked) {
-        op = 0.2;
-    }
-    changeOpacity("vysledky_zapas_"+zapas, op);
-    //changeOpacity("vysledky_zapas_hraci_"+zapas, op);
-    changeOpacity("vysledky_zapas_vysledek0_"+zapas, op);
-    //changeOpacity("vysledky_zapas_vysledek1_"+zapas, op);
-    changeOpacity("vysledky_zapas_vysledek2_"+zapas, op);
-    //changeOpacity("vysledky_sety_"+zapas, op);
-    changeOpacity("vysledky_stav_"+zapas, op);
-    prepocitejZapasy(utkani);
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 }

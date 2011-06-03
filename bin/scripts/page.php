@@ -94,7 +94,6 @@ function writeZmenaTypu($page_part) {
 }
 
 
-<<<<<<< HEAD
 function writeHtmlEditArea($page_part, $defalt_value) {
     $sql = "SELECT * FROM `html` WHERE `parent` = " . $page_part . " ORDER BY `sort`";
     $q = mysql_query($sql);
@@ -118,6 +117,4 @@ function writeHtmlEditArea($page_part, $defalt_value) {
 }
 
 
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 ?>

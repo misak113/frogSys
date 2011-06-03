@@ -395,11 +395,8 @@ if ($_POST['action'] == "save_zapasy") {
     if ($utkani = mysql_fetch_array($q)) {
             $typy = $_POST['typ'];
             $vysledky = $_POST['vysledek'];
-<<<<<<< HEAD
             $dom_hrac = $_POST['dom_hrac'];
             $hos_hrac = $_POST['hos_hrac'];
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
             if ($typy) {
             foreach ($typy as $zapas => $typ) {
                 if (0 + $zapas == 0) {
@@ -426,7 +423,6 @@ if ($_POST['action'] == "save_zapasy") {
                         }
                     }
                 }
-<<<<<<< HEAD
 
                 $sql = "DELETE FROM `vysledky_hrac_hraje` WHERE `id_zapasu` = ".$zapas;
                 mysql_query($sql);
@@ -440,8 +436,6 @@ if ($_POST['action'] == "save_zapasy") {
                     $sql = "INSERT INTO `vysledky_hrac_hraje` VALUES(".$hrac.", ".$zapas.", 'H')";
                     mysql_query($sql);
                 }
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
             }
             }
             $delete = @$_POST['delete'];
@@ -462,7 +456,6 @@ if ($_POST['action'] == "save_zapasy") {
         
     }
 }
-<<<<<<< HEAD
 
 if ($_POST['action'] == "new_player_form") {
     $rand = mt_rand(1000,9999);
@@ -491,6 +484,4 @@ if ($_POST['action'] == "new_player") {
         echo $id;
     }
 }
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 ?>

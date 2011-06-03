@@ -51,12 +51,9 @@
 		?>
 		</div>
 		<?php
-<<<<<<< HEAD
 
                 writeHtmlEditArea($page_part, "");
 
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 		/*if ($hr == false && @$_SESSION['auth'] > 0) {
 			writeZmenaTypu($page_part);
 		} */

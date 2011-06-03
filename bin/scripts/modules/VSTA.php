@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-<<<<<<< HEAD
 function writeStatistiky($page_part) {
     include PATH."/frogSys/bin/load_pages_id.php";
     
@@ -592,6 +591,4 @@ function writeProfiles($page_part) {
 
 }
 
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 ?>

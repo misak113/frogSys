@@ -147,11 +147,7 @@
 /* edit panel menu_in */
 .edit_pane_Menu_in {
 	position: absolute;
-<<<<<<< HEAD
 	right: -20px;
-=======
-	right: 10px;
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 	top: 1px;
 }
 

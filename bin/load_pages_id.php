@@ -43,16 +43,6 @@
 			$min = $res['min'];                                                      
 		}
 
-<<<<<<< HEAD
-=======
-		/*
-                $sql = "SELECT * FROM `menu` WHERE `parent` = 0 AND `order` = $min";
-		$q = mysql_query($sql);
-		if ($res = @mysql_fetch_array($q)) {
-			$firstId = $res['id'];                                                     
-		}
-                */
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
                 $firstId = 0;
 		$sql = "SELECT MIN(`order`) AS min FROM `menu` WHERE `parent` = $firstId";
 		$q = mysql_query($sql);
@@ -69,11 +59,8 @@
 		$page = explode("/", $page);
                 $page_link = $page[0];
 		if (isset($page[0]) && $page[0] != "") {
-<<<<<<< HEAD
                     $pokracuj = true;
                     if ($pokracuj) {
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 			$sql = "SELECT * FROM `menu` WHERE `link` = '".$page[0]."' AND `parent` <= 0 LIMIT 1";
 			$q = mysql_query($sql);
 			if ($res = mysql_fetch_array($q)) {
@@ -136,7 +123,6 @@
                                                         $title = $res['nazev']." - ".$title;
                                                         $novinka_id = $res['id'];
                                                     }
-<<<<<<< HEAD
                                                     if (!isset($novinka_id)) {
                                                         $sql = "SELECT * FROM `vysledky_hrac` WHERE `link` = '".$page[2+$str_link]."'";
                                                         $q = mysql_query($sql);
@@ -159,8 +145,6 @@
                                                             }
                                                         }
                                                     }
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
                                                 }
 					}
 				}
@@ -188,10 +172,7 @@
 					}
 				}
 			}
-<<<<<<< HEAD
                     }
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 		}      
 		
 ?>

@@ -1,11 +1,7 @@
 <?php
 
 	function writeGalerie($page_part) {
-<<<<<<< HEAD
 		/*$sql = "SELECT * FROM `html` WHERE `parent` = ".$page_part."";
-=======
-		$sql = "SELECT * FROM `html` WHERE `parent` = ".$page_part."";
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 		$q = mysql_query($sql);
 		if (!($res = mysql_fetch_array($q))) {
 			$sql = "INSERT INTO `html` VALUES(NULL, 'Obsah úvodu k galerii', $page_part, 0, 0)";
@@ -22,12 +18,8 @@
 				writeEditPane("GalerieHtml", $res['id'].", ".$page_part, "E");
 			}
 			echo $res['content']."</div>";	
-<<<<<<< HEAD
 		}*/
             writeHtmlEditArea($page_part, '<h1>Galerie</h1>');
-=======
-		}
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 		
 		if (@$_SESSION['auth'] > 0) {
 		echo '
@@ -72,10 +64,7 @@
 				echo '
 				
 				<div class="galerie" id="galerie_image_div_'.$res['id'].'">';
-<<<<<<< HEAD
                                 $trans = "";
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 				if (@$_SESSION['auth'] > 0) {
 					if ($res['show'] == 0) {
 						$check = "C";

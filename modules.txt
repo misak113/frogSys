@@ -14,18 +14,11 @@
 .Novinky/NEWS/
 ..Novinky/NOVI/
 ..Výpis/NVYP/
-<<<<<<< HEAD
 ..Souhrné/NSOU/
-=======
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
 .Akce/AKCE/
 ..Plán akcí/PLAK/
 .Nohejbal/NOHE/
 ..Výsledky/VYSL/
 ..Tabulka/VTAB/
-<<<<<<< HEAD
 ..Statistiky/VSTA/
 ..Vyhledávání týmů/VTYM/
-=======
-..Statistiky/VSTA/
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227

@@ -1,7 +1,6 @@
 <?php
 
 function writeTabulka($page_part) {
-<<<<<<< HEAD
     global $_SETING;
     $statistics = $_SETING['statistics'];
 
@@ -9,11 +8,6 @@ function writeTabulka($page_part) {
 
     writeHtmlEditArea($page_part, "<h2>Tabulka</h2>");
 
-=======
-
-    $id_souteze = writeNohejbalHead($page_part);
-
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     if (@$_GET['kolo']) {
         $actual_poradi = $_GET['kolo'];
     } else {
@@ -155,7 +149,6 @@ AND `poradi` <= '.$actual_poradi.'';
             $tymy[$i]['zapasy'] = $remizy+$prohry+$vyhry;
             $tymy[$i]['body'] = $remizy+$vyhry*2;
             $tymy[$i]['skore'] = $skore_left.":".$skore_right;
-<<<<<<< HEAD
             $tymy[$i]['skore_rozdil'] = $skore_left-$skore_right;
         }
 
@@ -164,17 +157,10 @@ AND `poradi` <= '.$actual_poradi.'';
         //$tymy = subval_sort($tymy, 'body', 'desc');
         orderBy($tymy, 'body DESC, skore_rozdil DESC, zapasy ASC, vyhry DESC');
         //print_r($tymy);
-=======
-        }
-
-        if ($tymy) {
-        $tymy = subval_sort($tymy, 'body');
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
         $poradi = 0;
         foreach ($tymy as $tym) {
             ?>
     <tr>
-<<<<<<< HEAD
         <td class="poradi"><?php $poradi++; echo $poradi; ?>.</td>
         <td class="nazev"><a href="<?php echo URL.$statistics; ?>/<?php echo $tym['link']; ?>/"><?php echo $tym['nazev']; ?></a></td>
         <td class="web"><?php if ($tym['web']) { ?>
@@ -196,29 +182,6 @@ AND `poradi` <= '.$actual_poradi.'';
                     <?php echo $tym['skore']; ?>
         </td>
         <td class="body">
-=======
-        <td><?php $poradi++; echo $poradi; ?>.</td>
-        <td><a href="<?php echo URL; ?>profil/<?php echo $tym['link']; ?>/"><?php echo $tym['nazev']; ?></a></td>
-        <td><?php if ($tym['web']) { ?>
-            <a href="http://<?php echo $tym['web']; ?>/" target="_blank">web &gt;</a></td>
-                <?php } ?>
-        <td>
-                    <?php echo $tym['zapasy']; ?>
-        </td>
-        <td>
-                    <?php echo $tym['vyhry']; ?>
-        </td>
-        <td>
-                    <?php echo $tym['remizy']; ?>
-        </td>
-        <td>
-                    <?php echo $tym['prohry']; ?>
-        </td>
-        <td>
-                    <?php echo $tym['skore']; ?>
-        </td>
-        <td>
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
                     <?php echo $tym['body']; ?>
         </td>
     </tr>
@@ -230,11 +193,7 @@ AND `poradi` <= '.$actual_poradi.'';
 <?php
     $sql = "SELECT * FROM `vysledky_kolo` WHERE `sezona` = '".VYSL_SEZONA."' AND `id_souteze` = ".$id_souteze." ORDER BY `poradi`";
     $q = mysql_query($sql);
-<<<<<<< HEAD
     echo '<div class="vysledky_kola"> Kolo: ';
-=======
-    echo '<div class="vasledky_kola"> Kolo: ';
->>>>>>> a206266de26ca4d13d6c2fc157715fc98aa0e227
     while ($res = mysql_fetch_array($q)) {
         if ($actual_poradi == $res['poradi']) {
             echo '<span class="actual_poradi">'.$res['poradi'].'</span>, ';
