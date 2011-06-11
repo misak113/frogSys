@@ -340,13 +340,13 @@ function loadCss($in = array(), $root = '/', $logged_in = false, $url = '/', $pa
                     } else {
                         $mtime = 'cache';
                     }
-                    echo "<link rel=\"stylesheet\" href=\"".$url.$root.$val.(strstr($val, "?") ? "&" : '?').$mtime."\" type=\"text/css\" media=\"".$media."\"></link>\n";
+                    echo "<link rel=\"stylesheet\" href=\"".$url.$root.$val.(strstr($val, "?") ? "&amp;" : '?').$mtime."\" type=\"text/css\" media=\"".$media."\" />\n";
                     break;
                 case '#url':
-                    echo "<link rel=\"stylesheet\" href=\"".$val."\" type=\"text/css\" media=\"".$media."\"></link>\n";
+                    echo "<link rel=\"stylesheet\" href=\"".$val."\" type=\"text/css\" media=\"".$media."\" />\n";
                     break;
                 case '#app':
-                    echo "<style>\n".$val."\n</style>\n";
+                    echo "<style type=\"text/css\">\n".$val."\n</style>\n";
                     break;
                 default :
                     continue;
@@ -377,7 +377,7 @@ function loadJs($in = array(), $root = '/', $logged_in = false, $url = '/', $pat
                     } else {
                         $mtime = 'cache';
                     }
-                    echo "<script type=\"text/javascript\" src=\"".$url.$root.$val.(strstr($val, "?") ? "&" : '?').$mtime."\"></script>\n";
+                    echo "<script type=\"text/javascript\" src=\"".$url.$root.$val.(strstr($val, "?") ? "&amp;" : '?').$mtime."\"></script>\n";
                     break;
                 case '#url':
                     echo "<script type=\"text/javascript\" src=\"".$val."\"></script>\n";

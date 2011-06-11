@@ -1,11 +1,13 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="<?php echo $popis; ?>" />
 <meta name="keywords" content="<?php echo $keywords.", ".$title; ?>" />
-<meta name="copyright" content="2011, Avantcore media" />
 <meta name="author" content="Michael Žabka" />
 <meta name="robots" content="index, follow" />
+<?php if (@$_SESSION['auth'] > 0) { ?>
 <meta name="RS" content="frogSys" />
-<meta name="version" content="<?php include PATH."/frogSys/version.txt"; ?>" />
+<meta name="version" content="<?php include PATH."/frogSys/version.txt"; ?>"
+<meta name="copyright" content="2011, Avantcore media" />
+<?php } ?>
 <title>
     <?php
     echo strip_tags($title);
