@@ -514,9 +514,9 @@ DROP PROCEDURE adminer_alter;
 
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `name` text NOT NULL COMMENT 'název',
-  `parent` int(11) NOT NULL COMMENT 'rodič menu',
-  `order` int(11) NOT NULL COMMENT 'třídění',
+  `name` text NOT NULL COMMENT 'n�zev',
+  `parent` int(11) NOT NULL COMMENT 'rodi� menu',
+  `order` int(11) NOT NULL COMMENT 't��d�n�',
   `link` varchar(50) NOT NULL,
   `visible` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -530,7 +530,7 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 	DECLARE _extra varchar(30);
 	DECLARE _column_comment varchar(255);
 	DECLARE done, set_after bool DEFAULT 0;
-	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment COMMENT \'id\' FIRST, ADD `name` text COLLATE latin2_general_ci NOT NULL COMMENT \'název\' AFTER `id`, ADD `parent` int(11) NOT NULL COMMENT \'rodič menu\' AFTER `name`, ADD `order` int(11) NOT NULL COMMENT \'třídění\' AFTER `parent`, ADD `link` varchar(50) COLLATE latin2_general_ci NOT NULL AFTER `order`, ADD `visible` int(11) NOT NULL AFTER `link`';
+	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment COMMENT \'id\' FIRST, ADD `name` text COLLATE latin2_general_ci NOT NULL COMMENT \'n�zev\' AFTER `id`, ADD `parent` int(11) NOT NULL COMMENT \'rodi� menu\' AFTER `name`, ADD `order` int(11) NOT NULL COMMENT \'t��d�n�\' AFTER `parent`, ADD `link` varchar(50) COLLATE latin2_general_ci NOT NULL AFTER `order`, ADD `visible` int(11) NOT NULL AFTER `link`';
 	DECLARE columns CURSOR FOR SELECT COLUMN_NAME, COLUMN_DEFAULT, IS_NULLABLE, COLLATION_NAME, COLUMN_TYPE, EXTRA, COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'menu' ORDER BY ORDINAL_POSITION;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 	SET @alter_table = '';
@@ -546,19 +546,19 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 						SET @alter_table = CONCAT(@alter_table, ', MODIFY `id` int(11) NOT NULL auto_increment COMMENT \'id\' FIRST');
 					END IF;
 				WHEN 'name' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `name` text COLLATE latin2_general_ci NOT NULL COMMENT \'název\' AFTER `id`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'latin2_general_ci' OR _column_type != 'text' OR _extra != '' OR _column_comment != 'název' OR after != 'id' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `name` text COLLATE latin2_general_ci NOT NULL COMMENT \'název\' AFTER `id`');
+					SET add_columns = REPLACE(add_columns, ', ADD `name` text COLLATE latin2_general_ci NOT NULL COMMENT \'n�zev\' AFTER `id`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'latin2_general_ci' OR _column_type != 'text' OR _extra != '' OR _column_comment != 'n�zev' OR after != 'id' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `name` text COLLATE latin2_general_ci NOT NULL COMMENT \'n�zev\' AFTER `id`');
 					END IF;
 				WHEN 'parent' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `parent` int(11) NOT NULL COMMENT \'rodič menu\' AFTER `name`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'int(11)' OR _extra != '' OR _column_comment != 'rodič menu' OR after != 'name' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `parent` int(11) NOT NULL COMMENT \'rodič menu\' AFTER `name`');
+					SET add_columns = REPLACE(add_columns, ', ADD `parent` int(11) NOT NULL COMMENT \'rodi� menu\' AFTER `name`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'int(11)' OR _extra != '' OR _column_comment != 'rodi� menu' OR after != 'name' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `parent` int(11) NOT NULL COMMENT \'rodi� menu\' AFTER `name`');
 					END IF;
 				WHEN 'order' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `order` int(11) NOT NULL COMMENT \'třídění\' AFTER `parent`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'int(11)' OR _extra != '' OR _column_comment != 'třídění' OR after != 'parent' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `order` int(11) NOT NULL COMMENT \'třídění\' AFTER `parent`');
+					SET add_columns = REPLACE(add_columns, ', ADD `order` int(11) NOT NULL COMMENT \'t��d�n�\' AFTER `parent`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'int(11)' OR _extra != '' OR _column_comment != 't��d�n�' OR after != 'parent' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `order` int(11) NOT NULL COMMENT \'t��d�n�\' AFTER `parent`');
 					END IF;
 				WHEN 'link' THEN
 					SET add_columns = REPLACE(add_columns, ', ADD `link` varchar(50) COLLATE latin2_general_ci NOT NULL AFTER `order`', '');
@@ -968,7 +968,9 @@ CREATE TABLE IF NOT EXISTS `plan_akci` (
   `time` datetime NOT NULL,
   `parent` int(11) NOT NULL,
   `limit_lidi` int(11) NOT NULL,
-  `cena` int(11) NOT NULL,
+  `cena` text NOT NULL,
+  `text_podminky` text NOT NULL,
+  `soubor` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -980,7 +982,7 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 	DECLARE _extra varchar(30);
 	DECLARE _column_comment varchar(255);
 	DECLARE done, set_after bool DEFAULT 0;
-	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment FIRST, ADD `name` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`, ADD `kdy` date NOT NULL AFTER `name`, ADD `do` date NOT NULL AFTER `kdy`, ADD `kde` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `do`, ADD `co` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `kde`, ADD `text` text COLLATE utf8_general_ci NOT NULL AFTER `co`, ADD `time` datetime NOT NULL AFTER `text`, ADD `parent` int(11) NOT NULL AFTER `time`, ADD `limit_lidi` int(11) NOT NULL AFTER `parent`, ADD `cena` int(11) NOT NULL AFTER `limit_lidi`';
+	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment FIRST, ADD `name` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`, ADD `kdy` date NOT NULL AFTER `name`, ADD `do` date NOT NULL AFTER `kdy`, ADD `kde` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `do`, ADD `co` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `kde`, ADD `text` text COLLATE utf8_general_ci NOT NULL AFTER `co`, ADD `time` datetime NOT NULL AFTER `text`, ADD `parent` int(11) NOT NULL AFTER `time`, ADD `limit_lidi` int(11) NOT NULL AFTER `parent`, ADD `cena` text COLLATE utf8_general_ci NOT NULL AFTER `limit_lidi`, ADD `text_podminky` text COLLATE utf8_general_ci NOT NULL AFTER `cena`, ADD `soubor` text COLLATE utf8_general_ci NOT NULL AFTER `text_podminky`';
 	DECLARE columns CURSOR FOR SELECT COLUMN_NAME, COLUMN_DEFAULT, IS_NULLABLE, COLLATION_NAME, COLUMN_TYPE, EXTRA, COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'plan_akci' ORDER BY ORDINAL_POSITION;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 	SET @alter_table = '';
@@ -1041,9 +1043,19 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 						SET @alter_table = CONCAT(@alter_table, ', MODIFY `limit_lidi` int(11) NOT NULL AFTER `parent`');
 					END IF;
 				WHEN 'cena' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `cena` int(11) NOT NULL AFTER `limit_lidi`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'int(11)' OR _extra != '' OR _column_comment != '' OR after != 'limit_lidi' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `cena` int(11) NOT NULL AFTER `limit_lidi`');
+					SET add_columns = REPLACE(add_columns, ', ADD `cena` text COLLATE utf8_general_ci NOT NULL AFTER `limit_lidi`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'text' OR _extra != '' OR _column_comment != '' OR after != 'limit_lidi' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `cena` text COLLATE utf8_general_ci NOT NULL AFTER `limit_lidi`');
+					END IF;
+				WHEN 'text_podminky' THEN
+					SET add_columns = REPLACE(add_columns, ', ADD `text_podminky` text COLLATE utf8_general_ci NOT NULL AFTER `cena`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'text' OR _extra != '' OR _column_comment != '' OR after != 'cena' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `text_podminky` text COLLATE utf8_general_ci NOT NULL AFTER `cena`');
+					END IF;
+				WHEN 'soubor' THEN
+					SET add_columns = REPLACE(add_columns, ', ADD `soubor` text COLLATE utf8_general_ci NOT NULL AFTER `text_podminky`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'text' OR _extra != '' OR _column_comment != '' OR after != 'text_podminky' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `soubor` text COLLATE utf8_general_ci NOT NULL AFTER `text_podminky`');
 					END IF;
 				ELSE
 					SET @alter_table = CONCAT(@alter_table, ', DROP ', _column_name);
@@ -1233,9 +1245,8 @@ DROP PROCEDURE adminer_alter;
 
 CREATE TABLE IF NOT EXISTS `shop` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nazev` varchar(50) NOT NULL,
+  `nazev` varchar(100) NOT NULL,
   `popis` text NOT NULL,
-  `anot` text NOT NULL,
   `cena` double NOT NULL,
   `dph` double NOT NULL,
   `skladem` int(11) NOT NULL,
@@ -1244,8 +1255,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
   `vyrobce` varchar(50) NOT NULL,
   `doporucujeme` int(11) NOT NULL,
   `show` int(11) NOT NULL,
-  `link` varchar(50) NOT NULL,
-  `order` int(11) NOT NULL,
+  `link` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -1258,7 +1268,7 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 	DECLARE _extra varchar(30);
 	DECLARE _column_comment varchar(255);
 	DECLARE done, set_after bool DEFAULT 0;
-	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment FIRST, ADD `nazev` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`, ADD `popis` text COLLATE utf8_general_ci NOT NULL AFTER `nazev`, ADD `anot` text COLLATE utf8_general_ci NOT NULL AFTER `popis`, ADD `cena` double NOT NULL AFTER `anot`, ADD `dph` double NOT NULL AFTER `cena`, ADD `skladem` int(11) NOT NULL AFTER `dph`, ADD `parent` int(11) NOT NULL AFTER `skladem`, ADD `code` varchar(20) COLLATE utf8_general_ci NOT NULL AFTER `parent`, ADD `vyrobce` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `code`, ADD `doporucujeme` int(11) NOT NULL AFTER `vyrobce`, ADD `show` int(11) NOT NULL AFTER `doporucujeme`, ADD `link` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `show`, ADD `order` int(11) NOT NULL AFTER `link`';
+	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment FIRST, ADD `nazev` varchar(100) COLLATE utf8_general_ci NOT NULL AFTER `id`, ADD `popis` text COLLATE utf8_general_ci NOT NULL AFTER `nazev`, ADD `cena` double NOT NULL AFTER `popis`, ADD `dph` double NOT NULL AFTER `cena`, ADD `skladem` int(11) NOT NULL AFTER `dph`, ADD `parent` int(11) NOT NULL AFTER `skladem`, ADD `code` varchar(20) COLLATE utf8_general_ci NOT NULL AFTER `parent`, ADD `vyrobce` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `code`, ADD `doporucujeme` int(11) NOT NULL AFTER `vyrobce`, ADD `show` int(11) NOT NULL AFTER `doporucujeme`, ADD `link` varchar(100) COLLATE utf8_general_ci NOT NULL AFTER `show`';
 	DECLARE columns CURSOR FOR SELECT COLUMN_NAME, COLUMN_DEFAULT, IS_NULLABLE, COLLATION_NAME, COLUMN_TYPE, EXTRA, COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'shop' ORDER BY ORDINAL_POSITION;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 	SET @alter_table = '';
@@ -1274,24 +1284,19 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 						SET @alter_table = CONCAT(@alter_table, ', MODIFY `id` int(11) NOT NULL auto_increment FIRST');
 					END IF;
 				WHEN 'nazev' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `nazev` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'id' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `nazev` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`');
+					SET add_columns = REPLACE(add_columns, ', ADD `nazev` varchar(100) COLLATE utf8_general_ci NOT NULL AFTER `id`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(100)' OR _extra != '' OR _column_comment != '' OR after != 'id' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `nazev` varchar(100) COLLATE utf8_general_ci NOT NULL AFTER `id`');
 					END IF;
 				WHEN 'popis' THEN
 					SET add_columns = REPLACE(add_columns, ', ADD `popis` text COLLATE utf8_general_ci NOT NULL AFTER `nazev`', '');
 					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'text' OR _extra != '' OR _column_comment != '' OR after != 'nazev' THEN
 						SET @alter_table = CONCAT(@alter_table, ', MODIFY `popis` text COLLATE utf8_general_ci NOT NULL AFTER `nazev`');
 					END IF;
-				WHEN 'anot' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `anot` text COLLATE utf8_general_ci NOT NULL AFTER `popis`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'text' OR _extra != '' OR _column_comment != '' OR after != 'popis' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `anot` text COLLATE utf8_general_ci NOT NULL AFTER `popis`');
-					END IF;
 				WHEN 'cena' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `cena` double NOT NULL AFTER `anot`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'double' OR _extra != '' OR _column_comment != '' OR after != 'anot' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `cena` double NOT NULL AFTER `anot`');
+					SET add_columns = REPLACE(add_columns, ', ADD `cena` double NOT NULL AFTER `popis`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'double' OR _extra != '' OR _column_comment != '' OR after != 'popis' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `cena` double NOT NULL AFTER `popis`');
 					END IF;
 				WHEN 'dph' THEN
 					SET add_columns = REPLACE(add_columns, ', ADD `dph` double NOT NULL AFTER `cena`', '');
@@ -1329,14 +1334,9 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 						SET @alter_table = CONCAT(@alter_table, ', MODIFY `show` int(11) NOT NULL AFTER `doporucujeme`');
 					END IF;
 				WHEN 'link' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `link` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `show`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'show' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `link` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `show`');
-					END IF;
-				WHEN 'order' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `order` int(11) NOT NULL AFTER `link`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'int(11)' OR _extra != '' OR _column_comment != '' OR after != 'link' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `order` int(11) NOT NULL AFTER `link`');
+					SET add_columns = REPLACE(add_columns, ', ADD `link` varchar(100) COLLATE utf8_general_ci NOT NULL AFTER `show`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(100)' OR _extra != '' OR _column_comment != '' OR after != 'show' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `link` varchar(100) COLLATE utf8_general_ci NOT NULL AFTER `show`');
 					END IF;
 				ELSE
 					SET @alter_table = CONCAT(@alter_table, ', DROP ', _column_name);
@@ -1427,7 +1427,6 @@ CREATE TABLE IF NOT EXISTS `shop_menu` (
   `nazev` varchar(50) NOT NULL,
   `link` varchar(50) NOT NULL,
   `parent` int(11) NOT NULL,
-  `sort` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -1439,7 +1438,7 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 	DECLARE _extra varchar(30);
 	DECLARE _column_comment varchar(255);
 	DECLARE done, set_after bool DEFAULT 0;
-	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment FIRST, ADD `nazev` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`, ADD `link` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `nazev`, ADD `parent` int(11) NOT NULL AFTER `link`, ADD `sort` int(11) NOT NULL AFTER `parent`';
+	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment FIRST, ADD `nazev` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`, ADD `link` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `nazev`, ADD `parent` int(11) NOT NULL AFTER `link`';
 	DECLARE columns CURSOR FOR SELECT COLUMN_NAME, COLUMN_DEFAULT, IS_NULLABLE, COLLATION_NAME, COLUMN_TYPE, EXTRA, COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'shop_menu' ORDER BY ORDINAL_POSITION;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 	SET @alter_table = '';
@@ -1468,11 +1467,6 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 					SET add_columns = REPLACE(add_columns, ', ADD `parent` int(11) NOT NULL AFTER `link`', '');
 					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'int(11)' OR _extra != '' OR _column_comment != '' OR after != 'link' THEN
 						SET @alter_table = CONCAT(@alter_table, ', MODIFY `parent` int(11) NOT NULL AFTER `link`');
-					END IF;
-				WHEN 'sort' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `sort` int(11) NOT NULL AFTER `parent`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != '' OR _column_type != 'int(11)' OR _extra != '' OR _column_comment != '' OR after != 'parent' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `sort` int(11) NOT NULL AFTER `parent`');
 					END IF;
 				ELSE
 					SET @alter_table = CONCAT(@alter_table, ', DROP ', _column_name);
@@ -1710,16 +1704,16 @@ DROP PROCEDURE adminer_alter;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hash` varchar(50) NOT NULL,
-  `jmeno` varchar(50) NOT NULL,
-  `prijmeni` varchar(50) NOT NULL,
-  `mail` varchar(50) NOT NULL,
-  `telefon` varchar(50) NOT NULL,
-  `ulice` varchar(50) NOT NULL,
-  `obec` varchar(50) NOT NULL,
-  `psc` varchar(50) NOT NULL,
-  `stat` varchar(50) NOT NULL,
+  `jmeno` varchar(50) DEFAULT NULL,
+  `prijmeni` varchar(50) DEFAULT NULL,
+  `mail` varchar(50) DEFAULT NULL,
+  `telefon` varchar(50) DEFAULT NULL,
+  `ulice` varchar(50) DEFAULT NULL,
+  `obec` varchar(50) DEFAULT NULL,
+  `psc` varchar(20) DEFAULT NULL,
+  `stat` varchar(50) DEFAULT NULL,
   `last` datetime NOT NULL,
-  `useragent` varchar(50) NOT NULL,
+  `useragent` text,
   `ip` varchar(50) NOT NULL,
   `heslo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1733,7 +1727,7 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 	DECLARE _extra varchar(30);
 	DECLARE _column_comment varchar(255);
 	DECLARE done, set_after bool DEFAULT 0;
-	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment FIRST, ADD `hash` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`, ADD `jmeno` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `hash`, ADD `prijmeni` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `jmeno`, ADD `mail` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `prijmeni`, ADD `telefon` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `mail`, ADD `ulice` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `telefon`, ADD `obec` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `ulice`, ADD `psc` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `obec`, ADD `stat` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `psc`, ADD `last` datetime NOT NULL AFTER `stat`, ADD `useragent` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `last`, ADD `ip` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `useragent`, ADD `heslo` varchar(50) COLLATE utf8_general_ci AFTER `ip`';
+	DECLARE add_columns text DEFAULT ', ADD `id` int(11) NOT NULL auto_increment FIRST, ADD `hash` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`, ADD `jmeno` varchar(50) COLLATE utf8_general_ci AFTER `hash`, ADD `prijmeni` varchar(50) COLLATE utf8_general_ci AFTER `jmeno`, ADD `mail` varchar(50) COLLATE utf8_general_ci AFTER `prijmeni`, ADD `telefon` varchar(50) COLLATE utf8_general_ci AFTER `mail`, ADD `ulice` varchar(50) COLLATE utf8_general_ci AFTER `telefon`, ADD `obec` varchar(50) COLLATE utf8_general_ci AFTER `ulice`, ADD `psc` varchar(20) COLLATE utf8_general_ci AFTER `obec`, ADD `stat` varchar(50) COLLATE utf8_general_ci AFTER `psc`, ADD `last` datetime NOT NULL AFTER `stat`, ADD `useragent` text COLLATE utf8_general_ci AFTER `last`, ADD `ip` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `useragent`, ADD `heslo` varchar(50) COLLATE utf8_general_ci AFTER `ip`';
 	DECLARE columns CURSOR FOR SELECT COLUMN_NAME, COLUMN_DEFAULT, IS_NULLABLE, COLLATION_NAME, COLUMN_TYPE, EXTRA, COLUMN_COMMENT FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' ORDER BY ORDINAL_POSITION;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
 	SET @alter_table = '';
@@ -1754,44 +1748,44 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 						SET @alter_table = CONCAT(@alter_table, ', MODIFY `hash` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `id`');
 					END IF;
 				WHEN 'jmeno' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `jmeno` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `hash`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'hash' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `jmeno` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `hash`');
+					SET add_columns = REPLACE(add_columns, ', ADD `jmeno` varchar(50) COLLATE utf8_general_ci AFTER `hash`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'hash' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `jmeno` varchar(50) COLLATE utf8_general_ci AFTER `hash`');
 					END IF;
 				WHEN 'prijmeni' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `prijmeni` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `jmeno`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'jmeno' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `prijmeni` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `jmeno`');
+					SET add_columns = REPLACE(add_columns, ', ADD `prijmeni` varchar(50) COLLATE utf8_general_ci AFTER `jmeno`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'jmeno' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `prijmeni` varchar(50) COLLATE utf8_general_ci AFTER `jmeno`');
 					END IF;
 				WHEN 'mail' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `mail` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `prijmeni`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'prijmeni' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `mail` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `prijmeni`');
+					SET add_columns = REPLACE(add_columns, ', ADD `mail` varchar(50) COLLATE utf8_general_ci AFTER `prijmeni`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'prijmeni' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `mail` varchar(50) COLLATE utf8_general_ci AFTER `prijmeni`');
 					END IF;
 				WHEN 'telefon' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `telefon` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `mail`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'mail' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `telefon` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `mail`');
+					SET add_columns = REPLACE(add_columns, ', ADD `telefon` varchar(50) COLLATE utf8_general_ci AFTER `mail`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'mail' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `telefon` varchar(50) COLLATE utf8_general_ci AFTER `mail`');
 					END IF;
 				WHEN 'ulice' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `ulice` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `telefon`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'telefon' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `ulice` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `telefon`');
+					SET add_columns = REPLACE(add_columns, ', ADD `ulice` varchar(50) COLLATE utf8_general_ci AFTER `telefon`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'telefon' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `ulice` varchar(50) COLLATE utf8_general_ci AFTER `telefon`');
 					END IF;
 				WHEN 'obec' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `obec` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `ulice`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'ulice' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `obec` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `ulice`');
+					SET add_columns = REPLACE(add_columns, ', ADD `obec` varchar(50) COLLATE utf8_general_ci AFTER `ulice`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'ulice' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `obec` varchar(50) COLLATE utf8_general_ci AFTER `ulice`');
 					END IF;
 				WHEN 'psc' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `psc` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `obec`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'obec' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `psc` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `obec`');
+					SET add_columns = REPLACE(add_columns, ', ADD `psc` varchar(20) COLLATE utf8_general_ci AFTER `obec`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(20)' OR _extra != '' OR _column_comment != '' OR after != 'obec' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `psc` varchar(20) COLLATE utf8_general_ci AFTER `obec`');
 					END IF;
 				WHEN 'stat' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `stat` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `psc`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'psc' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `stat` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `psc`');
+					SET add_columns = REPLACE(add_columns, ', ADD `stat` varchar(50) COLLATE utf8_general_ci AFTER `psc`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'psc' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `stat` varchar(50) COLLATE utf8_general_ci AFTER `psc`');
 					END IF;
 				WHEN 'last' THEN
 					SET add_columns = REPLACE(add_columns, ', ADD `last` datetime NOT NULL AFTER `stat`', '');
@@ -1799,9 +1793,9 @@ CREATE PROCEDURE adminer_alter (INOUT alter_command text) BEGIN
 						SET @alter_table = CONCAT(@alter_table, ', MODIFY `last` datetime NOT NULL AFTER `stat`');
 					END IF;
 				WHEN 'useragent' THEN
-					SET add_columns = REPLACE(add_columns, ', ADD `useragent` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `last`', '');
-					IF NOT (_column_default <=> NULL) OR _is_nullable != 'NO' OR _collation_name != 'utf8_general_ci' OR _column_type != 'varchar(50)' OR _extra != '' OR _column_comment != '' OR after != 'last' THEN
-						SET @alter_table = CONCAT(@alter_table, ', MODIFY `useragent` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `last`');
+					SET add_columns = REPLACE(add_columns, ', ADD `useragent` text COLLATE utf8_general_ci AFTER `last`', '');
+					IF NOT (_column_default <=> NULL) OR _is_nullable != 'YES' OR _collation_name != 'utf8_general_ci' OR _column_type != 'text' OR _extra != '' OR _column_comment != '' OR after != 'last' THEN
+						SET @alter_table = CONCAT(@alter_table, ', MODIFY `useragent` text COLLATE utf8_general_ci AFTER `last`');
 					END IF;
 				WHEN 'ip' THEN
 					SET add_columns = REPLACE(add_columns, ', ADD `ip` varchar(50) COLLATE utf8_general_ci NOT NULL AFTER `useragent`', '');
@@ -2601,4 +2595,4 @@ DROP PROCEDURE adminer_alter;
 
 
 SELECT @adminer_alter;
--- 2011-05-15 13:54:44
+-- 2011-06-11 10:57:43
