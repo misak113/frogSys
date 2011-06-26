@@ -103,6 +103,14 @@
 						$page[2+$str_link] = $page[1+$str_link];
 					}
 					if (isset($page[2+$str_link])) {
+                                            $sql = "SELECT * FROM `menu_in` WHERE `link` = '" . $page[2 + $str_link] . "'";
+                                            $q = mysql_query($sql);
+                                            if ($res = mysql_fetch_array($q)) {
+                                                //if ($res['parent'] == $pageId) {   
+                                                $title = $res['name'] . " - " . $title;
+                                                $pageId2[$res['target']] = $res['href'];
+                                                //}
+                                            } else {
 						$sql = "SELECT * FROM `shop_menu` WHERE `link` = '".$page[2+$str_link]."'";
 						$q = mysql_query($sql);
 						if ($res = mysql_fetch_array($q)) {
@@ -146,6 +154,7 @@
                                                         }
                                                     }
                                                 }
+                                            }
 					}
 				}
 			} else {
