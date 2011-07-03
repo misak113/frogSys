@@ -1,6 +1,6 @@
 <div id="body">
     <?php writeStaticSloupec(); ?>
-    <?php if (@$_SESSION['auth'] > 0) { ?>
+    <?php if (is_logged_in()) { ?>
     <div id="loading">
         <img src="<?php echo URL; ?>frogSys/images/design/loading.gif" alt="loading" />
 				Načítání

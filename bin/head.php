@@ -3,7 +3,7 @@
 <meta name="keywords" content="<?php echo $keywords.", ".$title; ?>" />
 <meta name="author" content="Michael Žabka" />
 <meta name="robots" content="index, follow" />
-<?php if (@$_SESSION['auth'] > 0) { ?>
+<?php if (is_logged_in()) { ?>
 <meta name="RS" content="frogSys" />
 <meta name="version" content="<?php include PATH."/frogSys/version.txt"; ?>"
 <meta name="copyright" content="2011, Avantcore media" />
@@ -12,7 +12,7 @@
     <?php
     echo strip_tags($title);
     echo $titulek;
-    if (@$_SESSION['auth'] > 0) { echo " - Redakční systém frogSys"; }
+    if (is_logged_in()) { echo " - Redakční systém frogSys"; }
     ?>
 </title>
 <link rel="shortcut icon" href="<?php echo URL; ?>favicon.ico" />
@@ -47,6 +47,6 @@
         '#fil: css/head.css'
     );
 
-    loadCss($load_css, "frogSys/", @$_SESSION['auth'] > 0, URL, PATH);
-    loadJs($load_js, "frogSys/", @$_SESSION['auth'] > 0, URL, PATH);
+    loadCss($load_css, "frogSys/", is_logged_in(), URL, PATH);
+    loadJs($load_js, "frogSys/", is_logged_in(), URL, PATH);
 ?>

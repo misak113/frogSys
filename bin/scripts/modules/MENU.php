@@ -22,7 +22,7 @@
                                         $aktual = " class=\"aktual\"";
                                     }
                                 
-			if (!isset($_SESSION['auth']) || @$_SESSION['auth'] == 0) {
+			if (!is_logged_in()) {
 				?>
                             <a href="<?php echo URL; ?><?php echo $menu_link; ?>/<?php echo $res2['link']; ?>/" <?php echo $aktual; ?>>
 				<?php
@@ -36,14 +36,14 @@
 					&gt; <?php echo $res2['name']; ?>
 				</a>
 				<?php
-				if (@$_SESSION['auth'] > 0) {
+				if (is_logged_in()) {
 					writeEditPane("Menu_in", $res2['id'].", ".$page_part, "EDM");
 				}
 				?>
 			</div>
 		<?php
 		}
-		if (@$_SESSION['auth'] > 0) {
+		if (is_logged_in()) {
 		?>
 			<a href="javascript: addMenu_in(<?php echo $page_part; ?>);"><img src="<?php echo URL; ?>frogSys/images/icons/add.png" alt="add" class="add_menu_in"></a>
 		<?php
@@ -54,7 +54,7 @@
 
                 writeHtmlEditArea($page_part, "");
 
-		/*if ($hr == false && @$_SESSION['auth'] > 0) {
+		/*if ($hr == false && is_logged_in()) {
 			writeZmenaTypu($page_part);
 		} */
 	}

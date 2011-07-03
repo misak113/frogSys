@@ -8,12 +8,12 @@ function writeNovinkySouhrne($page_part) {
 
     writeHtmlEditArea($page_part, '<h2>Novinky</h2>');
 
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         echo '<a href="javascript: ;" onclick="addNovinka(' . $page_part . ', this);"><img src="' . URL . 'frogSys/images/icons/add.png" alt="add" class="add_novinka" /></a>';
     }
     $unlogged = "AND `visible` = 1";
     $unlogged2 = "LIMIT " . ($count_on_page * @$_GET['str']) . ", $count_on_page";
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         $unlogged = "";
         $unlogged2 = "";
     }
@@ -38,7 +38,7 @@ function writeNovinkySouhrne($page_part) {
         $text = substr(strip_html_tags($res['text']), 0, 600);
         if ($text != strip_html_tags($res['text'])) {
             $text = substr($text, 0, strrpos($text, " "))." ";
-            if (@$_SESSION['auth'] > 0) {
+            if (is_logged_in()) {
                 $text .= '<a href="javascript: loadNovinka('.$page_part.', '.$res['id'].', \''.$menulink.'/'.$res['link'].'\');">';
             } else {
                 $text .= '<a href="'.URL.$menulink.'/'.$res['link'].'/" title="'.$res['nazev'].'">';
@@ -54,7 +54,7 @@ function writeNovinkySouhrne($page_part) {
         echo '
             <div class="novinka" id="novinka_'.$res['id'].'" style="'.$style.'">
                 <h3 class="nazev">';
-        if (@$_SESSION['auth'] > 0) {
+        if (is_logged_in()) {
             echo '<a href="javascript: loadNovinka('.$page_part.', '.$res['id'].', \''.$menulink.'/'.$res['link'].'\');">';
         } else {
             echo '<a href="'.URL.$menulink.'/'.$res['link'].'/" title="'.$res['nazev'].'">';
@@ -65,14 +65,14 @@ function writeNovinkySouhrne($page_part) {
                 </h3>
                 <div class="datum">'.$date.'</div>
                 <div class="text">'.$text.'</div>';
-        if (@$_SESSION['auth'] > 0) {
+        if (is_logged_in()) {
             writeEditPane("Novinka", $res['parent'].", ".$res['id'].", this", ($res['visible'] == 1?"Č":"C")."D");
         }
         echo '
             </div>';
     }
 
-    if (!(@$_SESSION['auth'] > 0)) {
+    if (!(is_logged_in())) {
         $menulink = getMenuLink($page_part);
         $str = isset($_GET['str'])?$_GET['str']:0;
 

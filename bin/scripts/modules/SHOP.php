@@ -1,6 +1,7 @@
 
 <?php
 	function writeShop($page_part) {
+            global $_SETING;
 		?>
 		<div class="shop_menu" id="shop_menu_<?php echo $page_part; ?>">
 		<?php
@@ -57,7 +58,7 @@
                     <a href="javascript: setShopZobrazeni(\'table\');">Tabulka</a>,
                     <a href="javascript: setShopZobrazeni(\'item\');">Mřížka</a></div>';
                 $zobraz = "item";
-                if (@$_SESSION['auth'] > 0) {
+                if (is_logged_in()) {
                     $zobraz = "table";
                 }
 		if ($shop_id == 0) {
@@ -72,7 +73,7 @@
 				$filter = "`parent` = $shop_id";
 			}
 			$filter = "(".$filter.")";
-			if (!(@$_SESSION['auth'] > 0)) {
+			if (!(is_logged_in())) {
 				$filter .= " AND `show` = 1";
 			}
 			$sql = "SELECT * FROM `shop` WHERE $filter ORDER BY `order`";
@@ -83,7 +84,7 @@
 						$style = " style=\"background-color: #D3D3D3;\"";
 					}
 					echo "<div id=\"shop_produkt_item_".$res['id']."\" class=\"shop_$zobraz\"$style>";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
                                             $ch = "C";
                                             if ($res['show'] == 1) {
                                                 $ch = "Č";
@@ -94,7 +95,7 @@
 					while ($file1 = $dir->read()) {
 						$find = preg_replace('/'.$res['id'].'\.0\.jpg/', '$founded$', $file1);
 						if (strstr($find, '$founded$')) {
-                                                        if (@$_SESSION['auth'] > 0) {
+                                                        if (is_logged_in()) {
                                                             echo "<a href=\"javascript: loadShopProdukt(".$page_part.", ".$res['id'].");\">";
                                                         } else {
                                                             echo "<a href=\"".URL.$menulink."/".$res['link']."/\">";
@@ -115,7 +116,7 @@
                                         echo '<img src="'.URL.'frogSys/images/icons/'.$img.'" class="skladem_img" alt="'.$alt.'" title="'.$res['skladem'].'" />';
                                         echo '</div>';
 					echo "<div class=\"nazev\">";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<a href=\"javascript: loadShopProdukt(".$page_part.", ".$res['id'].", '".$menulink."/".$res['link']."');\">";
 					} else {
 						echo "<a href=\"".URL.$menulink."/".$res['link']."/\">";
@@ -134,7 +135,7 @@
 					echo "</div>";
 				}
 			}
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				if (!$shop_id) {
 					$shop_id = 0;
 				}
@@ -147,7 +148,7 @@
 	function writeShopMenu($page_part) {
 			$menulink = getMenuLink($page_part);
 			echo "<div class=\"shop_menu_item\">";
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				echo "<span class=\"btn-left show_all\"></span><span class=\"btn-right show_all\"><a href=\"javascript: loadShopCategory(".$page_part.", 0, '".$menulink."');\">";
 			} else {
 				echo "<span class=\"btn-left show_all\"></span><span class=\"btn-right show_all\"><a href=\"".URL.$menulink."/\">";
@@ -159,7 +160,7 @@
 			while ($res = mysql_fetch_array($q)) {
 				$isEmpty = false;
 				echo "<div class=\"shop_menu_item\" id=\"shop_menu_item_".$res['id']."\">";
-				if (@$_SESSION['auth'] > 0) {
+				if (is_logged_in()) {
 					writeEditPane("Shop_menu", $res['id'].", ".$page_part, "DEM");
 					echo "<span class=\"btn-left\"></span><span class=\"btn-right\"><a href=\"javascript: loadShopCategory(".$page_part.", ".$res['id'].", '".$menulink."/".$res['link']."');\">";
 				} else {
@@ -167,7 +168,7 @@
 				}
 				echo $res['nazev']."</a></span></div>";
 			}
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 			?>
 				<a href="javascript: addShop_menu(<?php echo $page_part; ?>);"><img src="<?php echo URL; ?>frogSys/images/icons/add.png" alt="add" class="add_shop_menu" /></a>
 			<?php
@@ -188,15 +189,15 @@
 					echo "<div class=\"shop_produkt\">";
 
 					echo "<div class=\"nazev\" id=\"nazev_".$res['id']."\">";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						writeEditPane("Shop_produkt_nazev", $res['id'], "E");
 					}
 					echo "<h1 id=\"nazev_text_".$res['id']."\">".$res['nazev']."</h1></div>";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<div id=\"link_".$res['id']."\">Link: <span id=\"link_text_".$res['id']."\">".$res['link']."</span></div>";
 					}
 					echo "<div class=\"ceny\" id=\"shop_ceny_".$res['id']."\">";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						writeEditPane("Shop_produkt_cena", $res['id'], "E");
 					}
 					echo "<div class=\"cena_bez\"><span id=\"shop_cena_".$res['id']."\">".round($res['cena'])."</span> Kč <span class=\"sdph\">bez DPH</span></div>";
@@ -215,7 +216,7 @@
 					<?php
 					echo "</div>";
 					echo "<div class=\"skladem\">";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						writeEditPane("Shop_produkt_skladem", $res['id'], "E");
 					}
 					echo "Skladem: ";
@@ -226,7 +227,7 @@
                                             $alt = "YES";
                                         }
                                         echo '<img src="'.URL.'frogSys/images/icons/'.$img.'" class="skladem_img" alt="'.$alt.'" title="'.$res['skladem'].'" />';
-                                        if (@$_SESSION['auth'] > 0) {
+                                        if (is_logged_in()) {
                                             echo " <span class=\"normal\" id=\"shop_skladem_".$res['id']."\">".$res['skladem']."</span>";
                                         }
                                         echo '</div>';
@@ -240,46 +241,46 @@
 							break;
 						}
 					}
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<hr />";
 					}
 
                                         echo "<h2>Krátký popis</h2><div class=\"anotace\" id=\"anotace_".$res['id']."\">";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						writeEditPane("Shop_produkt_anotace", $res['id'], "E");
 					}
 					echo "".$res['anot']."</div><hr />";
 
 					echo "<h2>Dlouhý popis</h2><div class=\"popis\" id=\"popis_".$res['id']."\">";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						writeEditPane("Shop_produkt_popis", $res['id'], "E");
 					}
 					echo "".$res['popis']."</div>";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<hr />";
 					}
 
 					echo "<div class=\"vyrobce\" id=\"vyrobce_".$res['id']."\">";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						writeEditPane("Shop_produkt_vyrobce", $res['id'], "E");
 					}
 					echo "Výrobce: <span class=\"underline\" id=\"shop_vyrobce_".$res['id']."\">".$res['vyrobce']."</span></div>";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<hr />";
 					}
 
 					echo "<div class=\"code\">";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						writeEditPane("Shop_produkt_code", $res['id'], "E");
 					}
 
 					echo "kód: <span class=\"normal\" id=\"shop_code_".$res['id']."\">".$res['code']."</span></div>";
 
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						//writeEditPane("Shop_produkt", $res['id'], "D");
 					}
 
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<hr />";
 					}
 
@@ -292,14 +293,14 @@
 						$find = preg_replace('/'.$res['id'].'\.([1-9][0-9]*)\.jpg/', '$founded$', $file);
 						if (strstr($find, '$founded$')) {
 							echo "<div class=\"image_a_href\">";
-							if (@$_SESSION['auth'] > 0) {
+							if (is_logged_in()) {
 								writeEditPane("Shop_image", "'".$file."'", "DR");
 							}
 							echo "<a href=\"".URL."userfiles/shop/".$file."?rand=".mt_rand(1000,9999)."\" rel=\"lightbox[roadtrip]\" title=\"Obrázek produktu\">";
 							echo "<img src=\"".URL."userfiles/shop/".$file."?rand=".mt_rand(1000,9999)."\" class=\"image_next\" alt=\"".$res['nazev']."\" title=\"".$res['nazev']."\" /></a></div>";
 						}
 					}
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
                                             echo '
 			<a href="javascript: addShop_image('.$page_part.', '.$id.');">
 				<img src="'.URL.'frogSys/images/icons/addImages.png" alt="Vložit obrázky" />
@@ -335,17 +336,17 @@
                                             ';
 					}
 					echo "</div>";
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<hr />";
 					}
 
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<div class=\"je_videt\">Je vidět: <input type=\"checkbox\" onchange=\"setShowProdukt(".$res['id'].", this);\"";
 						if ($res['show'] == 1) {
 							echo " checked";
 						}
 						echo "></div>";
-						if (@$_SESSION['auth'] > 0) {
+						if (is_logged_in()) {
 							echo "<hr />";
 						}
 
@@ -356,7 +357,7 @@
 						echo "></div>";
 
 
-						if (@$_SESSION['auth'] > 0) {
+						if (is_logged_in()) {
 							echo "<hr />";
 						}
 
@@ -402,7 +403,7 @@
 
 					echo "</div>";
 
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						echo "<hr />";
 
 						echo '

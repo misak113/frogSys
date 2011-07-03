@@ -8,7 +8,7 @@
 			$res3 = mysql_fetch_array($q3);
 			$css = $res3['css'];
 			echo "<div id=\"patka_in\" style=\"".$css."\">";
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				writeEditPane("Patka", "", "E");
 			}
 			echo "".$res['content']."";

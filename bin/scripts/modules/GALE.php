@@ -10,11 +10,11 @@
 		$sql = "SELECT * FROM `html` WHERE `parent` = ".$page_part."";
 		$q = mysql_query($sql);
 		if ($res = mysql_fetch_array($q)) {
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				$zobraz = "style=\"min-height: 20px; width: 100%;\"";
 			}
 			echo "<div id=\"content_in_".$res['id']."\" $zobraz>";
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				writeEditPane("GalerieHtml", $res['id'].", ".$page_part, "E");
 			}
 			echo $res['content']."</div>";	
@@ -60,12 +60,12 @@
 		$sql = "SELECT * FROM `galerie` WHERE `parent` = $page_part ORDER BY `order`";
 		$q = mysql_query($sql);
 		while ($res = mysql_fetch_array($q)) {
-			if ($res['show'] == 1 || @$_SESSION['auth'] > 0) {
+			if ($res['show'] == 1 || is_logged_in()) {
 				echo '
 				
 				<div class="galerie" id="galerie_image_div_'.$res['id'].'">';
                                 $trans = "";
-				if (@$_SESSION['auth'] > 0) {
+				if (is_logged_in()) {
 					if ($res['show'] == 0) {
 						$check = "C";
 						$trans = "style=\"opacity: 0.3; -moz-opacity: 0.3;\"";
@@ -79,7 +79,7 @@
 						<img '.$trans.' src="'.URL.'userfiles/galerie/thumbs/'.$res['id'].'.'.$res['name'].'" alt="'.$res['title'].'" title="'.$res['title'].'" id="image_'.$res['id'].'" class="galerie" />
 					</a>
 					';
-				if (@$_SESSION['auth'] > 0) {
+				if (is_logged_in()) {
 					echo '
 						<input type="text" id="galerie_image_'.$res['id'].'" class="popisek" name="title" value="'.$res['title'].'" onblur="saveGalerie('.$res['id'].');" />
 					';

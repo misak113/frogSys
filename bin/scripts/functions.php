@@ -3,6 +3,16 @@
 $tyden = array("Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota");
 $rok = array("leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec");
 
+function is_logged_in($priv = array(1, 2)) {
+    $auth = isset($_SESSION['auth'])?$_SESSION['auth']:0;
+    if (in_array($auth, $priv)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 function createLink($name) {
     $name = strtolower($name);
     $co = array("ě", "ř", "ť", "š", "ď", "č", "ň", "é", "ú", "í", "ó", "á", "ý", "ů", "ž"," ","Ě", "Ř", "Ť", "Š", "Ď", "Č", "Ň", "É", "Ú", "Í", "Ó", "Á", "Ý", "Ů", "Ž");

@@ -105,7 +105,7 @@
 					if (isset($page[2+$str_link])) {
                                             $sql = "SELECT * FROM `menu_in` WHERE `link` = '" . $page[2 + $str_link] . "'";
                                             $q = mysql_query($sql);
-                                            if ($res = mysql_fetch_array($q)) {
+                                            if (($res = mysql_fetch_array($q)) && $page[0] != $_SETING['statistics']) {
                                                 //if ($res['parent'] == $pageId) {   
                                                 $title = $res['name'] . " - " . $title;
                                                 $pageId2[$res['target']] = $res['href'];
