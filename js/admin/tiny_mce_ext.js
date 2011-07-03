@@ -95,7 +95,7 @@ function loadTinyMCE(id) {
             '<tr class="text" title="">'+
             '    <th width="20%">Zpráva:<span class="required">*</span></th>'+
             '    <td align="left">'+
-            '    <textarea id="text_'+id+'" cols="30" rows="5"></textarea>                </td>'+
+            '    <input id="text_'+id+'" />                </td>'+
             '</tr>'+
             '<tr>'+
             '    <td colspan="2" align="right" class="submit">'+
