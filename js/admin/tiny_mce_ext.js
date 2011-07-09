@@ -15,6 +15,8 @@ function loadTinyMCE(id) {
 			elements: id, 
 			theme : "advanced", 
 			entity_encoding : "raw",
+                        doctype : "<!DOCTYPE html>",
+                        verify_html: true,
                         relative_urls : false,
                         remove_script_host : true,
                         apply_source_formatting : true,

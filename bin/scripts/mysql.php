@@ -1,7 +1,7 @@
 <?php
 
         $chyba = "Nastala chyba při komunikaci s databází.";
-	mysql_connect(DB_SERV, DB_USER, DB_PASS) or die($chyba);
+	mysql_pconnect(DB_SERV, DB_USER, DB_PASS) or die($chyba);
 	mysql_select_db(DB_NAME) or die($chyba);
 	mysql_query('SET CHARACTER SET utf8');
 
