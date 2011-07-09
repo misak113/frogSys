@@ -326,6 +326,19 @@ function strip_no_a_html_tags($text) {
     return $t;
 }
 
+function get_first_img_tag($text) {
+    //$t = preg_match('~<img.+src=".*".*/? >~', $text);
+    $start = strpos($text, '<img ');
+    $ex = explode("<img ", $text);
+    if (isset($ex[1])) {
+        $len = strpos($ex[1], '>');
+        $ret = substr($text, $start, $len+6);
+        return $ret;
+    } else {
+        return "";
+    }
+}
+
 
 /**
  * Naloaduje css styly a vypíše

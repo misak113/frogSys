@@ -36,7 +36,10 @@
     <div id="copyright_center">
         <div id="copyright_left">
             <?php
-            readfile("http://www.avantcore.cz/frogSys/bin/copyright.php");
+            if (!@readfile("http://www.avantcore.cz/frogSys/bin/copyright.php")) {
+                include PATH."/frogSys/bin/copyright.php";
+                echo "<span style=\"padding: 4px;\">offline</span>";
+            }
             ?>
         </div>
         <div id="copyright_right">

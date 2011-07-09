@@ -70,12 +70,13 @@ function writeNovinky($page_part) {
         } else {
             echo '<a href="'.URL.$menulink.'/'.$res['link'].'/" title="'.$res['nazev'].'">';
         }
+        $img = get_first_img_tag($res['text']);
         echo '
                     '.$res['nazev'].'
                     </a>
                 </h3>
                 <div class="datum">'.$date.'</div>
-                <div class="text">'.$text.'</div>';
+                <div class="text">'.$img.$text.'</div>';
         if (is_logged_in()) {
             writeEditPane("Novinka", $res['parent'].", ".$res['id'].", this", ($res['visible'] == 1?"Č":"C")."D");
         }

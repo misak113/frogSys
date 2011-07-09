@@ -85,8 +85,11 @@ if ($_POST['action'] == "edit") {
         </td>
     </tr>
     <tr>
-        <td colspan="2">
+        <td>
             <input type="button" value="uložit" class="window_button" onclick="savePlan_akci(<?php echo $res['id']; ?>);">
+        </td>
+        <td>
+            <input type="button" value="kopírovat" class="window_button" onclick="copyPlan_akci(<?php echo $res['id']; ?>);">
         </td>
     </tr>
 </table>
