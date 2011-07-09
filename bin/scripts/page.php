@@ -12,10 +12,16 @@ function writePage($pageId, $pageId2) {
             $sirka = 0;
         }
         $sirka += $res['width'];
+        $width = $res['width']/100*$sirkaSloupce-4;
         if ($vr == true) {
             if (is_logged_in()) {
                 ?>
-<div class="vr" onmousedown="startPageResize(event, <?php echo $prevId; ?>, <?php echo $res['id']; ?>);" style="cursor: e-resize; display: block;">&nbsp;</div>
+<div class="vr" onmousedown="startPageResize(event, <?php echo $prevId; ?>, <?php echo $res['id']; ?>, this);" style="cursor: e-resize; display: block;"
+     onmouseout="changeOpacity('info_width_<?php echo $res['id']; ?>', 0.01);"
+     onmouseover="changeOpacity('info_width_<?php echo $res['id']; ?>', 1);">
+    &nbsp;
+    <div class="info_width" style="display: none;" id="info_width_<?php echo $res['id']; ?>"><?php echo round($width); ?>px</div>
+</div>
             <?php
             } else {
                 ?>
@@ -27,7 +33,7 @@ function writePage($pageId, $pageId2) {
         }
         $prevId = $res['id'];
         $vr = true;
-        $width = $res['width']/100*$sirkaSloupce-4;
+        
         ?>
 <div id="content_about_<?php echo $res['id']; ?>" class="content" onmousedown="aktualClickPart = <?php echo $res['id']; ?>;" style="width: <?php echo $width; ?>px;">
             <?php

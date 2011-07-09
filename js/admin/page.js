@@ -9,7 +9,8 @@ function initPage() {
 }
 
 var resizePage, leftRes, rightRes, startXRes, startLeftWidth, startRightWidth, leftFinalWidth;
-function startPageResize(event, left, right) {
+function startPageResize(event, left, right, el) {
+    el.setAttribute("onmouseout", "");
 	resizePage = true;
 	leftRes = left;
 	rightRes = right;
@@ -40,6 +41,7 @@ function obrysMouseDragPage(event) {
 			var rightFinalWidth = startRightWidth+delta;
 			document.getElementById("content_about_"+leftRes).style.width = leftFinalWidth+"px";
 			document.getElementById("content_about_"+rightRes).style.width = rightFinalWidth+"px";
+                        document.getElementById("info_width_"+rightRes).innerHTML = rightFinalWidth+"px";
 		}
 	}
 

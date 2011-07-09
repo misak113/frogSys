@@ -72,7 +72,7 @@ a {
 	min-height: 100px;
         height: 90%;
 	float: left;
-	overflow: hidden;
+	overflow: visible !important;
 	background: url('../../../frogSys/images/html/vr.png') no-repeat center top;
 	display:none;
 }
