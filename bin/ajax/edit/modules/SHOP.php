@@ -580,7 +580,7 @@ if ($_POST['action'] == "set_dph") {
 if (@$_GET['action'] == "add_images") {
     require_once "../../../../../config/database.php";
     include "../../../../bin/scripts.php";
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         //
         //	specify file parameter name
         $file_param_name = 'file';

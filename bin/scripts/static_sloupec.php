@@ -11,7 +11,7 @@ function writeStaticSloupec() {
         ?>
 <div id="content_about_<?php echo $res['id']; ?>" class="content_static"
      <?php
-     if (@$_SESSION['auth'] > 0) {
+     if (is_logged_in()) {
      echo 'onmouseover="showStaticEditPole(this, 1);"
      onmouseout="showStaticEditPole(this, 0);"';
      }
@@ -23,7 +23,7 @@ function writeStaticSloupec() {
             } else {
                 $page_part = $pageId2[$res['id']];
             }
-            if (@$_SESSION['auth'] > 0) {
+            if (is_logged_in()) {
                 ?>
     <div class="edit_pole" id="edit_pole_<?php echo $res['id']; ?>" style="width: 100%; display: none;">
         <p>editace sloupce</p>

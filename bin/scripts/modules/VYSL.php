@@ -17,7 +17,7 @@ function writeNohejbalHead($page_part) {
         $set_id = '`id_souteze`';
     }
 
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         ?>
         <span>Vyberte soutěž pro aktuální výsledky: </span>
         <select name="soutez" onchange="changeSoutezVysledky(this, <?php echo $page_part; ?>)">
@@ -53,7 +53,7 @@ function writeNohejbalHead($page_part) {
     ?>
     <h1 id="nazev_soutez"><?php
     echo $nazev;
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         writeEditPane("Soutez", $set_id, "ED");
     }
     ?></h1>
@@ -91,7 +91,7 @@ function writeVysledky($page_part) {
     </a>
     <?php
     echo '<div class="vysledky_neodehrane_all">';
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         echo '<a href="javascript: editKolo(\'new\', ' . $set_id . ');"><img src="' . URL . 'frogSys/images/modules/VYSL/add_kolo.png" alt="přidat kolo" onmouseover="showInfo(event, \'Přidat další kolo\', this);" /></a>';
     }
     while ($kolo = mysql_fetch_array($q)) {
@@ -102,7 +102,7 @@ function writeVysledky($page_part) {
         <div class="vysledky_kolo">
             <h2><?php echo $kolo['poradi'] . ". kolo - " . $kolo['nazev']; ?></h2>
             <span><?php
-        if (@$_SESSION['auth'] > 0) {
+        if (is_logged_in()) {
             writeEditPane("Kolo", $kolo['id_kola'], "ED");
         }
 
@@ -128,7 +128,7 @@ function writeVysledky($page_part) {
                             mb_substr($tyden[date("w", $datum)], 0, 2, 'UTF-8').' '.date("G:i", $datum).'</span>';
                     //echo $tyden[date("w", $datum)] . " " . date("j. n. Y, G:i", $datum);
                     ?><?php
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         if ($utkani['overeno'] == "1") {
                             $check = "Č";
                         } else {
@@ -177,7 +177,7 @@ USING (`id_zapasu`) order by `id_zapasu`
                             $hoste++;
                         }
                     }
-                    if ($utkani['overeno'] == 0 && !(@$_SESSION['auth'] > 0)) {
+                    if ($utkani['overeno'] == 0 && !(is_logged_in())) {
                         echo '<input onkeyup="kontrolovatVysledekUtkani('.$utkani['id_utkani'].')" id="utkani_vysledek_skore_domaci_'.$utkani['id_utkani'].'" value="'.$domaci.'" /> : 
                             <input onkeyup="kontrolovatVysledekUtkani('.$utkani['id_utkani'].')" id="utkani_vysledek_skore_hoste_'.$utkani['id_utkani'].'" value="'.$hoste.'" />
                             <a href="javascript: ulozitVysledekUtkani('.$utkani['id_utkani'].');">    
@@ -205,7 +205,7 @@ USING (`id_zapasu`) order by `id_zapasu`
                     <?php
                 }
 
-                if (@$_SESSION['auth'] > 0) {
+                if (is_logged_in()) {
                     echo '<a href="javascript: editUtkani(\'new\', ' . $kolo['id_kola'] . ');"><img src="' . URL . 'frogSys/images/modules/VYSL/add_utkani.png" alt="přidat utkání" onmouseover="showInfo(event, \'Přidat další utkání do tohoto kola\', this);" /></a>';
                 }
                 ?>
@@ -230,7 +230,7 @@ function writeVysledkyZapasy($utkani) {
                 <th class="sety">Sety</th>
                 <th class="stav">Stav</th>
                 <?php
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         echo '<th>Smazat</th>';
                     }
                 ?>
@@ -246,11 +246,11 @@ function writeVysledkyZapasy($utkani) {
                 ?>
                 <tr class="vysledky_zapas">
                     <td id="vysledky_zapas_<?php echo $zapas['id_zapasu']; ?>"><?php 
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         echo '<input type="text" class="zapas_typ" id="zapas_typ_'.$zapas['id_zapasu'].'" value="';
                     }
                     echo $zapas['typ'];
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         echo '" />';
                     }
                     ?></td>
@@ -273,7 +273,7 @@ function writeVysledkyZapasy($utkani) {
                 $sql = "SELECT * FROM `vysledky_hrac_hraje` JOIN `vysledky_hrac` USING (`id_hrace`) WHERE `id_zapasu` = " . $zapas['id_zapasu'] . " AND `typ` = 'D'";
                 $q4 = mysql_query($sql);
                 while ($hrac = mysql_fetch_array($q4)) {
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         echo '<select 
                             onchange="changeHrac(this);"
                             class="select_hrac"
@@ -288,7 +288,7 @@ function writeVysledkyZapasy($utkani) {
                         echo '<a href="' . URL.$statistics . '/' . $hrac['link'] . '/">' . $short_name . "</a>, ";
                     }
                 }
-                if (@$_SESSION['auth'] > 0) {
+                if (is_logged_in()) {
                     $opt = $options;
                     echo '<select
                         onchange="changeHrac(this);"
@@ -318,7 +318,7 @@ function writeVysledkyZapasy($utkani) {
                 $sql = "SELECT * FROM `vysledky_hrac_hraje` JOIN `vysledky_hrac` USING (`id_hrace`) WHERE `id_zapasu` = " . $zapas['id_zapasu'] . " AND `typ` = 'H'";
                 $q4 = mysql_query($sql);
                 while ($hrac = mysql_fetch_array($q4)) {
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         echo '<select
                             onchange="changeHrac(this);"
                             class="select_hrac"
@@ -333,7 +333,7 @@ function writeVysledkyZapasy($utkani) {
                         echo '<a href="' . URL.$statistics . '/' . $hrac['link'] . '/">' . $short_name . "</a>, ";
                     }
                 }
-                if (@$_SESSION['auth'] > 0) {
+                if (is_logged_in()) {
                     $opt = $options;
                     echo '<select
                         onchange="changeHrac(this);"
@@ -355,7 +355,7 @@ function writeVysledkyZapasy($utkani) {
                     for ($i = 0; $i < 3; $i++) {
                         $vysledek = mysql_fetch_array($q4);
                         echo "<td class=\"vysledky_vysledek_bunka\" id=\"vysledky_zapas_vysledek".$i."_".$zapas['id_zapasu']."\">";
-                        if (@$_SESSION['auth'] > 0) {
+                        if (is_logged_in()) {
                             if ($vysledek) {
                                 echo '<input onkeyup="prepocitejZapasy('.$utkani['id_utkani'].');" class="vysledky_vysledek" type="text" value="'.$vysledek['domaci'].'" id="vysledky_zapas_0_'.$zapas['id_zapasu'].'_'.$vysledek['id_vysledku'].'" /> 
                                     : 
@@ -406,7 +406,7 @@ function writeVysledkyZapasy($utkani) {
                     </td>
                     
                     <?php
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         echo '<td><input type="checkbox" class="zapas_smazat" id="zapas_smazat_'.$zapas['id_zapasu'].'" onchange="deleteZapas('.$utkani['id_utkani'].', '.$zapas['id_zapasu'].')" /></td>';
                     }
                     ?>
@@ -416,7 +416,7 @@ function writeVysledkyZapasy($utkani) {
             if ($poradi_zapasu == 0) {
                 echo "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
             }
-            if (@$_SESSION['auth'] > 0) {
+            if (is_logged_in()) {
                 
                 echo '<tr><td colspan="5">
                         Kolik zápasů přidat: <input type="text" value="1" id="pocet_zapasu_' . $utkani['id_utkani'] . '" />
@@ -438,11 +438,11 @@ function writeVysledkyZapasy($utkani) {
     <div class="vysledky_ostatni">
         <div class="vysledky_item">Počet diváků: <div class="vysledky_divaci" id="vysledky_divaci_<?php echo $utkani['id_utkani']; ?>">
         <?php 
-        if (@$_SESSION['auth'] > 0) {
+        if (is_logged_in()) {
                         echo '<input type="text" class="utkani_divaci" id="utkani_divaci_'.$utkani['id_utkani'].'" value="';
                     }
                     echo $utkani['divaci']; 
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         echo '" />';
                     }
         ?>

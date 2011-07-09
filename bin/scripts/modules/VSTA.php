@@ -5,6 +5,7 @@
  */
 
 function writeStatistiky($page_part) {
+    global $_SETING;
     include PATH."/frogSys/bin/load_pages_id.php";
     
     if (isset($profile) && isset($profile_id)) {

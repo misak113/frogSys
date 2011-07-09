@@ -13,7 +13,7 @@ function writePage($pageId, $pageId2) {
         }
         $sirka += $res['width'];
         if ($vr == true) {
-            if (@$_SESSION['auth'] > 0) {
+            if (is_logged_in()) {
                 ?>
 <div class="vr" onmousedown="startPageResize(event, <?php echo $prevId; ?>, <?php echo $res['id']; ?>);" style="cursor: e-resize; display: block;">&nbsp;</div>
             <?php
@@ -36,7 +36,7 @@ function writePage($pageId, $pageId2) {
             } else {
                 $page_part = $pageId2[$res['id']];
             }
-            if (@$_SESSION['auth'] > 0) {
+            if (is_logged_in()) {
                 ?>
     <div class="edit_pole" id="edit_pole_<?php echo $res['id']; ?>" style="width: 100%;">
         <p>editace sloupce</p>
@@ -67,13 +67,13 @@ function writePage($pageId, $pageId2) {
     }
     echo "</div>";
     if ($vr == false) {
-        if (@$_SESSION['auth'] > 0) {
+        if (is_logged_in()) {
             echo "<p>Rozvržení stránky není definováno.</p><p>Kliknutím na ikonu vložení sloupce vložíte sloupec.</p>";
         } else {
             echo "<p>Stránka nenalezena</p>";
         }
     }
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         ?>
 
 <hr />
@@ -110,7 +110,7 @@ function writeHtmlEditArea($page_part, $defalt_value) {
         mysql_query($sql);
         echo $defalt_value;
     }
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         writeEditPane("Html", $id_html.", ".$page_part, "E");
     }
     echo '</div>';

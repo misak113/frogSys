@@ -1,4 +1,4 @@
-<?php if (@$_SESSION['auth'] > 0) { ?>
+<?php if (is_logged_in()) { ?>
 <div id="admin_menu">
 
     <div id="admin_hlavni" class="admin_head" onmouseout="admin_menu['admin_hlavni'] = setTimeout('rozbal_menu(\'admin_hlavni\', 0)', 200);" onmouseover="clearTimeout(admin_menu['admin_hlavni']); rozbal_menu('admin_hlavni', 1);">
@@ -15,7 +15,7 @@
         <div class="menu_item" id="admin_odhlasit"><img src="<?php echo URL; ?>frogSys/images/icons/right1.png" alt="rozbalit" style="margin-right: 10px;" /><a href="javascript: odhlasit();">odhlásit</a></div>
     </div>
 
-    <?php if (@$_SESSION['auth'] == 1) { ?>
+    <?php if (is_logged_in(array(1))) { ?>
     <div id="admin_super" class="admin_head" onmouseout="admin_menu['admin_super'] = setTimeout('rozbal_menu(\'admin_super\', 0)', 200);" onmouseover="clearTimeout(admin_menu['admin_super']); rozbal_menu('admin_super', 1);">
         <div class="menu_item_head" id="admin_superi"><a class="menu_item_head" href="javascript: rozbal_menu('admin_super');">
             <img src="<?php echo URL; ?>frogSys/images/icons/down1.png" alt="rozbalit" style="margin-right: 10px;" align="middle" /> Super</a>

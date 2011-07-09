@@ -3,6 +3,16 @@
 $tyden = array("Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota");
 $rok = array("leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec");
 
+function is_logged_in($priv = array(1, 2)) {
+    $auth = isset($_SESSION['auth'])?$_SESSION['auth']:0;
+    if (in_array($auth, $priv)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 function createLink($name) {
     $name = strtolower($name);
     $co = array("ě", "ř", "ť", "š", "ď", "č", "ň", "é", "ú", "í", "ó", "á", "ý", "ů", "ž"," ","Ě", "Ř", "Ť", "Š", "Ď", "Č", "Ň", "É", "Ú", "Í", "Ó", "Á", "Ý", "Ů", "Ž");
@@ -314,6 +324,19 @@ function strip_no_a_html_tags($text) {
     $t = str_replace("#change#&lt;a #", "<a ", $t);
     $t = str_replace("#change#&lt;/a>#", "</a>", $t);
     return $t;
+}
+
+function get_first_img_tag($text) {
+    //$t = preg_match('~<img.+src=".*".*/? >~', $text);
+    $start = strpos($text, '<img ');
+    $ex = explode("<img ", $text);
+    if (isset($ex[1])) {
+        $len = strpos($ex[1], '>');
+        $ret = substr($text, $start, $len+6);
+        return $ret;
+    } else {
+        return "";
+    }
 }
 
 

@@ -7,7 +7,7 @@
                         $i = 0;
 			while ($res = mysql_fetch_array($q)) {
                             $i++;
-				if ($res['visible'] == 0 && @$_SESSION['auth'] == 0) {
+				if ($res['visible'] == 0 && !is_logged_in()) {
 					continue;
 				}
                                 
@@ -20,7 +20,7 @@
                                       onmouseover="clearTimeout(menuTimeout['menu_left_<?php echo $res['id']; ?>']); openMenuUser('menu_left_<?php echo $res['id']; ?>', 1);"
                                       onmouseout="menuTimeout['menu_left_<?php echo $res['id']; ?>'] = setTimeout('openMenuUser(\'menu_left_<?php echo $res['id']; ?>\', 0)', 200);">
 					 <?php
-							if (@$_SESSION['auth'] > 0) {
+							if (is_logged_in()) {
 							?>
 							<a class="head_menu_nazev" href="javascript: loadPage(<?php echo $res['id']; ?>, '<?php echo $res['link']; ?>');"<?php echo $hiden; ?>><?php echo $res['name']; ?></a>
 						    <?php
@@ -51,7 +51,7 @@
                                 </div>
 				<?php
 			}
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				?>
 				<a href="javascript: addMenu(0);"><img src="<?php echo URL; ?>frogSys/images/icons/addHeadMenu.png" alt="add" class="addHeadMenu" /></a>
 				<?php
@@ -68,7 +68,7 @@
 				$i = 0;
 				while ($res = mysql_fetch_array($q)) {
 					$i++;
-					if ($res['visible'] == 0 && @$_SESSION['auth'] == 0) {
+					if ($res['visible'] == 0 && !is_logged_in()) {
 						continue;
 					}
 					$hiden = "";
@@ -78,7 +78,7 @@
 					?>
 						<div class="menu_left_item" id="menu_item_<?php echo $res['id']; ?>">
 							<?php
-							if (@$_SESSION['auth'] > 0) {
+							if (is_logged_in()) {
 							?>
 							<a href="javascript: loadPage(<?php echo $res['id']; ?>, '<?php echo $parent_link; ?>/<?php echo $res['link']; ?>');"<?php echo $hiden; ?>><?php echo $res['name']; ?></a>
 						    <?php 
@@ -95,7 +95,7 @@
 					<?php
 				}
 		
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				?>
 				<a href="javascript: addMenu(<?php echo $id; ?>);"><img src="<?php echo URL; ?>frogSys/images/icons/add.png" alt="add" class="add" /></a>
 				<?php

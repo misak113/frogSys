@@ -1,6 +1,6 @@
 <div id="body">
     <?php writeStaticSloupec(); ?>
-    <?php if (@$_SESSION['auth'] > 0) { ?>
+    <?php if (is_logged_in()) { ?>
     <div id="loading">
         <img src="<?php echo URL; ?>frogSys/images/design/loading.gif" alt="loading" />
 				Načítání
@@ -36,7 +36,10 @@
     <div id="copyright_center">
         <div id="copyright_left">
             <?php
-            readfile("http://www.avantcore.cz/frogSys/bin/copyright.php");
+            if (!@readfile("http://www.avantcore.cz/frogSys/bin/copyright.php")) {
+                include PATH."/frogSys/bin/copyright.php";
+                echo "<span style=\"padding: 4px;\">offline</span>";
+            }
             ?>
         </div>
         <div id="copyright_right">

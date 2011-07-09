@@ -2,7 +2,7 @@
 
 if ($_POST['action'] == "get_soubory") {
     echo "<h1>soubory</h1>";
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         echo '
 			<a href="javascript: addFiles();">
 				<img src="'.URL.'frogSys/images/icons/add.png" alt="Vložit soubory" onmouseover="showInfo(event, \'Vložit soubory\', this);" />
@@ -150,7 +150,7 @@ if ($_POST['action'] == "select_file") {
 if (@$_GET['action'] == "add_files") {
     require_once "../../../../config/database.php";
     include "../../../bin/scripts.php";
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
     //
     //	specify file parameter name
         $file_param_name = 'file';

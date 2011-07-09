@@ -5,7 +5,7 @@
 	
 	include PATH."/frogSys/bin/ajax/edit/modules.php";
 	
-	if (@$_SESSION['auth'] == 1 || @$_SESSION['auth'] == 2) {
+	if (is_logged_in()) {
 		if ($_POST['predmet'] == "menu") {
 			include PATH."/frogSys/bin/ajax/edit/menu.php";
 		}

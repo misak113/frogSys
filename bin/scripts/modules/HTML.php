@@ -21,13 +21,13 @@
 				$css = "";
 			}
 			echo "<div id=\"content_in_".$res2['id']."\" class=\"content_in_id".$class."\" style=\"".$css."\">";
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				writeEditPane("Html", $res2['id'].", ".$page_part, "EDSM");
 			}
 			echo "".$res2['content']."";
 			echo "</div>";
 		} 
-		if (@$_SESSION['auth'] > 0) {
+		if (is_logged_in()) {
 			/*if ($isEmpty) {
 				writeZmenaTypu($page_part);
 			} */

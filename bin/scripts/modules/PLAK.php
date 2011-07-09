@@ -100,7 +100,7 @@ Jana Randaková';
             </a>
 
                     <?php
-                    if (@$_SESSION['auth'] > 0) {
+                    if (is_logged_in()) {
                         writeEditPane("Plan_akci", $res['id'], "EDU");
                     }
                     ?>
@@ -151,7 +151,7 @@ Jana Randaková';
             <tr><td><span class="polozky_akce">Přiložené soubory: </span></td><td id="plan_akci_soubory_<?php echo $res['id']; ?>">
                     
                     <?php
-                     if (@$_SESSION['auth'] > 0) {
+                     if (is_logged_in()) {
                                 ?>
                     <a href="javascript: selectFile(<?php echo $res['id']; ?>, 'PLAK');"><img src="<?php echo URL; ?>frogSys/images/icons/plus.png" onmouseover="showInfo(event, 'Přidat soubor', this)" alt="vybrat" /></a>
 <?php } ?>
@@ -194,7 +194,7 @@ Jana Randaková';
 </span>
 <span style="margin-left: 10px;">'.round($size, 1).' '.$mj.'B</span>
 ';
-                                if (@$_SESSION['auth'] > 0) {
+                                if (is_logged_in()) {
                                     writeEditPane("PlakSouborDatabase", $sou['id'], "D");
                                 }
                                 echo '</div>';
@@ -254,7 +254,7 @@ Jana Randaková';
                                 <input type="hidden" name="prihlasit_akce" value="<?php echo $res['id']; ?>">
                                 <div class="plak_outer_podminky" id="plak_outer_podminky_<?php echo $res['id'];?>">
                                             <?php
-                                            if (@$_SESSION['auth'] > 0) {
+                                            if (is_logged_in()) {
                                                 writeEditPane("PlanAkci_podminky", $res['id'], "E");
                                             }
                                             ?>
@@ -278,12 +278,12 @@ Jana Randaková';
         <?php
         $isEmpty = false;
     }
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         ?>
 <a href="javascript: addAkce(<?php echo $page_part; ?>);"><img src="<?php echo URL; ?>frogSys/images/icons/add.png" alt="add" class="add_menu_in"></a>
     <?php
     }
-		/*if ($isEmpty == true && @$_SESSION['auth'] > 0) {
+		/*if ($isEmpty == true && is_logged_in()) {
 			writeZmenaTypu($page_part);
 		} */
     ?>

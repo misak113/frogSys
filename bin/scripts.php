@@ -1,7 +1,8 @@
 <?php
 	session_start();
 
-        
+        include PATH."/frogSys/bin/scripts/functions.php";
+
 	include PATH."/frogSys/bin/scripts/mysql.php";
         
         include PATH."/frogSys/bin/users_loging.php";
@@ -18,8 +19,7 @@
 	
     include PATH."/frogSys/bin/scripts/patka.php";
 		
-    include PATH."/frogSys/bin/scripts/functions.php";
-
+    
     include PATH."/frogSys/bin/scripts/static_sloupec.php";
 
 	

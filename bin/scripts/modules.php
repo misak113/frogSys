@@ -18,7 +18,7 @@
 	
 	
 	function writePagePart($page_part, $pageId) {
-            if (@$_SESSION['auth'] > 0) {
+            if (is_logged_in()) {
                 echo "<div class=\"page_part_id\" id=\"page_part_".$page_part."\" style=\"display: none;\">".$page_part."</div>";
             }
 		$sql1 = "SELECT * FROM `page_parts` WHERE `id` = ".$page_part."";
@@ -71,7 +71,7 @@
 					writeNovinkySouhrne($page_part);
 					break;
 				default:
-					if (@$_SESSION['auth'] > 0) {
+					if (is_logged_in()) {
 						//writeZmenaTypu($page_part);
                                                 echo "<p>Nastavte typ stránky!</p>";
 					} else {
@@ -79,7 +79,7 @@
 					}
 			}
 		} else {
-			if (@$_SESSION['auth'] > 0) {
+			if (is_logged_in()) {
 				echo "<p>Výchozí stránku této části definujete v editaci sloupce kliknutím na ikonu editace.</p>";
 			} else {
 				echo "<p>Stránka nenalezena</p>";

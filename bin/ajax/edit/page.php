@@ -242,7 +242,7 @@ if ($_POST['action'] == "change_type_form") {
             $q = mysql_query($sql);
             if ($res = mysql_fetch_array($q)) {
                 $nosuper = "`zapnut` = 1 AND ";
-                if (@$_SESSION['auth'] == 1) {
+                if (is_logged_in(array(1))) {
                     $nosuper = "";
                 }
                 echo "<td class=\"modules\"><table><tr>";

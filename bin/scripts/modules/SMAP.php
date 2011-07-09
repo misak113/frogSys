@@ -25,7 +25,7 @@
 			$q2 = mysql_query($sql);
 			while ($res2 = mysql_fetch_array($q2)) {
 				echo "<li><a href=\"".URL.$res2['link']."/\">".$res2['name']."</a>\n";
-				if (@$_SESSION['auth'] > 0) {
+				if (is_logged_in()) {
 					echo "<div style=\"position: relative; width: 200px;\">";
 					writeEditPane("Menu", $res2['id'], "ED");
 					echo "</div>";
@@ -42,7 +42,7 @@
 							$q5 = mysql_query($sql);
 							while ($res5 = mysql_fetch_array($q5)) {
 								echo "<li><a href=\"".URL.$res2['link']."/".$res5['link']."/\">".$res5['name']."</a>\n";
-								if (@$_SESSION['auth'] > 0) {
+								if (is_logged_in()) {
 									echo "<div style=\"position: relative; width: 220px;\">";
 									writeEditPane("Menu_in", $res5['id'], "ED");
 									echo "</div>";
@@ -57,7 +57,7 @@
 							$q5 = mysql_query($sql);
 							while ($res5 = mysql_fetch_array($q5)) {
 								echo "<li><a href=\"".URL.$res2['link']."/".$res5['link']."/\">".$res5['nazev']."</a>\n";
-								if (@$_SESSION['auth'] > 0) {
+								if (is_logged_in()) {
 									echo "<div style=\"position: relative; width: 220px;\">";
 									writeEditPane("Shop_menu", $res5['id'], "ED");
 									echo "</div>";
@@ -79,7 +79,7 @@
 			echo "	</ul>\n</li>\n";
 		}
 		echo "</ul>\n";
-		/*if (@$_SESSION['auth'] > 0) {
+		/*if (is_logged_in()) {
 			writeZmenaTypu($page_part);
 		} */
 	}

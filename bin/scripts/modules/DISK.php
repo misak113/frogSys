@@ -20,7 +20,7 @@ function writeDisk($page_part) {
     echo '</form>';
     
     $unlogged2 = "LIMIT ".($count_on_page*@$_GET['str']).", $count_on_page";
-    if (@$_SESSION['auth'] > 0) {
+    if (is_logged_in()) {
         $unlogged2 = "";
     }
     $sql = "SELECT * FROM `diskuse` WHERE `parent` = $page_part ORDER BY `datetime` DESC $unlogged2";
@@ -38,14 +38,14 @@ function writeDisk($page_part) {
                 <h2 class="user">'.$user.'</h2>
                 <div class="datum">'.$date.'</div>
                 <div class="text">'.$text.'</div>';
-        if (@$_SESSION['auth'] > 0) {
+        if (is_logged_in()) {
             writeEditPane("Diskuse", $res['parent'].", ".$res['id'].", this", "D");
         }
         echo '
             </div>';
     }
 
-    if (!(@$_SESSION['auth'] > 0)) {
+    if (!is_logged_in()) {
 
         echo '<div class="strankovani">';
         if ($_GET['str'] > 0) {

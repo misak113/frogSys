@@ -2,7 +2,7 @@
 require_once "../../../config/database.php";
 include "../../bin/scripts.php";
 
-if (@$_SESSION['auth'] == 1 || @$_SESSION['auth'] == 2) {
+if (is_logged_in()) {
     if ($_POST['predmet'] == "odhlasit") {
         if ($_POST['action'] == "odhlasit") {
             $_SESSION['auth'] = null;
@@ -16,7 +16,7 @@ if (@$_SESSION['auth'] == 1 || @$_SESSION['auth'] == 2) {
             $q = mysql_query($sql);
             while ($res = mysql_fetch_array($q)) {
                 echo "<tr>";
-                if (@$_SESSION['auth'] == 1) {
+                if (is_logged_in(array(1))) {
                     echo "<td>";
                     if ($res['auth'] > 1) {
                         echo "<a href=\"javascript: deleteAdmin(".$res['id'].");\"><img src=\"".URL."frogSys/images/icons/delete.png\" alt=\"delete\" class=\"delete\" /></a>";
@@ -26,13 +26,13 @@ if (@$_SESSION['auth'] == 1 || @$_SESSION['auth'] == 2) {
                 echo "<td><a href=\"javascript: editAdmin(".$res['id'].");\">".$res['user']."</a></td>";
                 echo "</tr>";
             }
-            if (@$_SESSION['auth'] == 1) {
+            if (is_logged_in(array(1))) {
                 echo "<tr><td><a href=\"javascript: addAdmin();\"><img src=\"".URL."frogSys/images/icons/add.png\" alt=\"add\" class=\"add\" /></a></td></tr>";
             }
             echo "</table>";
         }
         if ($_POST['action'] == "add") {
-            if (@$_SESSION['auth'] == 1) {
+            if (is_logged_in(array(1))) {
                 $rand = mt_rand(1000, 9999);
                 $pass = mt_rand(10000, 99999);
                 $sql = "INSERT INTO `admin` VALUES(NULL, 'user$rand', '$pass', 2)";
@@ -49,7 +49,7 @@ if (@$_SESSION['auth'] == 1 || @$_SESSION['auth'] == 2) {
             echo "Administrátor smazán!";
         }
         if ($_POST['action'] == "edit") {
-            if (@$_SESSION['auth'] == 1) {
+            if (is_logged_in(array(1))) {
                 $sql = "SELECT * FROM `admin` WHERE `id` = ".$_POST['id']."";
                 $q = mysql_query($sql);
                 if ($res = mysql_fetch_array($q)) {
@@ -84,7 +84,7 @@ if (@$_SESSION['auth'] == 1 || @$_SESSION['auth'] == 2) {
             }
         }
         if ($_POST['action'] == "edited") {
-            if (@$_SESSION['auth'] == 1) {
+            if (is_logged_in(array(1))) {
                 $sql = "UPDATE `admin` SET `user` = '".$_POST['user']."', `pass` = '".$_POST['pass']."' WHERE `id` = ".$_POST['id']."";
                 $q = mysql_query($sql);
                 echo "Přihlašovací údaje byly změněny.";
@@ -131,10 +131,10 @@ if (@$_SESSION['auth'] == 1 || @$_SESSION['auth'] == 2) {
         }
     }
     if ($_POST['predmet'] == "moduly") {
-        if (@$_SESSION['auth'] == 1) {
+        if (is_logged_in(array(1))) {
             if ($_POST['action'] == "vypis") {
                 $nosuper = "`zapnut` = 1 AND ";
-                if (@$_SESSION['auth'] == 1) {
+                if (is_logged_in(array(1))) {
                     $nosuper = "";
                 }
                 echo "<div class=\"modules\"><ul>";
