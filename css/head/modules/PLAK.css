@@ -68,6 +68,7 @@
 }
 
 .plan_akci_prihlasit {
+    _height: 300px !important;
 	position: relative;
 	background-color: #eaeef0;
 	color: black;
@@ -116,4 +117,9 @@ img.kalendar {
 .edit_pane_PlakSouborDatabase .delete {
     width: 10px;
     height: 10px;
+}
+
+
+.polozka_plan_akci.probehla .hlavicka_plan_akci {
+    background-color: #BFCEE4;
 }

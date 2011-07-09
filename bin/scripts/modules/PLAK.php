@@ -85,8 +85,14 @@ Jana Randaková';
         $q2 = mysql_query($sql);
         $res2 = mysql_fetch_array($q2);
         $prihlaseno = $res2['pocet'];
+        
+        $probehla_class = "";
+        $do = new DateTime($res['do']);
+        if ($do->getTimestamp() < time()) {
+            $probehla_class = " probehla";
+        }
         ?>
-<div class="polozka_plan_akci">
+<div class="polozka_plan_akci<?php echo $probehla_class; ?>">
     <div class="hlavicka_plan_akci">
         <div class="nazev_plan_akci">
             <a href="javascript: openPodrobnost(<?php echo $res['id']; ?>);">
@@ -95,7 +101,7 @@ Jana Randaková';
         </div>
         <div class="podrobnosti_plan_akci">
             <a href="javascript: openPodrobnost(<?php echo $res['id']; ?>);">
-                <img src="<?php echo URL; ?>frogSys/images/icons/podrobnosti_open.png" alt="podrobnosti" id="podrobnosti_img_plan_akci_<?php echo $res['id']; ?>" width="15" height="15">
+                <img src="<?php echo URL; ?>frogSys/images/icons/podrobnosti_open.png" alt="podrobnosti" class="podrobnosti_img_plan_akci" id="podrobnosti_img_plan_akci_<?php echo $res['id']; ?>" width="15" height="15">
 				zobrazit podrobnosti
             </a>
 
@@ -106,7 +112,7 @@ Jana Randaková';
                     ?>
         </div>
     </div>
-    <div class="telo_plan_akci" id="telo_plan_akci_<?php echo $res['id']; ?>" style="height: 1px;">
+    <div class="telo_plan_akci" id="telo_plan_akci_<?php echo $res['id']; ?>" style="height: 0px;">
         <div class="atribut_plan_akci">
                     <?php
                     $kdy = explode("-", $res['kdy']);

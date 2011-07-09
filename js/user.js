@@ -38,15 +38,31 @@ function loadRightURLs() {
 }
 
 function openPodrobnost(id) {
-	var objekt = document.getElementById("telo_plan_akci_"+id);
-	var img = document.getElementById("podrobnosti_img_plan_akci_"+id);
-	if (objekt.style.height == "1px") {
-		changeWindow("telo_plan_akci_"+id, false, "auto", false, false);
-		img.src = URL+"frogSys/images/icons/podrobnosti_close.png";
-	} else {
-		changeWindow("telo_plan_akci_"+id, false, 1, false, false);
-		img.src = URL+"frogSys/images/icons/podrobnosti_open.png";
-	}
+    
+    var all = jQuery(".telo_plan_akci");
+    var img = jQuery(".podrobnosti_img_plan_akci");
+    img.attr("src", URL+"frogSys/images/icons/podrobnosti_open.png")
+    all.animate({
+        height: 0
+    }, 300);
+
+    var act = jQuery("#telo_plan_akci_"+id);
+    var im = jQuery("#podrobnosti_img_plan_akci_"+id);
+    var hb = document.getElementById("telo_plan_akci_"+id).offsetHeight;
+    var h = 0;
+    if (hb == 0) {
+        act.css("height", "auto");
+        h = document.getElementById("telo_plan_akci_"+id).offsetHeight;
+        act.css("height", "0px");
+        im.attr("src", URL+"frogSys/images/icons/podrobnosti_close.png");
+    }
+    act.animate({
+        height: h
+    }, 300, function () {
+        if (h > 0) {
+            act.css("height", "auto");
+        }
+    });
 }
 
 function prihlasitNaAkci(id) {
