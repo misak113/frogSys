@@ -88,7 +88,7 @@ Jana Randaková';
         
         $probehla_class = "";
         $do = new DateTime($res['do']);
-        if ($do->getTimestamp() < time()) {
+        if ($do->format('U') < time()) {
             $probehla_class = " probehla";
         }
         ?>
