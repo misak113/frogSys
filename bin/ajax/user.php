@@ -2,7 +2,7 @@
 	require_once "../../../config/database.php";
 	include "../../bin/scripts.php";
 
-if ($_POST['predmet'] == "kontakt") {
+if (isset($_POST['predmet']) && $_POST['predmet'] == "kontakt") {
 	if ($_POST['action'] == "send") {
 		//$headers = get_mail_header("Dotaz ze stránky ".PAGE_NAME, $_POST['jmeno'], $_POST['email']);
 
@@ -53,7 +53,7 @@ if (isset($_POST['add_product'])) {
         echo '<script type="text/javascript">document.location.href="'.$url.'?add_product=1";</script>
             <a href="'.$url.'?add_product=1">Pokračujte zde</a>';
 }
-if ($_POST['predmet'] == "diskuse") {
+if (isset($_POST['predmet']) && $_POST['predmet'] == "diskuse") {
     if ($_POST['action'] == "add_prispevek") {
         $text = substr(str_replace(array("&", "<", ">"), array("&amp;", "&lt;", "&gt;"), $_POST['text']), 0, 2000);
 	$user = str_replace(array("&", "<", ">"), array("&amp;", "&lt;", "&gt;"), $_POST['user']);
