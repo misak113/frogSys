@@ -1,5 +1,5 @@
 <?php
-	require_once "../../../../config/database.php";
+	require_once "../../../../../config/database.php";
 /*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
  * Copyright (C) 2003-2010 Frederico Caldeira Knabben
