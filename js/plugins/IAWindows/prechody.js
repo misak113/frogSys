@@ -3,9 +3,10 @@
 
 var changedText = new Array();
 function changeText(id, text) {
+    id = stripWhitespace(id);
 	changedText[id] = text;
 	if (document.getElementById(id) == null) {
-		createAlert("Nastala chyba v cílovém objektu!");
+		createAlert("Nastala chyba při znovunačítání stránky!");
 		return;
 	}
 	changeOpacity(id, 0.01);

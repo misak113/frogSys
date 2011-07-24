@@ -5,7 +5,11 @@
 function anchor_reload() {
     if (location.href.indexOf("#") != -1) {
         var query = location.href.split('#');
-        var url = URL+query[1]+"/";
+        if (query[1] == 'null') {
+            var url = URL;
+        } else {
+            var url = URL+query[1]+"/";
+        }
         location.href = url;
     }
 }

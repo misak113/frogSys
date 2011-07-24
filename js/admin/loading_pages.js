@@ -2,15 +2,19 @@
 
 addLoadEvent(initUser);
 
+
 function initUser() {
-	//loadPage(aktualPage);
+	loadPage(aktualPage, aktualPageLink);
 	//loadMenu();
 	//loadTop_title();
 	loadingOff();
 }
 
 function loadPage(id, link) {
-    hashMark(link+"#loadPage("+id+", '"+link+"')");
+    if (link == '') {
+        link = 'null';
+    }
+    hashMark(link+"#loadPage("+id+",'"+link+"')");
 	aktualPage = id;
 	aktualSubPage = null;
 	aktualLink = link;

@@ -217,7 +217,7 @@ var aktual_field_name, aktual_fbcb_win;
 function fileBrowserCallBack(field_name, url, type, win) {
 	aktual_field_name = field_name;
 	aktual_fbcb_win = win;
-	var connector = URL+"frogSys/js/filemanager/browser/default/browser.html?Connector=../../../../bin/plugins/filemanager/php_connector/connector.php";
+	var connector = URL+"frogSys/ext_libs/filemanager/browser/default/browser.html?Connector=../../php_connector/connector.php";
 	var enableAutoTypeSelection = true;
 	var cType;
 	tinyfck_field = field_name;

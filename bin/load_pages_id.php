@@ -49,14 +49,15 @@
 		if ($res = @mysql_fetch_array($q)) {
 			$min = $res['min'];                                                         
 		}
+                $pageId = 0;
                 $sql = "SELECT * FROM `menu` WHERE `parent` = $firstId AND `order` = $min";
 		$q = mysql_query($sql);
 		if ($res = @mysql_fetch_array($q)) {
 			$pageId = $res['id'];                                                           
 		}
                 $str_link = 0;
-		$page = @$_GET['page'];
-		$page = explode("/", $page);
+                $pageLink = @$_GET['page'];
+		$page = explode("/", $pageLink);
                 $page_link = $page[0];
 		if (isset($page[0]) && $page[0] != "") {
                     $pokracuj = true;
