@@ -289,18 +289,29 @@ function openUtkaniPodrobnosti(id) {
     var hb = document.getElementById("vysledky_zapasy_head_"+id).offsetHeight;
     var h = 0;
     if (hb == 0) {
-        act.css("height", "auto");
-        h = document.getElementById("vysledky_zapasy_head_"+id).offsetHeight;
-        act.css("height", "0px");
-        im.attr("src", URL+"frogSys/images/icons/podrobnosti_close.png");
+        jQuery("#vysledky_zapasy_head_"+id).load
+        (URL+"frogSys/bin/ajax/modules/VYSL.php"
+            ,{"action" : "writeVysledkyZapasy", "id" : id}
+            ,function(response, status){
+                if(status == "success"){
+                    act.css("height", "auto");
+                    h = document.getElementById("vysledky_zapasy_head_"+id).offsetHeight;
+                    act.css("height", "0px");
+                    im.attr("src", URL+"frogSys/images/icons/podrobnosti_close.png");
+                    
+                    act.animate({
+                        height: h
+                    }, 300, function () {
+                        act.css("height", "auto");
+                    });
+                }
+            });
+        
+    } else {
+        act.animate({
+            height: h
+        }, 300);
     }
-    act.animate({
-        height: h
-    }, 300, function () {
-        if (h > 0) {
-            act.css("height", "auto");
-        }
-    });
 }
 
 function openNeodehranaKola() {
