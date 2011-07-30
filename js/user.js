@@ -289,12 +289,16 @@ function openUtkaniPodrobnosti(id) {
     var hb = document.getElementById("vysledky_zapasy_head_"+id).offsetHeight;
     var h = 0;
     if (hb == 0) {
-        loadingOn();
+    	try {
+        	loadingOn();
+	} catch (e) {}
         jQuery("#vysledky_zapasy_head_"+id).load
         (URL+"frogSys/bin/ajax/modules/VYSL.php"
             ,{"action" : "writeVysledkyZapasy", "id" : id}
             ,function(response, status){
-                loadingOff();
+                try {
+			loadingOff();
+		} catch (e) {}
                 if(status == "success"){
                     act.css("height", "auto");
                     h = document.getElementById("vysledky_zapasy_head_"+id).offsetHeight;
