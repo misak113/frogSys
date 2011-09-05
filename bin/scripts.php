@@ -1,4 +1,5 @@
 <?php
+        ob_start();
 	session_start();
 
         include PATH."/frogSys/bin/scripts/functions.php";

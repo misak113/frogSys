@@ -243,7 +243,7 @@ function writeShop_obsah_kosiku($page_part) {
 
         $postovne = 0;
         if ($_POST['doprava'] == "Dobírka") {
-            $postovne = 80;
+            $postovne = $_SETING['postovne'];
         }
 
         $texth = '
@@ -318,7 +318,7 @@ function writeShop_obsah_kosiku($page_part) {
         $textp .= '<tr><td colspan="2"><strong>Celková cena položek:</strong></td><td><strong>' . round($celkem) . '&nbsp;Kč</strong></td><td><strong>' . round($celkemsdph) . '&nbsp;Kč</strong></td></tr>';
         $textp .= '</table>';
 
-        $textk .= '<p>S pozdravem Náš tým</p>
+        $textk = '<p>S pozdravem Náš tým</p>
 					</body>
 				</html>
 			';
@@ -326,14 +326,38 @@ function writeShop_obsah_kosiku($page_part) {
         $text = $texth.$text.$textp.$textk;
         $text_admin = $texth.$text_admin.$textp.$textk;
 
-
-        $headers = get_mail_header("Potvrzení přijetí objednávky - číslo: $cislo", "Info " . PAGE_NAME, ADMIN_MAIL);
-
-
-        imap_mail("" . $_POST['email'], "Potvrzení přijetí objednávky - číslo: $cislo", $text, $headers);
-
-        imap_mail("" . ADMIN_MAIL, "Potvrzení přijetí objednávky - číslo: $cislo", $text_admin, $headers);
-
+        global $mailer;
+            $message = Swift_Message::newInstance()
+                            //Give the message a subject
+                            ->setSubject("Potvrzení přijetí objednávky - číslo: $cislo")
+                            //Set the From address with an associative array
+                            ->setFrom(array(ADMIN_MAIL => "Info " . PAGE_NAME))
+                            //Set the To addresses with an associative array
+                            ->setTo(array($_POST['email']))
+                            //Give it a body
+                            //->setBody('Here is the message itself')
+                            //And optionally an alternative body
+                            ->addPart($text, 'text/html')
+                            //Optionally add any attachments
+                            //->attach(Swift_Attachment::fromPath('my-document.pdf'))
+                    ;
+            $result = $mailer->send($message);
+            $message = Swift_Message::newInstance()
+                            //Give the message a subject
+                            ->setSubject("Potvrzení přijetí objednávky - číslo: $cislo")
+                            //Set the From address with an associative array
+                            ->setFrom(array(ADMIN_MAIL => "Info " . PAGE_NAME))
+                            //Set the To addresses with an associative array
+                            ->setTo(array(ADMIN_MAIL))
+                            //Give it a body
+                            //->setBody('Here is the message itself')
+                            //And optionally an alternative body
+                            ->addPart($text_admin, 'text/html')
+                            //Optionally add any attachments
+                            //->attach(Swift_Attachment::fromPath('my-document.pdf'))
+                    ;
+            $result = $mailer->send($message);
+            
         echo '
 				<img src="' . URL . 'frogSys/images/modules/SHOP/shop_faze_5.png" alt="fáze 5" />
 				<hr />';

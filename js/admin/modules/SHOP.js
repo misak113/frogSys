@@ -311,6 +311,13 @@ function editShop_produkt_skladem(id) {
 	changeText("shop_skladem_"+id, text);
 }
 
+function changeShop_produkt_skladem(el, id) {
+	if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=shop&action=set_produkt_skladem&id="+id+"&skladem="+el.value, shopProduktRefresh)) {
+		//pokud nefunguje ajax
+		return;
+	}
+}
+
 
 function saveShop_produkt_skladem(id) {
 	var text = document.getElementById("input_skladem_"+id).value;

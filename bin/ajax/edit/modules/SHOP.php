@@ -128,10 +128,10 @@ if ($_POST['action'] == "set_produkt_cena") {
     }
 }
 if ($_POST['action'] == "set_produkt_skladem") {
-    $skladem = $_POST['skladem'];
+    $skladem = (int) $_POST['skladem'];
     $sql = "UPDATE `shop` SET `skladem` = '" . $skladem . "' WHERE `id` = " . $_POST['id'] . "";
     if ($q = mysql_query($sql)) {
-        echo "Počet produktů skladem změněn.";
+        echo "Údaj, zda je produkt skladem změněn.";
     }
 }
 if ($_POST['action'] == "set_produkt_vyrobce") {

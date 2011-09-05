@@ -136,3 +136,8 @@ border:4px solid #fff;
     border: 1px solid darkgrey;
     z-index: 4;
 }
+
+.dart {
+    width: 24px;
+    height: 24px;
+}

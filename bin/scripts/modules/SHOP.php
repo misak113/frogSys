@@ -56,11 +56,23 @@
 		}
                 echo '<div class="shop_zobrazeni">Zobrazení:
                     <a href="javascript: setShopZobrazeni(\'table\');">Tabulka</a>,
-                    <a href="javascript: setShopZobrazeni(\'item\');">Mřížka</a></div>';
-                $zobraz = "item";
-                if (is_logged_in()) {
-                    $zobraz = "table";
+                    <a href="javascript: setShopZobrazeni(\'item\');">Katalog</a></div>';
+                
+                if (!isset($_COOKIE['shop_katalog_zobrazeni'])) {
+                    if (is_logged_in()) {
+                        $zobraz = "table";
+                    } else {
+                        $zobraz = "item";
+                    }
+                    setcookie("shop_katalog_zobrazeni", $zobraz, time()+60*60*24*30, '/');
                 }
+                if (!isset($zobraz))
+                    if ($_COOKIE['shop_katalog_zobrazeni'] == 'table') {
+                        $zobraz = "table";
+                    } else {
+                        $zobraz = "item";
+                    }
+                
 		if ($shop_id == 0) {
 				$sql = "SELECT `id` FROM `shop_menu` WHERE `parent` = $page_part";
 				$q = mysql_query($sql);
@@ -187,8 +199,33 @@
                                         $page_part = $parent2 = $res2['parent'];
                                     }
 					echo "<div class=\"shop_produkt\">";
-
-					echo "<div class=\"nazev\" id=\"nazev_".$res['id']."\">";
+                                        
+                                        
+                                        $sql = 'SELECT `shop`.`link` as lnk, `shop_menu`.`parent` as page_part 
+                                            FROM `shop` 
+                                            JOIN `shop_menu` ON `shop`.`parent` = `shop_menu`.`id`
+                                            WHERE `shop`.`parent` = '.$res['parent'].'
+                                                AND `shop`.`order` < '.$res['order'].'
+                                            ORDER BY `shop`.`order` DESC';
+                                        $q3 = mysql_query($sql);
+                                        if ($res3 = mysql_fetch_array($q3)) {
+                                            $menulink = getMenuLink($res3['page_part']);
+                                            echo '<a href="'.URL.$menulink.'/'.$res3['lnk'].'/"><img src="'.URL.'frogSys/images/modules/SHOP/previous.png" class="dart" alt="předchozí" /></a>';
+                                        }
+                                        $sql = 'SELECT `shop`.`link` as lnk, `shop_menu`.`parent` as page_part 
+                                            FROM `shop` 
+                                            JOIN `shop_menu` ON `shop`.`parent` = `shop_menu`.`id`
+                                            WHERE `shop`.`parent` = '.$res['parent'].'
+                                                AND `shop`.`order` > '.$res['order'].'
+                                            ORDER BY `shop`.`order` ASC';
+                                        $q3 = mysql_query($sql);
+                                        if ($res3 = mysql_fetch_array($q3)) {
+                                            $menulink = getMenuLink($res3['page_part']);
+                                            echo '<a href="'.URL.$menulink.'/'.$res3['lnk'].'/"><img src="'.URL.'frogSys/images/modules/SHOP/next.png" class="dart" alt="další" /></a>';
+                                        }
+                                        
+                                        
+                                        echo "<div class=\"nazev\" id=\"nazev_".$res['id']."\">";
 					if (is_logged_in()) {
 						writeEditPane("Shop_produkt_nazev", $res['id'], "E");
 					}
@@ -217,7 +254,18 @@
 					echo "</div>";
 					echo "<div class=\"skladem\">";
 					if (is_logged_in()) {
-						writeEditPane("Shop_produkt_skladem", $res['id'], "E");
+						//writeEditPane("Shop_produkt_skladem", $res['id'], "E");
+                                            $skladem_ano = '';
+                                            $skladem_ne = '';
+                                            if ($res['skladem'] == 0) {
+                                                $skladem_ne = ' selected';
+                                            } else {
+                                                $skladem_ano = ' selected';
+                                            }
+                                            echo '<select onchange="changeShop_produkt_skladem(this, '.$res['id'].')">';
+                                            echo '<option value="1"'.$skladem_ano.'>ANO</option>';
+                                            echo '<option value="0"'.$skladem_ne.'>NE</option>';
+                                            echo '</select>';
 					}
 					echo "Skladem: ";
                                         $img = "ixko.png";
@@ -227,9 +275,9 @@
                                             $alt = "YES";
                                         }
                                         echo '<img src="'.URL.'frogSys/images/icons/'.$img.'" class="skladem_img" alt="'.$alt.'" title="'.$res['skladem'].'" />';
-                                        if (is_logged_in()) {
+                                        /*if (is_logged_in()) {
                                             echo " <span class=\"normal\" id=\"shop_skladem_".$res['id']."\">".$res['skladem']."</span>";
-                                        }
+                                        }*/
                                         echo '</div>';
 					$dir = dir(PATH."/userfiles/shop/");
 					while ($file1 = $dir->read()) {
@@ -396,7 +444,7 @@
 							echo "<option value=\"".$res3['id']."\"".$sel.">".$res3['nazev']."</option>";
 						}
 						echo "</select>";
-
+                                                echo "</div>";
 					}
 
 

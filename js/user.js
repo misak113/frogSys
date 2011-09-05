@@ -364,6 +364,10 @@ function kontrolovatVysledekUtkani(id_utkani) {
 
 
 function setShopZobrazeni(typ) {
+    jQuery.cookie("shop_katalog_zobrazeni", typ, { 
+        path: '/', 
+        expires: 30 
+    });
     jQuery(".shop_item").attr("class", "shop_"+typ);
     jQuery(".shop_table").attr("class", "shop_"+typ);
 }

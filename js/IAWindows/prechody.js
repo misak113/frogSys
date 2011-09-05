@@ -5,7 +5,7 @@ var changedText = new Array();
 function changeText(id, text) {
 	changedText[id] = text;
 	if (document.getElementById(id) == null) {
-		createAlert("Nastala chyba v cílovém objektu!");
+		createAlert("Pro správné zobrazení použijte refresh!");
 		return;
 	}
 	changeOpacity(id, 0.01);
