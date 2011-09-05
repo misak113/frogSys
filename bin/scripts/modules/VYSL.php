@@ -196,7 +196,7 @@ USING (`id_zapasu`) order by `id_zapasu`
                         </div>
                         <div class="vysledky_zapasy_head" id="vysledky_zapasy_head_<?php echo $utkani['id_utkani']; ?>">
                             <?php
-                            writeVysledkyZapasy($utkani);
+                               //writeVysledkyZapasy($utkani);
                             ?>
 
 
@@ -215,9 +215,71 @@ USING (`id_zapasu`) order by `id_zapasu`
     }
 }
 
-function writeVysledkyZapasy($utkani) {
+
+function writeVysledky_sezona() {
+
+
+    $sql = "SELECT * FROM `page_parts` WHERE `type` = 'VYSL' OR `type` = 'VSTA' OR `type` = 'VTAB'";
+    $q = mysql_query($sql);
+    if ($res = mysql_fetch_array($q)) {
+        echo '<div id="vysledky_sezona_div">Sezóna: <select name="vysledky_sezona" onchange="changeSezona(this)" id="vysledky_sezona">';
+        $sql = "SELECT distinct(`sezona`) AS sezona FROM `vysledky_kolo` ORDER BY `sezona` DESC";
+        $q = mysql_query($sql);
+        while ($res = mysql_fetch_array($q)) {
+            $select = "";
+            if ($res['sezona'] == VYSL_SEZONA) {
+                $select = " selected";
+            }
+            echo '<option value="' . $res['sezona'] . '"' . $select . '>' . $res['sezona'] . '</option>';
+        }
+        echo '</select></div>';
+    }
+}
+
+
+function createProfiles() {
+    global $_SETING;
+    if (isset ($_SETING['statistics'])) {
+        $statistics = $_SETING['statistics'];
+    } else {
+        $statistics = "statistiky";
+        $sql = "INSERT INTO `seting` VALUES(NULL, 'statistics', '$statistics')";
+        mysql_query($sql);
+    }
+
+    $sql = "SELECT * FROM `menu` WHERE `link` = '$statistics'";
+    $q = mysql_query($sql);
+    if (!($res = mysql_fetch_array($q))) {
+        $q = mysql_query("SHOW TABLE STATUS LIKE 'menu'");
+        $res = mysql_fetch_array($q);
+        $id_menu = $res['Auto_increment'];
+
+        $sql = "INSERT INTO `menu` VALUES(NULL, 'Statistiky', -1, 0, '$statistics', 0)";
+        mysql_query($sql);
+
+        $q = mysql_query("SHOW TABLE STATUS LIKE 'page_parts'");
+        $res = mysql_fetch_array($q);
+        $id_part = $res['Auto_increment'];
+
+        $sql = "INSERT INTO `page_parts` VALUES(NULL, 'VSTA')";
+        mysql_query($sql);
+
+        $sql = "INSERT INTO `page` VALUES(NULL, ".$id_part.", 100, ".$id_menu.", 0)";
+        mysql_query($sql);
+
+    }
+}
+
+
+
+function writeVysledkyZapasy($id_utkani) {
     global $_SETING;
     $statistics = $_SETING['statistics'];
+    
+    $id_utkani = mysql_real_escape_string($id_utkani);
+    $sql = "SELECT * FROM vysledky_utkani WHERE id_utkani = '" . $id_utkani . "'";
+    $result = mysql_query($sql);
+    $utkani = mysql_fetch_array($result);
     
     if ($utkani['overeno'] == 1) {
     ?>
@@ -463,59 +525,6 @@ function writeVysledkyZapasy($utkani) {
             ?></div></div>
     </div>
     <?php
-}
-
-function writeVysledky_sezona() {
-
-
-    $sql = "SELECT * FROM `page_parts` WHERE `type` = 'VYSL' OR `type` = 'VSTA' OR `type` = 'VTAB'";
-    $q = mysql_query($sql);
-    if ($res = mysql_fetch_array($q)) {
-        echo '<div id="vysledky_sezona_div">Sezóna: <select name="vysledky_sezona" onchange="changeSezona(this)" id="vysledky_sezona">';
-        $sql = "SELECT distinct(`sezona`) AS sezona FROM `vysledky_kolo` ORDER BY `sezona` DESC";
-        $q = mysql_query($sql);
-        while ($res = mysql_fetch_array($q)) {
-            $select = "";
-            if ($res['sezona'] == VYSL_SEZONA) {
-                $select = " selected";
-            }
-            echo '<option value="' . $res['sezona'] . '"' . $select . '>' . $res['sezona'] . '</option>';
-        }
-        echo '</select></div>';
-    }
-}
-
-
-function createProfiles() {
-    global $_SETING;
-    if (isset ($_SETING['statistics'])) {
-        $statistics = $_SETING['statistics'];
-    } else {
-        $statistics = "statistiky";
-        $sql = "INSERT INTO `seting` VALUES(NULL, 'statistics', '$statistics')";
-        mysql_query($sql);
-    }
-
-    $sql = "SELECT * FROM `menu` WHERE `link` = '$statistics'";
-    $q = mysql_query($sql);
-    if (!($res = mysql_fetch_array($q))) {
-        $q = mysql_query("SHOW TABLE STATUS LIKE 'menu'");
-        $res = mysql_fetch_array($q);
-        $id_menu = $res['Auto_increment'];
-
-        $sql = "INSERT INTO `menu` VALUES(NULL, 'Statistiky', -1, 0, '$statistics', 0)";
-        mysql_query($sql);
-
-        $q = mysql_query("SHOW TABLE STATUS LIKE 'page_parts'");
-        $res = mysql_fetch_array($q);
-        $id_part = $res['Auto_increment'];
-
-        $sql = "INSERT INTO `page_parts` VALUES(NULL, 'VSTA')";
-        mysql_query($sql);
-
-        $sql = "INSERT INTO `page` VALUES(NULL, ".$id_part.", 100, ".$id_menu.", 0)";
-        mysql_query($sql);
-
-    }
+    
 }
 ?>

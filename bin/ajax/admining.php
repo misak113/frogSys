@@ -185,5 +185,4 @@ if (is_logged_in()) {
 } else {
     echo "Nemáte právo pro administraci!";
 }
-?>
-<?php mysql_close(); ?>
+?><?php mysql_close(); ?>

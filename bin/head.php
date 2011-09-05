@@ -20,22 +20,23 @@
 
 <?php
     $load_js = array(
+        '#app: var jsVersions = '.json_encode(getFilesVersions(PATH.'frogSys/js/', URL.'frogSys/js/')).';',
         '#app: var URL = "'.URL.'";',
         '#url: http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js',
         '#app: jQuery.noConflict();',
         '#fil: js/functions.js',
-        '#fil: js/IAWindows.js',
+        '#fil: js/plugins/IAWindows/IAWindows.js',
         '#fil: js/user.js',
-        '#fil: js/kalendar.js',
-        '#fil: js/scriptaculous/prototype.js',
-        '#fil: js/scriptaculous/scriptaculous.js?load=effects,builder',
-        '#fil: js/scriptaculous/lightbox.js',
-        '#fil: js/jquery/jquery.autocomplete.min.js',
-        '#fil: js/scriptaculous/simple-slide-show.js',
+        '#fil: js/plugins/kalendar.js',
+        '#fil: ext_libs/scriptaculous/prototype.js',
+        '#fil: ext_libs/scriptaculous/scriptaculous.js?load=effects,builder',
+        '#fil: ext_libs/scriptaculous/lightbox.js',
+        '#fil: ext_libs/jquery/jquery.autocomplete.min.js',
+        '#fil: ext_libs/scriptaculous/simple-slide-show.js',
         '#app: var rek = "'.js_string_output(isset($_SETING['REKONSTRUKCE'])?$_SETING['REKONSTRUKCE']:'')
             .'"; if (rek != "") addLoadEvent(function () {createWindow(rek);});',
-        '#app&admin: var aktualPage = '.($pageId+0).';',
-        '#fil&admin: js/tiny_mce/tiny_mce.js',
+        '#app&admin: var aktualPage = '.($pageId+0).'; var aktualPageLink = "'.($pageLink).'";',
+        '#fil&admin: ext_libs/tiny_mce/tiny_mce.js',
         '#fil&admin: js/admin.js'
     );
 

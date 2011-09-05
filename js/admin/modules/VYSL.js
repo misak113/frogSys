@@ -356,7 +356,7 @@ function addZapasy(utkani) {
 var aktual_utkani;
 function loadZapasy(text) {
     createAlert(text);
-    if (!postAjaxRequest(URL+"frogSys/bin/ajax/modules/VYSL.php", "predmet=vysledky&action=zapasy&utkani="+aktual_utkani, loadZapasy2)) {
+    if (!postAjaxRequest(URL+"frogSys/bin/ajax/modules/VYSL.php", "predmet=vysledky&action=writeVysledkyZapasy&id="+aktual_utkani, loadZapasy2)) {
         //pokud nefunguje ajax
         return;
     }

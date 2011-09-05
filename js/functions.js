@@ -2,8 +2,12 @@
  
 function loadScript(url)
 {
+    var version = '';
+    if (jsVersions[url] != 'undefined') {
+        version = '?'+jsVersions[url];
+    }
    var e = document.createElement("script");
-   e.src = url;
+   e.src = url+version;
    e.type="text/javascript";
    document.getElementsByTagName("head")[0].appendChild(e); 
 }

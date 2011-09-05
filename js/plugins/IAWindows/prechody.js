@@ -3,6 +3,7 @@
 
 var changedText = new Array();
 function changeText(id, text) {
+    id = stripWhitespace(id);
 	changedText[id] = text;
 	if (document.getElementById(id) == null) {
 		createAlert("Pro správné zobrazení použijte refresh!");

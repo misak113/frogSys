@@ -1,7 +1,7 @@
 // JavaScript Document
 
-loadScript(URL+"frogSys/js/IAWindows/prechody.js");
-loadScript(URL+"frogSys/js/IAWindows/windows.js");
+loadScript(URL+"frogSys/js/plugins/IAWindows/prechody.js");
+loadScript(URL+"frogSys/js/plugins/IAWindows/windows.js");
 
 addLoadEvent(function() {
 	appendAttribute(document.getElementsByTagName("body")[0], "onmouseup", "stopMouseDrag(event);");

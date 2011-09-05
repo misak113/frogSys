@@ -62,5 +62,6 @@ function editSeting2(id) {
 }
 
 function saveTitulek2(text) {
-	changeText("titulek"+text, document.getElementById("input_titulek").value);
+    var id = stripWhitespace(text);
+	changeText("titulek"+id, document.getElementById("input_titulek").value);
 }

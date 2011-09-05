@@ -3,12 +3,8 @@
 require_once "../../../../config/database.php";
 include "../../../bin/scripts.php";
 
-if ($_POST['action'] == "zapasy") {
-    $sql = "SELECT * FROM `vysledky_utkani` WHERE `id_utkani` = " . $_POST['utkani'];
-    $q = mysql_query($sql);
-    if ($res = mysql_fetch_array($q)) {
-        writeVysledkyZapasy($res);
-    }
+if (isset($_POST['action']) && $_POST['action'] == "writeVysledkyZapasy") {
+    writeVysledkyZapasy($_POST['id']);
 }
 
 if ($_POST['action'] == "save_vysledek_utkani") {
