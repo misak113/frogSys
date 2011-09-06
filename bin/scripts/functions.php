@@ -26,6 +26,10 @@ function loadModule($name = 'Module', $type = 'scripts') {
     }
 }
 
+function _t($text) {
+    return $text;
+}
+
 function createLink($name) {
     $name = strtolower($name);
     $co = array("ě", "ř", "ť", "š", "ď", "č", "ň", "é", "ú", "í", "ó", "á", "ý", "ů", "ž", " ", "Ě", "Ř", "Ť", "Š", "Ď", "Č", "Ň", "É", "Ú", "Í", "Ó", "Á", "Ý", "Ů", "Ž");

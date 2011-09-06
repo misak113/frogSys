@@ -3,6 +3,20 @@
 
 addLoadEvent(initPage);
 
+//anchor reload
+function anchor_reload() {
+    if (location.href.indexOf("#") != -1) {
+        var query = location.href.split('#');
+        if (query[1] == 'null') {
+            var url = URL;
+        } else {
+            var url = URL+query[1]+"/";
+        }
+        location.href = url;
+    }
+}
+anchor_reload();
+
 function initPage() {
 	appendAttribute(document.getElementsByTagName("body")[0], "onmouseup", "stopObrysMouseDragPage(event);");
 	appendAttribute(document.getElementsByTagName("body")[0], "onmousemove", "obrysMouseDragPage(event);");

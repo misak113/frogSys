@@ -24,6 +24,9 @@
                 <?php writeMenu(0); ?>
             </div>
             <div id="midle">
+                <div id="breadcrumb">
+                    <?php writeBreadcrumb($pageId, @$pageId2); ?>
+                </div>
             <div id="page">
                 <div id="page_in">
                     <?php writePage($pageId, @$pageId2); ?>

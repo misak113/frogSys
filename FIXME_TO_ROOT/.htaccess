@@ -56,7 +56,7 @@ RewriteRule ^(.*/)*grafics/(.+\.((jpg)|(png)|(gif)|(ico)))$ frogSys/$2?last=true
 
 ####### Obrázky top_.jpg #######
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^frogSys/images/design/top/top_.+\.jpg$ grafics/images/design/top/top_.jpg [QSA,L]
+RewriteRule ^frogSys/images/design/top/top_.+\.((jpg)|(png)|(gif)|(ico))$ grafics/images/design/top/top_.$1 [QSA,L]
 
 
 php_flag display_errors On

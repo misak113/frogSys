@@ -123,4 +123,38 @@ function writeHtmlEditArea($page_part, $defalt_value) {
 }
 
 
+function writeBreadcrumb($pageId, $pageId2) {
+    echo '<span class="desc">'._t('Nacházíte se:').'</span>';
+    
+    $first_name = _t('Úvod');
+    
+    $sql = 'SELECT * FROM `menu` WHERE `id` = '.$pageId.'';
+    $q = mysql_query($sql);
+    if ($res = mysql_fetch_array($q)) {
+        $first_name = $res['name'];
+        $first_url = URL.getMenuLink($pageId).'/';
+    }
+    if (is_array($pageId2)) {
+        foreach ($pageId2 as $menu => $pp) {
+            $sql = 'SELECT * 
+                FROM `menu_in`
+                WHERE `target` = '.$menu.' AND `href` = '.$pp.'';
+            $q = mysql_query($sql);
+            if ($res = mysql_fetch_array($q)) {
+                $second_name = $res['name'];
+                $second_url = URL.getMenuLink($pp).'/';
+                break;
+            }
+        }
+    }
+    
+    if (isset($second_name)) {
+            echo '<a class="item" href="'.$first_url.'">'.$first_name.'</a><span class="item">'.$second_name.'</span>';
+        } else {
+            echo '<span class="item">'.$first_name.'</span>';
+        }
+    
+    
+}
+
 ?>
