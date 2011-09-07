@@ -141,3 +141,7 @@ border:4px solid #fff;
     width: 24px;
     height: 24px;
 }
+
+#breadcrumb {
+    display: none;
+}
