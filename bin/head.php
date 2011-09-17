@@ -28,6 +28,8 @@
         '#fil: js/plugins/IAWindows/IAWindows.js',
         '#fil: js/user.js',
         '#fil: js/plugins/kalendar.js',
+        '#fil: bin/clickheat/js/clickheat.js',
+        '#fil: js/plugins/clickheat.js',
         '#fil: ext_libs/scriptaculous/prototype.js',
         '#fil: ext_libs/scriptaculous/scriptaculous.js?load=effects,builder',
         '#fil: ext_libs/scriptaculous/lightbox.js',
