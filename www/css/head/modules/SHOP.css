@@ -1,0 +1,289 @@
+/* CSS Document */
+
+.shop_menu_item {
+	position: relative;
+	height: 26px;
+	padding: 5px 15px;
+	float: left;
+	/*border: 1px solid black;*/
+	margin: 0px 5px;
+	background-image: url('/images/design/shop_menu.png');
+	font-size: 12px;
+	font-weight: bold;
+}
+.shop_menu_item_r {
+	position: relative;
+	height: 26px;
+	width:8px;
+	padding: 5px 15px;
+	float: left;
+	/*border: 1px solid black;*/
+	margin: 0px 5px;
+	background-image: url('/images/design/shop_menu_r.png');
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.shop_menu {
+	position: relative;
+	/*width: 100%;*/
+}
+
+.shop {
+	position: relative;
+	/*width: 100%;*/
+	clear: left;
+	padding: 10px;
+}
+
+/* Nastaveno pro mrizkove zobrazeni, dodelat tabulkové*/
+.shop_item {
+	position: relative;
+	width: 42%;
+	height: 230px;
+	/*border: 1px solid black;*/
+	float: left;
+	margin: 10px 10px 35px 20px;
+	padding: 5px;
+	overflow: hidden;
+}
+
+.shop_item .nazev {
+	position: absolute;
+	top: 1px;
+	left: 86px;
+	height: 30px;
+	font-weight: bold;
+	font-size: 15px;
+	color: green;
+	margin: 5px;
+}
+
+.shop_item .popis {
+	position: absolute;
+	top: 70px;
+	left: 86px;
+	height: 160px;
+	font-style: italic;
+	padding: 3px;
+}
+
+.shop_item .cena {
+	position: absolute;
+	top: 34px;
+	left: 86px;
+	height: 37px;
+	color: orange;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.shop_item .cena .sdph {
+	font-size: 12px;
+}
+
+.shop_item .add_kosik {
+	position: absolute;
+	top: 30px;
+	right: 1px;
+	width: 43px;
+	height: 37px;
+}
+
+.shop_item .image {
+	position: absolute;
+	top: 1px;
+	left: 1px;
+	max-width: 80px;
+	max-height: 150px;
+}
+
+.shop_item .vyrobce {
+	display: none;
+}
+
+
+
+
+
+
+
+
+.shop_produkt {
+	position: relative;
+	
+}
+
+.shop_produkt .nazev {
+	position: relative;
+	color: green;
+	font-size: 25px;
+	margin: 10px;
+	
+}
+
+.shop_produkt .ceny {
+	position: relative;
+	margin: 10px;
+}
+.shop_produkt .cena {
+	height: 37px;
+	color: orange;
+	font-size: 20px;
+	font-weight: bold;
+	float: left;
+	margin: 10px;
+}
+.shop_produkt .sdph {
+	font-size: 12px;
+}
+.shop_produkt .cena_bez {
+	height: 37px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	float: left;
+	margin: 10px;
+}
+.shop_produkt .cena_dph {
+	height: 12px;
+	color: black;
+	font-size: 12px;
+	float: left;
+	margin: 10px;
+}
+
+.shop_produkt .cena_sdph {
+	position: relative;
+	font-size: 20px;
+}
+
+.shop_produkt .popis {
+	position: relative;
+	margin: 10px;
+	clear: left;
+}
+
+.shop_produkt .add_kosik {
+	position: relative;
+	margin: 0px 10px;
+	
+}
+
+.shop_produkt .image {
+	position: relative;
+	float: left;
+	margin: 10px;
+	clear: left;
+	max-width: 80px;
+	max-height: 150px;
+}
+
+.shop_produkt .vyrobce {
+	position: relative;
+	clear: left;
+	margin: 10px;
+	font-weight: bold;
+}
+
+.shop_produkt .code {
+	position: relative;
+	clear: left;
+	margin: 10px;
+	font-weight: bold;
+	/*text-decoration: underline;*/
+}
+.shop_produkt .normal {
+	font-weight: normal;
+}
+
+.shop_produkt .je_videt {
+	clear: left;
+	margin: 10px;
+	font-weight: bold;
+	/*text-decoration: underline;*/
+}
+
+.shop_produkt .doporucujeme {
+	clear: left;
+	margin: 10px;
+	font-weight: bold;
+	/*text-decoration: underline;*/
+}
+
+.shop_produkt .skladem {
+	position: relative;
+	clear: left;
+	margin: 10px;
+	font-weight: bold;
+	/*text-decoration: underline;*/
+}
+
+.shop_produkt .kategorie {
+	clear: left;
+	margin: 10px;
+	font-weight: bold;
+	/*text-decoration: underline;*/
+}
+
+.shop_produkt .underline {
+	font-weight: normal;
+	text-decoration: underline;
+}
+
+.shop_produkt .dalsi_obrazky {
+	clear: left;
+	margin: 10px;
+	font-weight: bold;
+}
+
+.shop_produkt .image_next {
+	max-width: 50px;
+	max-height: 50px;
+}
+
+
+
+
+
+.shop .add_shop_produkt {
+	position: relative;
+	width: 42%;
+	height: 230px;
+	/*border: 1px solid black;*/
+	float: left;
+	margin: 10px 10px 35px 20px;
+}
+
+
+
+
+
+
+
+
+#naseptavac {
+	position: absolute;
+	z-index: 40;
+	left: 2px;
+	top: 40px;
+	border: 1px black solid;
+}
+#naseptavac div {
+	width: 100px;
+	background-color: white;
+}
+
+#naseptavac div:hover {
+	background-color: yellow;
+}
+
+
+.image_a_href {
+	position: relative;
+	float: left;
+	margin: 10px;
+	position: relative;
+}
+
+

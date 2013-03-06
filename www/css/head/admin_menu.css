@@ -1,0 +1,106 @@
+
+
+
+/* Admin menu */
+#admin_menu {
+	position: fixed;
+	width: 100%;
+	height: 35px;
+	top: 0px;
+	left: 0px;
+	z-index: 100;
+	color: gray;
+	font-size:11px;
+	text-transform: lowercase;
+	background: #ededed url('/images/design/top-menu-bg.png') center bottom repeat-x;
+}
+
+#admin_menu a, #admin_menu_sub a {
+ color:#396d94;
+ text-decoration:none;
+}
+
+#admin_menu a:hover, #admin_menu_sub a:hover {
+ color:#4c9ad5;
+}
+
+#admin_menu_sub {
+  position: fixed;
+	width: 100%;
+	height: 25px;
+	top: 35px;
+	left: 0px;
+	z-index: 100;
+	background: transparent url('/images/design/sub-mebu-bg.png') center bottom;
+	color: gray;
+	font-size:11px;
+	border-bottom:1px solid #f2f2f2;
+	text-transform: lowercase;
+}
+
+
+#admin_akt_str {
+	position: absolute;
+	left: 120px;
+	top: 10px;
+}
+
+#admin_admin {
+	position: absolute;
+	left: 20px;
+	top: 10px;
+}
+
+#seznam-adminu {
+  position: absolute;
+  right: 300px;
+	top: 10px;
+}
+
+#admin_prihlasen {
+	position: absolute;
+	right: 200px;
+	top: 10px;
+}
+
+#admin_napoveda {
+	position: absolute;
+	right: 100px;
+	top: 10px;
+}
+
+#admin_odhlasit {
+	position: absolute;
+	right: 20px;
+	top: 10px;
+}
+
+#aktual_stranka {
+	position: absolute;
+	font-weight:bold;
+	left: 205px;
+	top: 10px;
+}
+
+#loged_as {
+	font-weight:normal;
+	
+}
+
+
+#admin_titulek {
+	position: absolute;
+	left: 450px;
+	top: 10px;
+}
+
+#titulek {
+	position: absolute;
+	font-weight: bold;
+	font-size: 14px;
+	left: 470px;
+	top: 8px;
+	width: 230px;
+	height: 20px;
+	overflow: hidden;
+}

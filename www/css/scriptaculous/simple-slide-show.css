@@ -1,0 +1,28 @@
+/* CSS Document */
+
+.slide-images{
+    position:relative;
+    display:block;
+    margin:0px;
+    padding:0px;
+    
+	min-width: 1px;
+    min-height: 1px;
+    
+    /*overflow:hidden;*/
+}
+
+
+.slide-images li{
+    position: absolute;
+    display:block;
+    list-style-type:none;
+    margin:0px;
+    padding:0px;
+    background-color:#FFFFFF;
+}
+
+.slide-images li img{
+    display:block;
+    background-color:#FFFFFF;
+}
