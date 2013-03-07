@@ -1,0 +1,21 @@
+
+.vysledky_tymy {
+    width: 680px !important;
+    clear: left;
+}
+
+.vysledky_tymy td {
+    text-align: left;
+}
+
+.search {
+    float: left;
+    margin: 5px 10px 5px;
+}
+.search input {
+    width: 200px;
+}
+
+.submit {
+    margin: 5px 10px 5px;
+}

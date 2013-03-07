@@ -1,0 +1,125 @@
+
+
+
+
+.polozka_plan_akci {
+	position: relative;
+	border-bottom:1px solid #cccccc;
+	margin-bottom: 3px;
+	overflow: hidden;
+}
+
+.hlavicka_plan_akci {
+	position: relative;
+	color: white;
+	background: #afcde4 url('../../../../frogSys/images/icons/calendar_day.png') no-repeat 6px 5px;
+	height: 30px;
+}
+
+.telo_plan_akci {
+	position: relative;
+	background-color: white;
+	color: black;
+	margin: 0px;
+	overflow: hidden;
+}
+
+.podrobnosti_plan_akci {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	font-weight: normal;
+}
+
+.podrobnosti_plan_akci a {
+  color:white;
+  text-decoration:none;
+}
+
+.nazev_plan_akci {
+	position: absolute;
+	left: 10px;
+	color:#002e34;
+	top:8px;
+	font-weight: bold;
+	padding-left:16px;
+}
+
+.nazev_plan_akci a {
+	color:#002e34;
+	padding-left:5px;
+	text-decoration:none;
+}
+
+.polozky_akce {
+  font-weight:bold;
+}
+
+#prihlasit-akce {
+  padding-left:15px;
+  	background: url('../../../../frogSys/images/icons/btn-prihlasit.png') no-repeat left 0;
+  
+}
+
+.atribut_plan_akci {
+	padding:7px 5px;
+	margin: 0px 5px;
+	border-bottom: 1px dotted #cccccc;
+}
+
+.plan_akci_prihlasit {
+    _height: 300px !important;
+	position: relative;
+	background-color: #eaeef0;
+	color: black;
+	padding:10px;
+	margin: 0px;
+	overflow: hidden;
+}
+
+#plan_akci_inner {
+  padding:10px;
+}
+
+#plan_akci_inner table {
+  padding:0;
+}
+
+.prihlaseni-info {
+  background:#d8e0e5 url('../../../../frogSys/images/icons/alert.png') no-repeat 6px 11px;
+  padding:10px;
+  padding-left:30px;
+  border:1px dotted #f7fff6;
+  font-weight:bold;
+  text-align:left;
+}
+img.kalendar {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	width: 16px;
+	height: 16px;
+}
+
+.edit_pane_PlanAkci_podminky {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+}
+
+.plak_outer_podminky {
+    position: relative;
+}
+
+.edit_pane_PlakSouborDatabase {
+    display: inline;
+}
+.edit_pane_PlakSouborDatabase .delete {
+    width: 10px;
+    height: 10px;
+}
+
+
+.polozka_plan_akci.probehla .hlavicka_plan_akci {
+    background-color: #BFCEE4;
+}
