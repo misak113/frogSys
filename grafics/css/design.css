@@ -23,3 +23,7 @@
     background: url('../images/design/odkazy.png') no-repeat scroll transparent center bottom;
     height: 100px;
 }
+
+body {
+	background-image: url('../images/design/background.jpg');
+}
