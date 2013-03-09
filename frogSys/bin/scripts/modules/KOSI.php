@@ -444,5 +444,3 @@ function writeShop_obsah_kosiku($page_part) {
         }
     }
 }
-
-?>

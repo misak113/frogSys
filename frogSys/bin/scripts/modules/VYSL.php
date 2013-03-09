@@ -527,4 +527,3 @@ function writeVysledkyZapasy($id_utkani) {
     <?php
     
 }
-?>

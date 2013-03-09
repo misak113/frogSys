@@ -42,7 +42,7 @@ if ($_POST['action'] == "save_nazev") {
 
     $sql = "UPDATE `novinky` SET `nazev` = '".$nazev."', `link` = '".$link."' WHERE `id` = ".$_POST['id']."";
     if (mysql_query($sql)) {
-        echo $_POST['id'].$relink;
+        echo $_POST['id'];//.$relink; // @todo musel sem dát pryč tuhle info
     }
 }
 

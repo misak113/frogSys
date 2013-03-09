@@ -437,5 +437,3 @@ function getFilesVersions($path, $index) {
     
     return $ver;
 }
-
-?>

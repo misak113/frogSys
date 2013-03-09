@@ -165,5 +165,3 @@ function writeNovinka($novinka_id) {
     }
     echo '&lt; zpět</a>';
 }
-
-?>

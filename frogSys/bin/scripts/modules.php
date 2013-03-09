@@ -91,5 +91,3 @@ function writePagePart($page_part, $pageId) {
         }
     }
 }
-
-?>

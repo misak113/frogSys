@@ -298,5 +298,3 @@ Jana Randaková';
 </script>
 <?php
 }
-
-?>

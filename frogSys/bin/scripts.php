@@ -23,5 +23,3 @@
     
     include PATH."/frogSys/bin/scripts/static_sloupec.php";
 
-	
-?>

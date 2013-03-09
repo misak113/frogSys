@@ -204,4 +204,3 @@ AND `poradi` <= '.$actual_poradi.'';
     echo '</div>';
 
 }
-?>

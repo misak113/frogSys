@@ -30,5 +30,3 @@
             define("VYSL_SEZONA", $_COOKIE['vysledky_sezona']);
         }
         setCookie("vysledky_sezona", VYSL_SEZONA, time()+60*60*2, '/');
-        
-?>

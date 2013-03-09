@@ -83,4 +83,3 @@
 			writeZmenaTypu($page_part);
 		} */
 	}
-?>

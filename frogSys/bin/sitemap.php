@@ -5,7 +5,7 @@ header("Cache-Control: no-cache,must-revalidate,max_age=0");
 header("Expires: 0");
 
 require_once "../../config/database.php";
-include PATH."/bin/scripts.php";
+include PATH."frogSys/bin/scripts.php";
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
@@ -20,9 +20,9 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
     $sql = "SELECT DISTINCT `parent` FROM `menu` ORDER BY `parent` DESC";
     $q = mysql_query($sql);
     while ($res = mysql_fetch_array($q)) {
-        if ($res['parent'] == 0) {
+        /*if ($res['parent'] == 0) {
             continue;
-        }
+        }*/
         $sql = "SELECT * FROM `menu` WHERE `parent` = ".$res['parent']." AND `visible` = 1 ORDER BY `order`";
         $q2 = mysql_query($sql);
         while ($res2 = mysql_fetch_array($q2)) {
@@ -38,6 +38,19 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
                         $q5 = mysql_query($sql);
                         while ($res5 = mysql_fetch_array($q5)) {
                             echo "\n<url>\n<loc>".URL.$res2['link']."/".$res5['link']."/</loc>\n<changefreq>daily</changefreq>\n</url>\n";
+
+							$sql = "SELECT * FROM `page_parts` WHERE `id` = ".$res5['href']." LIMIT 1";
+							$q6 = mysql_query($sql);
+							$res6 = mysql_fetch_array($q6);
+							// Novinky
+							if (isset($res6['type']) && $res6['type'] == 'NOVI') {
+								$sql = "SELECT * FROM `novinky` WHERE `parent` = ".$res5['href']."";
+								$q7 = mysql_query($sql);
+								while ($res7 = mysql_fetch_array($q7)) {
+									echo "\n<url>\n<loc>".URL.$res2['link']."/".$res5['link']."/".$res7['link']."/</loc>\n<changefreq>weekly</changefreq>\n</url>\n";
+								}
+							}
+
                         }
                     }
                     if ($res4['type'] == "SHOP") {

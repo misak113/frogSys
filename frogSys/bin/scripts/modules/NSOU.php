@@ -103,5 +103,3 @@ function writeNovinkySouhrne($page_part) {
         echo '</div>';
     }
 }
-
-?>

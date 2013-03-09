@@ -49,4 +49,3 @@ function writeVyhledavaniTymu($page_part) {
 
     echo '</div>';
 }
-?>

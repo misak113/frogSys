@@ -1,4 +1,3 @@
-
 <?php
 	function writeShop($page_part) {
             global $_SETING;
@@ -469,5 +468,3 @@
 				}
 			}
 	}
-
-        ?>

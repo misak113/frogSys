@@ -21,7 +21,7 @@
 
         define("PAGE_NAME", "Michael Žabka - Programátor a vývojař");
         define("SIRKA_PAGE", 1000);
-        define("GA_ID", "UA-20953873-10");
+        define("GA_ID", "UA-20953873-5");
         
 	define("CISLO_UCTU", "219 070 687 / 0300");
         define("DPH", "19");
@@ -34,6 +34,3 @@
         define("COUNT_NOVI_ON_PAGE", 10);
 	
         ini_set('date.timezone', 'Europe/Prague');
-
-	
-?>

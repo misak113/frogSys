@@ -46,4 +46,3 @@ foreach($modules as $module) {
     }
 
 }
-?>

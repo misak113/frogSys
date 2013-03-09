@@ -591,5 +591,3 @@ function writeProfiles($page_part) {
     echo '</table>';
 
 }
-
-?>

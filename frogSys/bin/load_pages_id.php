@@ -120,7 +120,7 @@
 						} else {
 							$sql = "SELECT * FROM `shop` WHERE `link` = '".$page[2+$str_link]."'";
 							$q = mysql_query($sql);
-							if ($res = mysql_fetch_array($q)) {
+							if ($q && $res = mysql_fetch_array($q)) {
 								$title = $res['nazev']." - ".$title;
 								$shop_produkt_id = $res['id'];
 							}

@@ -156,5 +156,3 @@ function writeBreadcrumb($pageId, $pageId2) {
     
     
 }
-
-?>

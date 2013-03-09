@@ -45,4 +45,3 @@ function writeStaticSloupec() {
     }
     //echo '</div>';
 }
-?>

@@ -8,6 +8,8 @@ function writeDisk($page_part) {
     //echo '<h1>Diskuse</h1>';
     writeHtmlEditArea($page_part, '<h1>Diskuse</h1>');
 
+	$user = '';
+
     $sql = "SELECT * FROM `users` WHERE `id` = ".USER_ID."";
     $q = mysql_query($sql);
     if ($res = mysql_fetch_array($q)) {
@@ -48,7 +50,7 @@ function writeDisk($page_part) {
     if (!is_logged_in()) {
 
         echo '<div class="strankovani">';
-        if ($_GET['str'] > 0) {
+        if (isset($_GET['str']) && $_GET['str'] > 0) {
             echo '<a href="'.URL.$menulink.'/?str='.($_GET['str']-1).'">&lt; předchozí</a> ';
         }
         $sql = "SELECT COUNT(*) AS pocet FROM `diskuse` WHERE `parent` = $page_part";
@@ -65,7 +67,7 @@ function writeDisk($page_part) {
             }
             }
         }
-        if ($_GET['str'] < $pages) {
+        if (isset($_GET['str']) && $_GET['str'] < $pages) {
 
             echo '<a href="'.URL.$menulink.'/?str='.($_GET['str']+1).'">následující &gt;</a> ';
 
@@ -74,4 +76,3 @@ function writeDisk($page_part) {
         echo '</div>';
     }
 }
-?>
