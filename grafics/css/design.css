@@ -201,3 +201,20 @@ h2, h3, h4 {
 .novinka .datum, .prispevek .datum  {
 	color: black;
 }
+
+.novinka img {
+	margin: 10px;
+	max-width: 90%;
+}
+
+.novinky .novinka img {
+	width: 180px;
+	max-height: 180px;
+	float: left;
+}
+
+.diskuse_text {
+	width: 95%;
+	height: 100px;
+	margin: 20px;
+}

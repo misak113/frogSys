@@ -31,6 +31,7 @@ function writeNovinky($page_part) {
         $unlogged = "";
         $unlogged2 = "";
     }
+    echo '<div class="novinky">';
     $sql = "SELECT * FROM `novinky` WHERE `parent` = $page_part $unlogged ORDER BY `datetime` DESC $unlogged2";
     $q = mysql_query($sql);
     while ($res = @mysql_fetch_array($q)) {
@@ -83,6 +84,7 @@ function writeNovinky($page_part) {
         echo '
             </div>';
     }
+    echo '</div>';
 
     if (!(is_logged_in())) {
         $str = isset($_GET['str'])?$_GET['str']:0;
