@@ -1,16 +1,16 @@
 ########### Nahraj a přejmenuj tento soubor do /.htaccess
 
 
-ErrorDocument 404 "/avantcore/stredoceskynohejbal/index.php?page=404"
+ErrorDocument 404 "/index.php?page=404"
 
 RewriteEngine on
 Options +FollowSymlinks
 
 ####### Redirect na verzi domény s www #######
-RewriteCond %{HTTP_HOST} ^localhost/avantcore/stredoceskynohejbal
-RewriteRule (.*) http://localhost/avantcore/stredoceskynohejbal/$1 [R=301,QSA,L]
+#RewriteCond %{HTTP_HOST} ^zabka.avantcore.cz
+#RewriteRule (.*) http://zabka.avantcore.cz/$1 [R=301,QSA,L]
 
-RewriteBase /avantcore/stredoceskynohejbal/
+RewriteBase /
 
 
 
