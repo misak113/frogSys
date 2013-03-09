@@ -123,7 +123,7 @@ body {
 	font-style: normal;
 	font-family: Myriad Pro;
 	display: block;
-	height: 150px;
+	height: 100px;
 }
 
 #page_top {
@@ -180,4 +180,14 @@ h2, h3, h4 {
 }
 #content_in_625 .slide-show {
 	margin-left: 81px !important;
+}
+
+
+
+.admin-body #menu {
+	width: 1400px;
+}
+
+.menu_left {
+	display: none;
 }

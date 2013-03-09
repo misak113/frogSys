@@ -1,4 +1,4 @@
-<div id="body">
+<div id="body" class="<?php echo is_logged_in()?' admin-body' :''; ?>">
     <div id="body_in">
         <?php writeStaticSloupec(); ?>
         <?php if (is_logged_in()) { ?>
