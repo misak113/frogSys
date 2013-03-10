@@ -747,7 +747,7 @@ DROP PROCEDURE adminer_alter;
 CREATE TABLE IF NOT EXISTS `novinky` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nazev` varchar(100) NOT NULL,
-  `text` text NOT NULL,
+  `text` longtext NOT NULL,
   `parent` int(11) NOT NULL,
   `writer` int(11) NOT NULL,
   `datetime` datetime NOT NULL,
