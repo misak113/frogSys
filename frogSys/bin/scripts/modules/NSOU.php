@@ -17,6 +17,7 @@ function writeNovinkySouhrne($page_part) {
         $unlogged = "";
         $unlogged2 = "";
     }
+	echo '<div class="novinky">';
     $sql = "SELECT * FROM `novinky` WHERE 1 $unlogged ORDER BY `datetime` DESC $unlogged2";
     $q = mysql_query($sql);
     while ($res = @mysql_fetch_array($q)) {
@@ -59,18 +60,20 @@ function writeNovinkySouhrne($page_part) {
         } else {
             echo '<a href="'.URL.$menulink.'/'.$res['link'].'/" title="'.$res['nazev'].'">';
         }
+		$img = get_first_img_tag($res['text']);
         echo '
                     '.$res['nazev'].'
                     </a>
                 </h3>
                 <div class="datum">'.$date.'</div>
-                <div class="text">'.$text.'</div>';
+                <div class="text">'.$img.$text.'</div>';
         if (is_logged_in()) {
             writeEditPane("Novinka", $res['parent'].", ".$res['id'].", this", ($res['visible'] == 1?"Č":"C")."D");
         }
         echo '
             </div>';
     }
+	echo '</div>';
 
     if (!(is_logged_in())) {
         $menulink = getMenuLink($page_part);
