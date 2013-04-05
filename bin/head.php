@@ -28,13 +28,12 @@
         '#fil: js/plugins/IAWindows/IAWindows.js',
         '#fil: js/user.js',
         '#fil: js/plugins/kalendar.js',
-        '#fil: bin/clickheat/js/clickheat.js',
-        '#fil: js/plugins/clickheat.js',
-        '#fil: ext_libs/scriptaculous/prototype.js',
-        '#fil: ext_libs/scriptaculous/scriptaculous.js?load=effects,builder',
-        '#fil: ext_libs/scriptaculous/lightbox.js',
+        //'#fil: ext_libs/scriptaculous/prototype.js',
+        //'#fil: ext_libs/scriptaculous/scriptaculous.js?load=effects,builder',
+        //'#fil: ext_libs/scriptaculous/lightbox.js',
         '#fil: ext_libs/jquery/jquery.autocomplete.min.js',
         '#fil: ext_libs/scriptaculous/simple-slide-show.js',
+	'#fil: ext_libs/jquery/jquery.lightbox-0.5.js',
         '#app: var rek = "'.js_string_output(isset($_SETING['REKONSTRUKCE'])?$_SETING['REKONSTRUKCE']:'')
             .'"; if (rek != "") addLoadEvent(function () {createWindow(rek);});',
         '#app&admin: var aktualPage = '.($pageId+0).'; var aktualPageLink = "'.($pageLink).'";',
@@ -44,9 +43,10 @@
 
     $load_css = array(
         '#fil: css/window.css',
-        '#fil: css/scriptaculous/lightbox.css',
+        //'#fil: css/scriptaculous/lightbox.css',
         '#fil: css/jquery/jquery.autocomplete.css',
         '#fil: css/scriptaculous/simple-slide-show.css',
+        '#fil: ext_libs/jquery/jquery.lightbox-0.5.css',
         '#fil: css/head.css'
     );
 

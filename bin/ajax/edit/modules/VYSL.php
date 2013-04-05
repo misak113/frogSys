@@ -88,20 +88,51 @@ if ($_POST['action'] == "edit_utkani_table") {
             <input type="text" id="cas_<?php echo $res['id_utkani']; ?>" value="<?php echo $time; ?>" />
         </td>
     </tr>
+    <?php
+                $sql = "SELECT vysledky_tym.* FROM `vysledky_tym`
+		    JOIN vysledky_utkani ON (vysledky_utkani.id_host = vysledky_tym.id_tymu OR vysledky_utkani.id_domaci = vysledky_tym.id_tymu)
+		    JOIN vysledky_kolo USING (id_kola)
+		    GROUP BY id_tymu
+		    ORDER BY IF(id_souteze = (SELECT id_souteze FROM vysledky_kolo WHERE id_kola = '".@$_POST['id_kola']."'), 1, 0) DESC, vysledky_tym.nazev ASC
+		    ";
+                $q2 = mysql_query($sql);
+                $options_dom = $options_hos = array();
+                while ($res2 = mysql_fetch_array($q2)) {
+                    $options_dom[] = '<option value="'.$res2['id_tymu'].'" '.
+			    ($res2['id_tymu'] == @$res['id_domaci'] ?'selected="selected"' :'').'>'.
+			    $res2['nazev'].'</option>';
+		    $options_hos[] = '<option value="'.$res2['id_tymu'].'" '.
+			    ($res2['id_tymu'] == @$res['id_host'] ?'selected="selected"' :'').'>'.
+			    $res2['nazev'].'</option>';
+                }
+
+    ?>
     <tr>
         <td>Domácí:</td>
         <td>
-            <?php
-                $sql = "SELECT * FROM `vysledky_tym`";
-                $q2 = mysql_query($sql);
-                $tymy = "";
-                while ($res2 = mysql_fetch_array($q2)) {
-                    $tymy .= $res2['nazev']."Đ";
-                }
-                $sql = "SELECT * FROM `vysledky_tym` WHERE `id_tymu` = ".@$res['id_domaci'];
-                $q2 = mysql_query($sql);
-                $res2 = @mysql_fetch_array($q2);
-            ?>
+	    <select id="id_domaci_<?php echo $res['id_utkani']; ?>" class="id_domaci_select">
+		<option value="0">---</option>
+		<option value="new">Nový tým</option>
+		<?php echo implode(' ', $options_dom); ?>
+	    </select>
+	</td>
+    </tr>
+    <tr>
+	<td></td>
+	<td>
+	    <select id="id_hoste_<?php echo $res['id_utkani']; ?>" class="id_hoste_select">
+		<option value="0">---</option>
+		<option value="new">Nový tým</option>
+		<?php echo implode(' ', $options_hos); ?>
+	    </select>
+	</td>
+    </tr>
+
+    <?php /*
+    <tr>
+        <td>Domácí:</td>
+        <td>
+            
             <input type="text" id="domaci_<?php echo $res['id_utkani']; ?>" value="<?php echo @$res2['nazev']; ?>" onkeyup="changeNazevUtkani(this, '<?php echo $tymy; ?>');" />
             <input type="hidden" id="ids_domaci_<?php echo $res['id_utkani']; ?>" value="<?php echo @$res['id_domaci']; ?>" /></td>
     </tr>
@@ -115,7 +146,7 @@ if ($_POST['action'] == "edit_utkani_table") {
             ?>
             <input type="text" id="hoste_<?php echo $res['id_utkani']; ?>" value="<?php echo @$res2['nazev']; ?>" onkeyup="changeNazevUtkani(this, '<?php echo $tymy; ?>');" />
             <input type="hidden" id="ids_hoste_<?php echo $res['id_utkani']; ?>" value="<?php echo @$res['id_host']; ?>" /></td>
-    </tr>
+    </tr> */ ?>
     <tr>
         <td>Rozhodčí:</td>
         

@@ -120,7 +120,7 @@ Jana Randaková';
                     $do = explode("-", $res['do']);
                     $do = $do[2].". ".$do[1].". ".$do[0];
                     ?>
-            <span class="polozky_akce">kdy: </span><?php echo $kdy; ?> až <?php echo $do; ?>
+            <span class="polozky_akce">kdy: </span><span class="plak_kdy_od"><?php echo $kdy; ?></span><span class="plak_kdy_do"> až <?php echo $do; ?></span>
                     <?php
                     $k_id = $res['id']."_user";
                     $k_start = $res['kdy'];
@@ -140,12 +140,12 @@ Jana Randaková';
             <span class="polozky_akce">kde: </span><?php echo $res['kde']; ?>
         </div>
         <div class="atribut_plan_akci">
-            <span class="polozky_akce">cíl akce:</span> <?php echo $res['co']; ?>
+            <span class="polozky_akce"><span class="plak_typ_cil">cíl akce:</span><span class="plak_typ_kategorie">Kategorie:</span></span> <?php echo $res['co']; ?>
         </div>
         <div class="atribut_plan_akci">
             <span class="polozky_akce">Popis: </span><?php echo $res['text']; ?>
         </div>
-        <div class="atribut_plan_akci">
+        <div class="atribut_plan_akci prihlaseno">
             <span class="polozky_akce">přihlášeno / max. počet lidí: </span><?php echo $prihlaseno; ?>/<?php echo $res['limit_lidi']; ?>
         </div>
         <div class="atribut_plan_akci">
@@ -214,12 +214,12 @@ Jana Randaková';
             </table>
         </div>
             
-        <div class="atribut_plan_akci">
+        <div class="atribut_plan_akci prihlasit_na_akci">
             <a id="prihlasit-akce" href="javascript: prihlasitNaAkci(<?php echo $res['id']; ?>);">
 					přihlásit se na akci
             </a>
         </div>
-        <div class="plan_akci_prihlasit" id="plan_akci_prihlasit_<?php echo $res['id']; ?>" style="height: 1px;">
+        <div class="plan_akci_prihlasit prihlasit_na_akci_detail" id="plan_akci_prihlasit_<?php echo $res['id']; ?>" style="height: 1px;">
             <div id="plan_akci_inner">
                 <form action="" method="POST" onsubmit="return prihlasitAkci(<?php echo $res['id']; ?>);">
                     <table>

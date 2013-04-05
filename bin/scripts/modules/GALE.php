@@ -75,7 +75,7 @@
 					}
 					writeEditPane("Galerie", $res['id'].", ".$page_part, "DM".$check);
 				}
-				echo '	<a href="'.URL.'userfiles/galerie/'.$res['id'].'.'.$res['name'].'" rel="lightbox[roadtrip]">
+				echo '	<a href="'.URL.'userfiles/galerie/'.$res['id'].'.'.$res['name'].'" class="lightbox-image">
 						<img '.$trans.' src="'.URL.'userfiles/galerie/thumbs/'.$res['id'].'.'.$res['name'].'" alt="'.$res['title'].'" title="'.$res['title'].'" id="image_'.$res['id'].'" class="galerie" />
 					</a>
 					';

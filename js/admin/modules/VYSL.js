@@ -61,7 +61,23 @@ var utkani_kolo;
 function editUtkani(id, kolo) {
     aktualSubTarget = aktualClickPart;
     utkani_kolo = kolo;
-    if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=vysledky&action=edit_utkani_table&id="+id, createWindow)) {
+    if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", "predmet=vysledky&action=edit_utkani_table&id="+id+"&id_kola="+kolo, function (text) {
+	createWindow(text);
+	var changeSelectTym = function (type, el) {
+	    if (el.val() == 'new') {
+		var nazev = jQuery('<input/>').attr('type', 'text').attr('id', type+'_nazev_new');
+		el.after(nazev);
+	    } else {
+		jQuery('#'+type+'_nazev_new').remove();
+	    }
+	};
+	jQuery('.id_domaci_select').bind('change', function(ev) {
+	    changeSelectTym('domaci', jQuery(this));
+	});
+	jQuery('.id_hoste_select').bind('change', function(ev) {
+	    changeSelectTym('hoste', jQuery(this));
+	});
+    })) {
 		//pokud nefunguje ajax
 		return;
 	}
@@ -152,8 +168,8 @@ function changeRozhodciUtkaniIdFounded(text) {
 function ulozitUtkani(id) {
     var date = jQuery("#plan_akci_kdy_ids_datum_"+id).attr("value");
     var time = jQuery("#cas_"+id).attr("value");
-    var domaci = jQuery("#ids_domaci_"+id).attr("value");
-    var hoste = jQuery("#ids_hoste_"+id).attr("value");
+    var domaci = jQuery("#id_domaci_"+id).val();
+    var hoste = jQuery("#id_hoste_"+id).val();
     var hriste = jQuery("#ids_hriste_"+id).attr("value");
     var rozhodci = jQuery("#ids_rozhodci_"+id).attr("value");
 
@@ -184,13 +200,13 @@ function ulozitUtkani(id) {
     if (jQuery("#hriste_"+id).attr("value") == "") {
         createAlert("Nebylo zadáno hřiště!");
     }
-    if (domaci == "") {
-        text += "&domaci_nazev="+jQuery("#domaci_"+id).attr("value");
+    if (domaci == "new") {
+        text += "&domaci_nazev="+jQuery("#domaci_nazev_new").val();
     } else {
         text += "&domaci_id="+domaci;
     }
-    if (hoste == "") {
-        text += "&hoste_nazev="+jQuery("#hoste_"+id).attr("value");
+    if (hoste == "new") {
+        text += "&hoste_nazev="+jQuery("#hoste_nazev_new").val()
     } else {
         text += "&hoste_id="+hoste;
     }
@@ -229,7 +245,7 @@ function addRozhodci(el, id) {
 }
 
 
-function checkboxSelectUtkani(id, el) {
+function checkboxSelectUtkani(id, id_kola, el) {
     aktualSubTarget = aktualClickPart;
     var check = 0;
     if (el.checked) {

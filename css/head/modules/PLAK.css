@@ -123,3 +123,7 @@ img.kalendar {
 .polozka_plan_akci.probehla .hlavicka_plan_akci {
     background-color: #BFCEE4;
 }
+
+.polozka_plan_akci .plak_typ_kategorie {
+    display: none;
+}

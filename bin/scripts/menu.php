@@ -33,6 +33,7 @@ function writeMenu($id) {
                     <?php
                     writeEditPane("MenuHead", $res['id'], "EDM");
                 } else {
+			if (strpos($res['link'], '___') === false) {
                     if ($i == 1) {
                         ?>
                         <a class="head_menu_nazev<?php echo $actual; ?>" href="<?php echo URL; ?>"><?php echo $res['name']; ?></a>
@@ -42,6 +43,11 @@ function writeMenu($id) {
                         <a class="head_menu_nazev<?php echo $actual; ?>" href="<?php echo URL; ?><?php echo $res['link']; ?>/"><?php echo $res['name']; ?></a>
                         <?php
                     }
+			} else {
+?>
+				<span class="head_menu_nazev<?php echo $actual; ?>"><?php echo $res['name']; ?></span>
+<?php
+			}
                 }
                 ?>
 
@@ -87,13 +93,19 @@ function writeMenu($id) {
                 <?php
                 if (is_logged_in()) {
                     ?>
-                    <a href="javascript: loadPage(<?php echo $res['id']; ?>, '<?php echo $parent_link; ?>/<?php echo $res['link']; ?>');"<?php echo $hiden; ?>><?php echo $res['name']; ?></a>
+                    <a class="menu_nazev" href="javascript: loadPage(<?php echo $res['id']; ?>, '<?php echo $parent_link; ?>/<?php echo $res['link']; ?>');"<?php echo $hiden; ?>><?php echo $res['name']; ?></a>
                     <?php
                     writeEditPane("Menu", $res['id'], "EDM");
                 } else {
+if (strpos($res['link'], '___') === false) {
                     ?>
-                    <a href="<?php echo URL; ?><?php echo $parent_link; ?>/<?php echo $res['link']; ?>/"><?php echo $res['name']; ?></a>
+                    <a class="menu_nazev" href="<?php echo URL; ?><?php echo $parent_link; ?>/<?php echo $res['link']; ?>/"><?php echo $res['name']; ?></a>
                     <?php
+	 } else {
+	?>
+	<span class="menu_nazev"><?php echo $res['name']; ?></span>
+<?php
+		}
                 }
                 ?>
             </div>

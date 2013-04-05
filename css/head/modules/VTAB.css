@@ -34,3 +34,9 @@
     margin: 10px 15px;
     font-size: 13px;
 }
+
+
+.vysledky_tabulka .web_pages {
+    font-style: italic;
+    width: 40px;
+}

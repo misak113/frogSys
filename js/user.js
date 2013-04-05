@@ -1,7 +1,19 @@
 // JavaScript Document
 
 
-
+//anchor reload
+function anchor_reload() {
+    if (location.href.indexOf("#") != -1) {
+        var query = location.href.split('#');
+        if (query[1] == 'null') {
+            var url = URL;
+        } else {
+            var url = URL+query[1]+"/";
+        }
+        location.href = url;
+    }
+}
+anchor_reload();
 
 
 addLoadEvent(init);
@@ -10,6 +22,10 @@ function init() {
 	//createWindow("<p>Na našich stránkách jsou prováděny nutné změny, děkujeme za pochopení.</p>");
         loadRightURLs();
 }
+
+jQuery(document).ready(function () {
+    jQuery('.lightbox-image').lightBox();
+});
 
 function loadRightURLs() {
     var jqel;

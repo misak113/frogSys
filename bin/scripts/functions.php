@@ -47,6 +47,20 @@ function createLink($name) {
     return $link;
 }
 
+function getLastRightWord($w) {
+    $w2 = explode(' ', $w);
+    if (count($w2) > 1) {
+	for ($i = count($w2)-1;$i >= 0;$i--) {
+	    if (strlen($w2[$i]) > 2) {
+		return $w2[$i];
+	    }
+	}
+	return $w;
+    } else {
+	return $w;
+    }
+}
+
 if (!function_exists('subval_sort')) {
 
     function subval_sort($a, $subkey, $order=null) {

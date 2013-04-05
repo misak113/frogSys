@@ -73,7 +73,7 @@
 						$checked = "checked=\"checked\"";
 					}
 			?>
-			<input <?php echo $checked; ?> type="checkbox" name="checkbox" onchange="checkboxSelect<?php echo $predmet; ?>(<?php echo $parametry; ?>);" class="checkbox" />
+			<input <?php echo $checked; ?> type="checkbox" name="checkbox" onchange="checkboxSelect<?php echo $predmet; ?>(<?php echo $parametry; ?>, this);" class="checkbox" />
 			<?php
 				}
 			?>

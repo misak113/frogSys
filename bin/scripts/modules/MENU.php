@@ -72,10 +72,10 @@
 					$sql4 = "SELECT `link`, `parent` FROM `menu` WHERE `id` = ".$res3['parent']."";
 					$q4 = mysql_query($sql4);
 					if ($res4 = mysql_fetch_array($q4)) {
-						$menulink = $res4['link']."/";
+						$menulink = $res4['link']."/".$menuinlink;
 					}
+
 				}
-                                $menulink .= $menuinlink;
 			} else {
 				$sql3 = "SELECT `parent` FROM `page` WHERE `first` = ".$page_part."";
 				$q3 = mysql_query($sql3);

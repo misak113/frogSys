@@ -112,6 +112,7 @@ function writeProfiles($page_part) {
             JOIN `vysledky_zapas` USING (`id_zapasu`)
             JOIN `vysledky_utkani` USING (`id_utkani`)
             JOIN `vysledky_kolo` USING (`id_kola`)
+            LEFT JOIN `vysledky_tym` USING (`id_tymu`)
             WHERE $filter_sezona AND $filter AND `id_tymu` BETWEEN $tym
             ";
     $q = mysql_query($sql);
@@ -396,7 +397,7 @@ function writeProfiles($page_part) {
             LEFT JOIN `vysledky_zapas` USING (`id_utkani`)
             LEFT JOIN `vysledky_kolo` USING (`id_kola`)
             LEFT JOIN `vysledky_soutez` USING (`id_souteze`)
-            WHERE `id_hrace` = '.$hrac['id_hrace'].'
+	    WHERE `id_hrace` = '.$hrac['id_hrace'].'
             AND '.$filter_sezona.'
             AND '.$filter.'
             ';
@@ -537,14 +538,15 @@ function writeProfiles($page_part) {
     echo '<tr>
             <th rowspan="2">#</th>
             <th colspan="2">Jméno</th>
+	    <th colspan="2">Tým</th>
             <th colspan="2">Zápasy</th>
-            <th colspan="2">Výhry</th>
-            <th colspan="2">Remízy</th>
-            <th colspan="2">Prohry</th>
+            <th colspan="2">Výhry</th>';
+            //<th colspan="2">Remízy</th>
+            echo '<th colspan="2">Prohry</th>
             <th colspan="2">Skóre</th>
-            <th colspan="2">%</th>
-            <th colspan="2">Pískání</th>
-        </tr>
+            <th colspan="2">%</th>';
+            //<th colspan="2">Pískání</th>
+        echo '</tr>
         <tr>
 ';
     $rq = explode("&", $_SERVER['QUERY_STRING']);
@@ -554,21 +556,23 @@ function writeProfiles($page_part) {
     echo '
             <th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'jmeno', $rq)).'">&#x02C5;</a></th>
             <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'jmeno', $rq)).'">&#x02C4;</a></th>
+            <th></th>
+            <th></th>
             <th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'zapasy', $rq)).'">&#x02C5;</a></th>
             <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'zapasy', $rq)).'">&#x02C4;</a></th>
             <th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'vyhry', $rq)).'">&#x02C5;</a></th>
-            <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'vyhry', $rq)).'">&#x02C4;</a></th>
-            <th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'remizy', $rq)).'">&#x02C5;</a></th>
-            <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'remizy', $rq)).'">&#x02C4;</a></th>
-            <th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'prohry', $rq)).'">&#x02C5;</a></th>
+            <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'vyhry', $rq)).'">&#x02C4;</a></th>';
+            //<th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'remizy', $rq)).'">&#x02C5;</a></th>
+            //<th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'remizy', $rq)).'">&#x02C4;</a></th>
+            echo '<th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'prohry', $rq)).'">&#x02C5;</a></th>
             <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'prohry', $rq)).'">&#x02C4;</a></th>
             <th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'sety', $rq)).'">&#x02C5;</a></th>
             <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'sety', $rq)).'">&#x02C4;</a></th>
             <th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', null, $rq)).'">&#x02C5;</a></th>
-            <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', null, $rq)).'">&#x02C4;</a></th>
-            <th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'piskani', $rq)).'">&#x02C5;</a></th>
-            <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'piskani', $rq)).'">&#x02C4;</a></th>
-
+            <th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', null, $rq)).'">&#x02C4;</a></th>';
+            //<th><a href="./?'.addToRequestQuery('dir', null, addToRequestQuery('sort', 'piskani', $rq)).'">&#x02C5;</a></th>
+            //<th><a href="./?'.addToRequestQuery('dir', 'asc', addToRequestQuery('sort', 'piskani', $rq)).'">&#x02C4;</a></th>
+echo '
         </tr>
         ';
     $i = 0;
@@ -578,13 +582,14 @@ function writeProfiles($page_part) {
         echo '<tr>';
         echo '<td>'.$i.'</td>';
         echo '<td colspan="2"><a href="' . URL.$statistics . '/' . $hrac['link'] . '/">'.$hrac['jmeno'].'</a></td>';
+	echo '<td colspan="2" title="'.$hrac['nazev'].'">'.getLastRightWord($hrac['nazev']).'</td>';
         echo '<td colspan="2">'.$hrac['zapasy'].'</td>';
         echo '<td colspan="2">'.$hrac['vyhry'].'</td>';
-        echo '<td colspan="2">'.$hrac['remizy'].'</td>';
+        //echo '<td colspan="2">'.$hrac['remizy'].'</td>';
         echo '<td colspan="2">'.$hrac['prohry'].'</td>';
         echo '<td colspan="2">'.$hrac['sety+'].':'.$hrac['sety-'].'</td>';
         echo '<td colspan="2">'.round($hrac['%'], 1).'</td>';
-        echo '<td colspan="2">'.$hrac['piskani'].'</td>';
+        //echo '<td colspan="2">'.$hrac['piskani'].'</td>';
         echo '</tr>';
     }
 

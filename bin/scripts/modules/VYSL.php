@@ -80,7 +80,9 @@ function writeVysledky($page_part) {
         $q = mysql_query($sql);
         if ($kolo = mysql_fetch_array($q)) {
             $actual_poradi = $kolo['poradi'];
-        }
+        } else {
+	    $actual_poradi = 1;
+	}
     }
     $sql = "SELECT * FROM `vysledky_kolo` WHERE `id_souteze` = " . $set_id . " AND `sezona` = '" . VYSL_SEZONA . "' ORDER BY `poradi` DESC";
     $q = mysql_query($sql);
@@ -134,7 +136,7 @@ function writeVysledky($page_part) {
                         } else {
                             $check = "C";
                         }
-                        writeEditPane("Utkani", $utkani['id_utkani'] . ", this", "ED" . $check);
+                        writeEditPane("Utkani", $utkani['id_utkani'] . ", ".$kolo['id_kola'], "ED" . $check);
                     }
                     ?></div>
                             <div class="tymy"><?php

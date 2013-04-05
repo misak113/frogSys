@@ -19,22 +19,7 @@
 		Je potřeba plugin IAWindows.js		
 	*/
 
-
-	if (isset($_POST['k_id'])) {
-		$k_id = $_POST['k_id'];
-		$k_start = $_POST['k_start'];
-		$k_stop = $_POST['k_stop'];
-		$k_mesic = $_POST['k_mesic'];
-		$k_rok = $_POST['k_rok'];
-		$k_editable = $_POST['k_editable'];
-                
-	}
-	if (@$_POST['echo'] == "true") {
-            require_once "../../../config/database.php";
-            include "../../bin/scripts.php";
-		writeKalendar($k_id, $k_start, $k_stop, $k_mesic, $k_rok, $k_editable);
-	}
-
+if (!function_exists('writeKalendar')) {
 	function writeKalendar($id, $start, $stop, $mesic, $rok, $editable) {
 		$mesice = Array("","Leden","Únor","Březen","Duben","Květen","Červen","Červenec","Srpen","Září","Říjen","Listopad","Prosinec");
 		if ($mesic == 0 || $rok == 0) {
@@ -149,5 +134,22 @@
 		<input type="hidden" value="<?php echo $stop; ?>" id="plan_akci_do_<?php echo $id; ?>">
 		<?php
 	}
-	
+}
+
+
+
+	if (isset($_POST['k_id'])) {
+		$k_id = $_POST['k_id'];
+		$k_start = $_POST['k_start'];
+		$k_stop = $_POST['k_stop'];
+		$k_mesic = $_POST['k_mesic'];
+		$k_rok = $_POST['k_rok'];
+		$k_editable = $_POST['k_editable'];
+
+	}
+	if (@$_POST['echo'] == "true") {
+            require_once "../../../config/database.php";
+            include "../../bin/scripts.php";
+		writeKalendar($k_id, $k_start, $k_stop, $k_mesic, $k_rok, $k_editable);
+	}
 ?>
