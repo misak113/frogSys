@@ -424,10 +424,10 @@ if ($_POST['action'] == "save_zapasy") {
     $sql = "SELECT * FROM `vysledky_utkani` WHERE `id_utkani` = " . $_POST['utkani'];
     $q = mysql_query($sql);
     if ($utkani = mysql_fetch_array($q)) {
-            $typy = $_POST['typ'];
-            $vysledky = $_POST['vysledek'];
-            $dom_hrac = $_POST['dom_hrac'];
-            $hos_hrac = $_POST['hos_hrac'];
+            $typy = @$_POST['typ'];
+            $vysledky = @$_POST['vysledek'];
+            $dom_hrac = @$_POST['dom_hrac'];
+            $hos_hrac = @$_POST['hos_hrac'];
             if ($typy) {
             foreach ($typy as $zapas => $typ) {
                 if (0 + $zapas == 0) {
@@ -483,6 +483,10 @@ if ($_POST['action'] == "save_zapasy") {
                 $sql = "UPDATE `vysledky_utkani` SET `divaci` = " . $_POST['divaci'] . " WHERE `id_utkani` = " . $_POST['utkani'];
                 mysql_query($sql);
             }
+		if (isset($_POST['kontumace'])) {
+			$sql = "UPDATE `vysledky_utkani` SET `kontumace` = '".$_POST['kontumace']."' WHERE `id_utkani` = " . $_POST['utkani'];
+			mysql_query($sql);
+		}
             echo "Zápasy byly uloženy.";
         
     }

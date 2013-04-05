@@ -452,4 +452,24 @@ function getFilesVersions($path, $index) {
     return $ver;
 }
 
+class Watch {
+	protected static $timers = array();
+	protected static $i = 0;
+
+	public static function start($name) {
+		self::$timers[$name] = date('U');
+		self::$i++;
+	}
+
+	public static function stop($name) {
+		if (!is_logged_in()) return;
+
+		if (isset(self::$timers[$name])) {
+			$diff = date('U') - self::$timers[$name];
+			echo '<div class="watch"><strong>'.$name.' ('.self::$i.'):</strong> '.$diff.'s </div>';
+		}
+		self::start($name);
+	}
+}
+
 ?>

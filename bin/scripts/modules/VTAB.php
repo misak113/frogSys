@@ -142,6 +142,7 @@ AND `poradi` <= '.$actual_poradi.'';
             $vyhry = 0;
             $prohry = 0;
             $remizy = 0;
+			$kontumace = 0;
             $skore_left = 0;
             $skore_right = 0;
 			$vyhraNadTymy = array();
@@ -153,6 +154,7 @@ AND `poradi` <= '.$actual_poradi.'';
                     }
 					if (@$domaci[$key] > @$hoste[$key]) {
 						$prohry++;
+						if ($utkani[$key]['kontumace']) $kontumace++;
 					}
 					$skore_left += @$hoste[$key];
 					$skore_right += @$domaci[$key];
@@ -164,6 +166,7 @@ AND `poradi` <= '.$actual_poradi.'';
 					}
                     if (@$domaci[$key] < @$hoste[$key]) {
                         $prohry++;
+						if ($utkani[$key]['kontumace']) $kontumace++;
                     }
                     $skore_left += @$domaci[$key];
                     $skore_right += @$hoste[$key];
@@ -175,8 +178,9 @@ AND `poradi` <= '.$actual_poradi.'';
             $tymy[$i]['vyhry'] = $vyhry;
             $tymy[$i]['prohry'] = $prohry;
             $tymy[$i]['remizy'] = $remizy;
+			$tymy[$i]['kontumace'] = $kontumace;
             $tymy[$i]['zapasy'] = $remizy+$prohry+$vyhry;
-            $tymy[$i]['body'] = $remizy+$vyhry*2;
+            $tymy[$i]['body'] = $remizy+$vyhry*2+$kontumace*(-1);
             $tymy[$i]['skore'] = $skore_left.":".$skore_right;
             $tymy[$i]['skore_rozdil'] = $skore_left-$skore_right;
 			$tymy[$i]['vyhral_nad'] = $vyhraNadTymy;

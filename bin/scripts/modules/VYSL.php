@@ -187,6 +187,9 @@ USING (`id_zapasu`) order by `id_zapasu`
                             </a>';
                     } else {
                         echo $domaci . ":" . $hoste;
+						if ($utkani['kontumace']) {
+							echo ' <small title="Kontumováno"><strong>[K]</strong></small>';
+						}
                     }
                     ?></div>
                             <div class="vice">
@@ -525,6 +528,16 @@ function writeVysledkyZapasy($id_utkani) {
                 echo '<a href="' . URL.$statistics . '/' . $rozhodci['link'] . '/">' . $rozhodci['jmeno'] . '</a>, ';
             }
             ?></div></div>
+		<div class="vysledky_item utkani_kontumace_item">
+			<?php
+			if (is_logged_in()) {
+				echo 'Kontumace: ';
+				echo '<input type="checkbox" class="utkani_kontumace" id="utkani_kontumace_'.$utkani['id_utkani'].'" value="1" '.($utkani['kontumace'] ?'checked="checked"' :'').' />';
+            } else {
+				echo $utkani['kontumace'] ?'<span class="warning"><strong>Utkání kontumováno</strong></span>' :'';
+			}
+			?>
+		</div>
     </div>
     <?php
     

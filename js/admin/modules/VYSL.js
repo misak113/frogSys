@@ -437,7 +437,8 @@ function saveZapasy(utkani) {
         
     }
     req += "&divaci="+document.getElementById("utkani_divaci_"+utkani).value;
-    if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", req, loadZapasy)) {
+	req += "&kontumace="+(document.getElementById("utkani_kontumace_"+utkani).checked ?1 :0);
+	if (!postAjaxRequest(URL+"frogSys/bin/ajax/edit.php", req, loadZapasy)) {
         //pokud nefunguje ajax
         return;
     }

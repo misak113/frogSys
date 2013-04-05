@@ -194,3 +194,10 @@ div.modules {
     left: -2px;
     top: 0px;
 }
+
+
+
+.warning {
+	font-size: 14px;
+	color: darkred;
+}
