@@ -1,11 +1,11 @@
 <?php
 
 function writeTabulka($page_part) {
-    global $_SETING;
-    $statistics = $_SETING['statistics'];
+	global $_SETING;
+	$statistics = $_SETING['statistics'];
 
-    $sql = 'SET SQL_BIG_SELECTS = 1;';
-    mysql_query($sql);
+	$sql = 'SET SQL_BIG_SELECTS = 1;';
+	mysql_query($sql);
 
 	$id_souteze = writeNohejbalHead($page_part);
 
@@ -213,7 +213,7 @@ order by body desc, zapasy, skore_rozdil desc, skore_plus desc
 				&& $tym['body'] == $table[$i+1]['body']
 				&& isset($table[$i+1]['utkani_vyhral_nad_tymy'][$tym['id_tymu']])
 				&& $table[$i+1]['utkani_vyhral_nad_tymy'][$tym['id_tymu']]
-					> @$tym['utkani_vyhral_nad_tymy'][$table[$i+1]['id_tymu']]
+						> @$tym['utkani_vyhral_nad_tymy'][$table[$i+1]['id_tymu']]
 		) {
 			$tmp = $table[$i+1];
 			$table[$i+1] = $table[$i];
@@ -224,7 +224,7 @@ order by body desc, zapasy, skore_rozdil desc, skore_plus desc
 
 	writeHtmlEditArea($page_part, "<h2>Tabulka</h2>");
 
-?>
+	?>
 <table class="vysledky_tabulka">
 	<tr>
 		<th title="Pořadí">#</th>
@@ -238,7 +238,7 @@ order by body desc, zapasy, skore_rozdil desc, skore_plus desc
 		<th title="Body">B</th>
 	</tr>
 
-<?php
+	<?php
 	if (is_array($table) && !empty($table)) {
 
 		$poradi = 0;
@@ -246,47 +246,47 @@ order by body desc, zapasy, skore_rozdil desc, skore_plus desc
 			if ($tym['nazev'] == 'VOLNO') { //TODO
 				continue;
 			}
-?>
-	<tr>
-		<td class="poradi"><?php $poradi++; echo $poradi; ?>.</td>
-		<td class="nazev">
-			<a href="<?php echo URL.$statistics; ?>/<?php echo $tym['link']; ?>/"><?php echo $tym['nazev']; ?></a>
-		</td>
-		<td class="web">
-<?php if (is_logged_in()) { ?>
-			<span>http://<input type="text" value="<?php echo $tym['web']; ?>"
-				id="web_pages_<?php echo $tym['id_tymu'] ?>" class="web_pages" />
+			?>
+			<tr>
+				<td class="poradi"><?php $poradi++; echo $poradi; ?>.</td>
+				<td class="nazev">
+					<a href="<?php echo URL.$statistics; ?>/<?php echo $tym['link']; ?>/"><?php echo $tym['nazev']; ?></a>
+				</td>
+			<td class="web">
+				<?php if (is_logged_in()) { ?>
+				<span>http://<input type="text" value="<?php echo $tym['web']; ?>"
+									id="web_pages_<?php echo $tym['id_tymu'] ?>" class="web_pages" />
 		<input type="button" value="Uložit"
 			   onclick="ulozitWebPagesTymu(<?php echo $tym['id_tymu'] ?>)"></span>
-<?php } else { ?>
-	<?php if ($tym['web']) { ?>
-		<a href="http://<?php echo $tym['web']; ?>" target="_blank">web &gt;</a></td>
+				<?php } else { ?>
+				<?php if ($tym['web']) { ?>
+					<a href="http://<?php echo $tym['web']; ?>" target="_blank">web &gt;</a></td>
 	<?php } ?>
-<?php } ?>
-		<td class="zapasy" title="Zápasy">
-			<?php echo $tym['zapasy']; ?>
-		</td>
-		<td class="vyhry" title="Výhry">
-			<?php echo $tym['vyhry']; ?>
-		</td>
-		<td class="remizy" title="Remízy">
-			<?php echo $tym['remizy']; ?>
-		</td>
-		<td class="prohry" title="Prohry">
-			<?php echo $tym['prohry']; ?>
-			<span title="Kontumace"><?php echo $tym['kontumace'] ?' ('.$tym['kontumace'].')' :''; ?></span>
-		</td>
-		<td class="skore">
-			<?php echo $tym['skore_plus'].':'.$tym['skore_minus']; ?>
-		</td>
-		<td class="body" title="Body">
-			<?php echo $tym['body']; ?>
-		</td>
-	</tr>
-<?php
+				<?php } ?>
+				<td class="zapasy" title="Zápasy">
+					<?php echo $tym['zapasy']; ?>
+				</td>
+				<td class="vyhry" title="Výhry">
+					<?php echo $tym['vyhry']; ?>
+				</td>
+				<td class="remizy" title="Remízy">
+					<?php echo $tym['remizy']; ?>
+				</td>
+				<td class="prohry" title="Prohry">
+					<?php echo $tym['prohry']; ?>
+					<span title="Kontumace"><?php echo $tym['kontumace'] ?' ('.$tym['kontumace'].')' :''; ?></span>
+				</td>
+				<td class="skore">
+					<?php echo $tym['skore_plus'].':'.$tym['skore_minus']; ?>
+				</td>
+				<td class="body" title="Body">
+					<?php echo $tym['body']; ?>
+				</td>
+			</tr>
+			<?php
 		}
 	}
-?>
+	?>
 
 </table>
 <?php
