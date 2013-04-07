@@ -6,25 +6,31 @@ function writeTabulka($page_part) {
 
     $sql = 'SET SQL_BIG_SELECTS = 1;';
     mysql_query($sql);
-    
-    $id_souteze = writeNohejbalHead($page_part);
 
-    writeHtmlEditArea($page_part, "<h2>Tabulka</h2>");
+	$id_souteze = writeNohejbalHead($page_part);
 
-    if (@$_GET['kolo']) {
-        $actual_poradi = $_GET['kolo'];
-    } else {
-        $sql = "SELECT * FROM `vysledky_kolo` WHERE `datetime` < NOW() AND `sezona` = '".VYSL_SEZONA."' AND `id_souteze` = ".$id_souteze." ORDER BY `datetime` DESC";
-        $q = mysql_query($sql);
-        if ($res = mysql_fetch_array($q)) {
-            $actual_poradi = $res['poradi'];
-        } else {
-	    $actual_poradi = 1;
+	// získání pořadí
+	if (@$_GET['kolo']) {
+		$actual_poradi = $_GET['kolo'];
+	} else {
+		$sql = "SELECT *
+        FROM `vysledky_kolo`
+        WHERE `datetime` < NOW() AND `sezona` = '".VYSL_SEZONA."'
+        AND `id_souteze` = ".$id_souteze."
+        ORDER BY `datetime` DESC";
+		$q = mysql_query($sql);
+		if ($res = mysql_fetch_array($q)) {
+			$actual_poradi = $res['poradi'];
+		} else {
+			$actual_poradi = 1;
+		}
 	}
-    }
 
-
-	$sql = "SELECT * FROM `vysledky_kolo` WHERE `sezona` = '".VYSL_SEZONA."' AND `id_souteze` = ".$id_souteze." ORDER BY `poradi`";
+	$sql = "SELECT *
+	FROM `vysledky_kolo`
+	WHERE `sezona` = '".VYSL_SEZONA."'
+	AND `id_souteze` = ".$id_souteze."
+	ORDER BY `poradi`";
 	$q = mysql_query($sql);
 	$vsechnyPoradi = array();
 	while ($res = mysql_fetch_array($q)) {
@@ -32,239 +38,268 @@ function writeTabulka($page_part) {
 		$maxPoradi = $res['poradi'];
 	}
 
-	?>
-<table class="vysledky_tabulka">
-    <tr>
-        <th>#</th>
-        <th>Název</th>
-        <th>web</th>
-        <th>Z</th>
-        <th>V</th>
-        <th>R</th>
-        <th>P</th>
-        <th>Skóre</th>
-        <th>B</th>
-    </tr>
-        <?php
-        $sql = 'SELECT * FROM `vysledky_utkani` JOIN `vysledky_kolo` USING (`id_kola`) WHERE `id_souteze` = '.$id_souteze.' AND `sezona` = '.VYSL_SEZONA.'';
-        $q = mysql_query($sql);
-        $i = 0;
-        $tyms = array();
-        while ($tym = mysql_fetch_array($q)) {
-            $tyms[$i]['id_tymu'] = $tym['id_host'];
-            $i++;
-            $tyms[$i]['id_tymu'] = $tym['id_domaci'];
-            $i++;
-        }
+	//set @sezona = 2012;
+	//set @poradi = 13;
+	//set @soutez = 2;
+	$sql = "
+-- by union
+
+select id_domaci as id_tymu, nazev, web, link, group_concat(utkani_vyhral_nad_tymy) as utkani_vyhral_nad_tymy,
+
+sum(utkani_domaci_vyhraly) + sum(utkani_remiza) + sum(utkani_hoste_vyhraly) as zapasy,
+sum(utkani_domaci_vyhraly) as vyhry,
+sum(utkani_remiza) as remizy,
+sum(utkani_hoste_vyhraly) as prohry,
+sum(kontumace) as kontumace,
+
+sum(domaci_skore) as skore_plus,
+sum(hoste_skore) as skore_minus,
+sum(domaci_skore) - sum(hoste_skore) as skore_rozdil,
+
+sum(utkani_domaci_vyhraly)*2 + sum(utkani_remiza) - sum(kontumace) as body
 
 
-        $i = 0;
-        $tymy = array();
-        foreach ($tyms as $tym) {
-            $naslo = false;
-            foreach ($tymy as $tym2) {
-                if ($tym['id_tymu'] == $tym2['id_tymu']) {
-                    $naslo = true;
-                    break;
-                }
-            }
-            if (!$naslo) {
-                $tymy[$i]['id_tymu'] = $tym['id_tymu'];
-                $i++;
-            }
-        }
+from (
 
-
-        for ($i=0;$i < count($tymy);$i++) {
-	    if (!$tymy[$i]['id_tymu']) {
-		unset($tymy[$i]);
-		continue;
-	    }
-            $sql = "SELECT * FROM `vysledky_tym` WHERE `id_tymu` = ".$tymy[$i]['id_tymu']."";
-            $q = mysql_query($sql);
-            if ($res = mysql_fetch_array($q)) {
-                $tymy[$i]['nazev'] = $res['nazev'];
-                $tymy[$i]['link'] = isset($res['link']) ?$res['link'] :'';
-                $tymy[$i]['web'] = isset($res['web']) ?$res['web'] :'';
-            } else {
-		$tymy[$i] = array(
-		    'nazev' => '---',
-		    'link' => '',
-		    'web' => ''
-		);
-	    }
-
-            $sql = 'SELECT * FROM `vysledky_utkani` JOIN `vysledky_kolo` USING (`id_kola`)
-LEFT JOIN
 (
-(SELECT distinct(`id_zapasu`), domaci, hoste, hos1.`id_utkani` FROM
-                        (SELECT count(`id_vysledku`) AS domaci, `id_zapasu`, `id_utkani` FROM `vysledky_zapas`
-                            JOIN `vysledky_vysledek` USING (`id_zapasu`) WHERE `domaci` > `hoste` GROUP BY `id_zapasu`) dom1
-                        RIGHT OUTER JOIN
-                        (SELECT count(`id_vysledku`) AS hoste, `id_zapasu`, `id_utkani` FROM `vysledky_zapas`
-                            JOIN `vysledky_vysledek` USING (`id_zapasu`) WHERE `domaci` < `hoste` GROUP BY `id_zapasu`) hos1 USING (`id_zapasu`)) 
-UNION
-(SELECT distinct(`id_zapasu`), domaci, hoste, dom2.`id_utkani` FROM
-                        (SELECT count(`id_vysledku`) AS domaci, `id_zapasu`, `id_utkani` FROM `vysledky_zapas`
-                            JOIN `vysledky_vysledek` USING (`id_zapasu`) WHERE `domaci` > `hoste` GROUP BY `id_zapasu`) dom2
-                        LEFT OUTER JOIN
-                        (SELECT count(`id_vysledku`) AS hoste, `id_zapasu`, `id_utkani` FROM `vysledky_zapas`
-                            JOIN `vysledky_vysledek` USING (`id_zapasu`) WHERE `domaci` < `hoste` GROUP BY `id_zapasu`) hos2 USING (`id_zapasu`)) 
+# 1-UNION
+select id_domaci, id_kola,
+
+sum(utkani_remiza) as utkani_remiza,
+sum(utkani_domaci_vyhraly) as utkani_domaci_vyhraly,
+sum(utkani_hoste_vyhraly) as utkani_hoste_vyhraly,
+
+sum(utkani_hoste_vyhraly*kontumace) as kontumace,
+sum(zapas_domaci_vyhraly_skore) as domaci_skore,
+sum(zapas_hoste_vyhraly_skore) as hoste_skore,
+
+group_concat(IF(utkani_domaci_vyhraly, id_host, 0)) as utkani_vyhral_nad_tymy
+
+from
+(
+# 2-SUBQUERY
+select id_kola, id_utkani, kontumace, id_host, id_domaci,
+
+sum(zapas_domaci_vyhraly) as zapas_domaci_vyhraly_skore,
+sum(zapas_hoste_vyhraly) as zapas_hoste_vyhraly_skore,
+
+sum(zapas_hoste_vyhraly) < sum(zapas_domaci_vyhraly) as utkani_domaci_vyhraly,
+sum(zapas_hoste_vyhraly) > sum(zapas_domaci_vyhraly) as utkani_hoste_vyhraly,
+sum(zapas_hoste_vyhraly) = sum(zapas_domaci_vyhraly) as utkani_remiza
+
+from
+(
+# 1-SUBQUERY
+select id_utkani, id_kola, kontumace, id_host, id_domaci,
+sum(domaci > hoste) as vysledek_domaci_vyhraly,
+sum(hoste > domaci) as vysledek_hoste_vyhraly,
+#sum(domaci = hoste) as vysledek_remiza,
+
+sum(hoste > domaci) < sum(domaci > hoste) as zapas_domaci_vyhraly,
+sum(hoste > domaci) > sum(domaci > hoste) as zapas_hoste_vyhraly,
+sum(hoste > domaci) = sum(domaci > hoste) as zapas_remiza
+
+
+from vysledky_kolo
+join vysledky_utkani using (id_kola)
+join vysledky_zapas using (id_utkani)
+join vysledky_vysledek using (id_zapasu)
+
+WHERE sezona = @sezona
+AND poradi <= @poradi
+AND id_souteze = @soutez
+
+group by id_zapasu
+# /1-SUBQUERY
 ) zapasy
-ON (`vysledky_utkani`.`id_utkani` = zapasy.`id_utkani`)
-WHERE `id_souteze` = '.$id_souteze.' AND `sezona` = '.VYSL_SEZONA.' AND
-(`vysledky_utkani`.`id_host` = '.$tymy[$i]['id_tymu'].' OR vysledky_utkani.`id_domaci` = '.$tymy[$i]['id_tymu'].')
-AND NOT (domaci IS NULL AND hoste IS NULL)
-AND `poradi` <= '.$actual_poradi.'';
-            $q = mysql_query($sql);
-            $id_host = array();
-            $id_domaci = array();
-            $domaci = array();
-            $hoste = array();
-			$utkani = array();
-            while ($res3 = mysql_fetch_array($q)) {
-                if (!isset($domaci[$res3['id_utkani']])) {
-                    $domaci[$res3['id_utkani']] = 0;
-                }
-                if (!isset($hoste[$res3['id_utkani']])) {
-                    $hoste[$res3['id_utkani']] = 0;
-                }
-                @$id_host[$res3['id_utkani']] = $res3['id_host'];
-                @$id_domaci[$res3['id_utkani']] = $res3['id_domaci'];
-                if ($res3['domaci'] > $res3['hoste']) {
-                    @$domaci[$res3['id_utkani']]++;
-                }
-                if ($res3['domaci'] < $res3['hoste']) {
-                    @$hoste[$res3['id_utkani']]++;
-                }
-				$utkani[$res3['id_utkani']] = $res3;
-            }
-            $vyhry = 0;
-            $prohry = 0;
-            $remizy = 0;
-			$kontumace = 0;
-            $skore_left = 0;
-            $skore_right = 0;
-			$vyhraNadTymy = array();
-            foreach ($id_host as $key => $dom_ut) {
-                if ($id_host[$key] == $tymy[$i]['id_tymu']) {
-                    if (@$domaci[$key] < @$hoste[$key]) {
-                        $vyhry++;
-						@$vyhraNadTymy[$utkani[$key]['id_domaci']]++;
-                    }
-					if (@$domaci[$key] > @$hoste[$key]) {
-						$prohry++;
-						if ($utkani[$key]['kontumace']) $kontumace++;
-					}
-					$skore_left += @$hoste[$key];
-					$skore_right += @$domaci[$key];
-				}
-				if ($id_domaci[$key] == $tymy[$i]['id_tymu']) {
-					if (@$domaci[$key] > @$hoste[$key]) {
-						$vyhry++;
-						@$vyhraNadTymy[$utkani[$key]['id_host']]++;
-					}
-                    if (@$domaci[$key] < @$hoste[$key]) {
-                        $prohry++;
-						if ($utkani[$key]['kontumace']) $kontumace++;
-                    }
-                    $skore_left += @$domaci[$key];
-                    $skore_right += @$hoste[$key];
-                }
-                if (@$domaci[$key] == @$hoste[$key]) {
-                    $remizy++;
-                }
-            }
-            $tymy[$i]['vyhry'] = $vyhry;
-            $tymy[$i]['prohry'] = $prohry;
-            $tymy[$i]['remizy'] = $remizy;
-			$tymy[$i]['kontumace'] = $kontumace;
-            $tymy[$i]['zapasy'] = $remizy+$prohry+$vyhry;
-            $tymy[$i]['body'] = $remizy+$vyhry*2+$kontumace*(-1);
-            $tymy[$i]['skore'] = $skore_left.":".$skore_right;
-            $tymy[$i]['skore_rozdil'] = $skore_left-$skore_right;
-			$tymy[$i]['vyhral_nad'] = $vyhraNadTymy;
 
+group by id_utkani
+# /2-SUBQUERY
+) utkani
+
+group by id_domaci
+# /1-UNION
+)
+
+UNION
+
+(
+# 2-UNION
+select id_host as id_domaci, id_kola,
+
+sum(utkani_remiza) as utkani_remiza,
+sum(utkani_domaci_vyhraly) as utkani_domaci_vyhraly,
+sum(utkani_hoste_vyhraly) as utkani_hoste_vyhraly,
+
+sum(utkani_hoste_vyhraly*kontumace) as kontumace,
+sum(zapas_domaci_vyhraly_skore) as domaci_skore,
+sum(zapas_hoste_vyhraly_skore) as hoste_skore,
+
+group_concat(IF(utkani_domaci_vyhraly, id_domaci, 0)) as utkani_vyhral_nad_tymy
+
+from
+(
+# 2-SUBQUERY
+select id_kola, id_utkani, kontumace, id_host, id_domaci,
+
+sum(zapas_domaci_vyhraly) as zapas_domaci_vyhraly_skore,
+sum(zapas_hoste_vyhraly) as zapas_hoste_vyhraly_skore,
+
+sum(zapas_hoste_vyhraly) < sum(zapas_domaci_vyhraly) as utkani_domaci_vyhraly,
+sum(zapas_hoste_vyhraly) > sum(zapas_domaci_vyhraly) as utkani_hoste_vyhraly,
+sum(zapas_hoste_vyhraly) = sum(zapas_domaci_vyhraly) as utkani_remiza
+
+from
+(
+# 1-SUBQUERY
+select id_utkani, id_kola, kontumace, id_host, id_domaci,
+sum(domaci < hoste) as vysledek_domaci_vyhraly,
+sum(hoste < domaci) as vysledek_hoste_vyhraly,
+#sum(domaci = hoste) as vysledek_remiza,
+
+sum(hoste > domaci) > sum(domaci > hoste) as zapas_domaci_vyhraly,
+sum(hoste > domaci) < sum(domaci > hoste) as zapas_hoste_vyhraly,
+sum(hoste > domaci) = sum(domaci > hoste) as zapas_remiza
+
+
+from vysledky_kolo
+join vysledky_utkani using (id_kola)
+join vysledky_zapas using (id_utkani)
+join vysledky_vysledek using (id_zapasu)
+
+WHERE sezona = @sezona
+AND poradi <= @poradi
+AND id_souteze = @soutez
+
+group by id_zapasu
+# /1-SUBQUERY
+) zapasy
+
+group by id_utkani
+# /2-SUBQUERY
+) utkani
+
+group by id_host
+# /2-UNION
+)
+
+) AS tabulka
+join vysledky_tym on (id_domaci = id_tymu)
+
+group by id_domaci
+
+order by body desc, zapasy, skore_rozdil desc, skore_plus desc
+	";
+
+	$sql = str_replace('@sezona', VYSL_SEZONA, $sql);
+	$sql = str_replace('@soutez', $id_souteze, $sql);
+	$sql = str_replace('@poradi', $actual_poradi, $sql);
+
+	$q = mysql_query($sql);
+	$table = array();
+	while ($res = mysql_fetch_array($q)) {
+		$winWith = explode(',', $res['utkani_vyhral_nad_tymy']);
+		$vyhral = array();
+		foreach ($winWith as $team) {
+			@$vyhral[$team]++;
 		}
+		$res['utkani_vyhral_nad_tymy'] = $vyhral;
+		$table[] = $res;
+	}
 
-        if (is_array($tymy) && !empty($tymy)) {
-        //$tymy = subval_sort($tymy, 'skore_rozdil', 'desc');
-        //$tymy = subval_sort($tymy, 'body', 'desc');
-	    if (isset($tymy[0]) && isset($tymy[0]['body'], $tymy[0]['skore_rozdil'], $tymy[0]['zapasy'], $tymy[0]['vyhry'])) {
-        orderBy($tymy, 'body DESC, skore_rozdil DESC, zapasy ASC, vyhry DESC');
-	    }
-			// Dořazení podle vzájemných zápasů
-			$lastTym = null;
-			$lastI = null;
-			foreach ($tymy as $i => $tym) {
-				if ($lastI !== null)
-				if ($maxPoradi == $actual_poradi && $lastTym['body'] == $tym['body'] && @$tym['vyhral_nad'][$lastTym['id_tymu']] > @$lastTym['vyhral_nad'][$tym['id_tymu']]) {
-					// prohod
-					$temp = $tymy[$lastI];
-					$tymy[$lastI] = $tymy[$i];
-					$tymy[$i] = $temp;
-				}
-				$lastTym = $tym;
-				$lastI = $i;
+	// sorting by vzajemna utkani
+	foreach ($table as $i => $tym) {
+		if (isset($table[$i+1])
+				&& $tym['body'] == $table[$i+1]['body']
+				&& isset($table[$i+1]['utkani_vyhral_nad_tymy'][$tym['id_tymu']])
+				&& $table[$i+1]['utkani_vyhral_nad_tymy'][$tym['id_tymu']]
+					> @$tym['utkani_vyhral_nad_tymy'][$table[$i+1]['id_tymu']]
+		) {
+			$tmp = $table[$i+1];
+			$table[$i+1] = $table[$i];
+			$table[$i] = $tmp;
+		}
+	}
+
+
+	writeHtmlEditArea($page_part, "<h2>Tabulka</h2>");
+
+?>
+<table class="vysledky_tabulka">
+	<tr>
+		<th>#</th>
+		<th>Název</th>
+		<th>web</th>
+		<th>Z</th>
+		<th>V</th>
+		<th>R</th>
+		<th>P</th>
+		<th>Skóre</th>
+		<th>B</th>
+	</tr>
+
+<?php
+	if (is_array($table) && !empty($table)) {
+
+		$poradi = 0;
+		foreach ($table as $tym) {
+			if ($tym['nazev'] == 'VOLNO') { //TODO
+				continue;
 			}
-        //print_r($tymy);
-        $poradi = 0;
-        foreach ($tymy as $tym) {
-	    if ($tym['nazev'] == 'VOLNO') {
-		continue;
-	    }
-            ?>
-    <tr>
-        <td class="poradi"><?php $poradi++; echo $poradi; ?>.</td>
-        <td class="nazev"><a href="<?php echo URL.$statistics; ?>/<?php echo $tym['link']; ?>/"><?php echo $tym['nazev']; ?></a></td>
-        <td class="web">
-	<?php if (is_logged_in()) { ?>
-	    <span>http://<input type="text" value="<?php echo $tym['web']; ?>"
+?>
+	<tr>
+		<td class="poradi"><?php $poradi++; echo $poradi; ?>.</td>
+		<td class="nazev">
+			<a href="<?php echo URL.$statistics; ?>/<?php echo $tym['link']; ?>/"><?php echo $tym['nazev']; ?></a>
+		</td>
+		<td class="web">
+<?php if (is_logged_in()) { ?>
+			<span>http://<input type="text" value="<?php echo $tym['web']; ?>"
 				id="web_pages_<?php echo $tym['id_tymu'] ?>" class="web_pages" />
 		<input type="button" value="Uložit"
-		       onclick="ulozitWebPagesTymu(<?php echo $tym['id_tymu'] ?>)"></span>
-	    <?php } else { ?>
+			   onclick="ulozitWebPagesTymu(<?php echo $tym['id_tymu'] ?>)"></span>
+<?php } else { ?>
 	<?php if ($tym['web']) { ?>
-            <a href="http://<?php echo $tym['web']; ?>" target="_blank">web &gt;</a></td>
-                <?php
-
+		<a href="http://<?php echo $tym['web']; ?>" target="_blank">web &gt;</a></td>
+	<?php } ?>
+<?php } ?>
+		<td class="zapasy">
+			<?php echo $tym['zapasy']; ?>
+		</td>
+		<td class="vyhry">
+			<?php echo $tym['vyhry']; ?>
+		</td>
+		<td class="remizy">
+			<?php echo $tym['remizy']; ?>
+		</td>
+		<td class="prohry">
+			<?php echo $tym['prohry']; ?>
+			<?php echo $tym['kontumace'] ?' ('.$tym['kontumace'].')' :''; ?>
+		</td>
+		<td class="skore">
+			<?php echo $tym['skore_plus'].':'.$tym['skore_minus']; ?>
+		</td>
+		<td class="body">
+			<?php echo $tym['body']; ?>
+		</td>
+	</tr>
+<?php
 		}
-	    }
-	    ?>
-        <td class="zapasy">
-                    <?php echo $tym['zapasy']; ?>
-        </td>
-        <td class="vyhry">
-                    <?php echo $tym['vyhry']; ?>
-        </td>
-        <td class="remizy">
-                    <?php echo $tym['remizy']; ?>
-        </td>
-        <td class="prohry">
-                    <?php echo $tym['prohry']; ?>
-        </td>
-        <td class="skore">
-                    <?php echo $tym['skore']; ?>
-        </td>
-        <td class="body">
-                    <?php echo $tym['body']; ?>
-        </td>
-    </tr>
-        <?php
-        }
-        }
-        ?>
+	}
+?>
+
 </table>
 <?php
-    echo '<div class="vysledky_kola"> Kolo: ';
+
+	// výběr pořadí
+	echo '<div class="vysledky_kola"> Kolo: ';
 	foreach ($vsechnyPoradi as $res) {
-        if ($actual_poradi == $res['poradi']) {
-            echo '<span class="actual_poradi">'.$res['poradi'].'</span>, ';
-        } else {
-            echo '<a href="./?kolo='.$res['poradi'].'" class="poradi">'.$res['poradi'].'</a>, ';
-        }
-    }
-    echo '</div>';
+		if ($actual_poradi == $res['poradi']) {
+			echo '<span class="actual_poradi">'.$res['poradi'].'</span>, ';
+		} else {
+			echo '<a href="./?kolo='.$res['poradi'].'" class="poradi">'.$res['poradi'].'</a>, ';
+		}
+	}
+	echo '</div>';
 
 }
-?>
