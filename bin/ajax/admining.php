@@ -121,7 +121,7 @@ if (is_logged_in()) {
         }
         if ($_POST['action'] == "set_seting") {
             $text = $_POST['text'];
-            $text = str_replace(array("\"", "\n","'"), array("&quot;"," ","&#39;"), $text);
+            $text = str_replace(array("\n","'"), array(" ","&#39;"), $text);
             $sql = "INSERT INTO `seting` VALUES(NULL, '".$_POST['name']."', '".$text."')";
             mysql_query($sql);
             $sql = "UPDATE `seting` SET `value` = '".$text."' WHERE `name` = '".$_POST['name']."'";
