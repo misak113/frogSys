@@ -153,14 +153,18 @@ function writeVysledky($page_part) {
                     }
                     ?></div>
                             <div class="skore" id="vysledky_skore_<?php echo $utkani['id_utkani']; ?>"><?php
+						$zapasy = array();
                     $sql = 'SELECT distinct(`id_zapasu`), domaci, hoste FROM
                         (SELECT count(`id_vysledku`) AS domaci, `id_zapasu` FROM `vysledky_zapas`
                             JOIN `vysledky_vysledek` USING (id_zapasu) WHERE `id_utkani` = ' . $utkani['id_utkani'] . ' AND `domaci` > `hoste` GROUP BY `id_zapasu`) dom
                         RIGHT OUTER JOIN
                         (SELECT count(`id_vysledku`) AS hoste, `id_zapasu` FROM `vysledky_zapas`
-                            JOIN `vysledky_vysledek` USING (id_zapasu) WHERE `id_utkani` = ' . $utkani['id_utkani'] . ' AND `domaci` < `hoste` GROUP BY `id_zapasu`) hos USING (`id_zapasu`)
-UNION
-SELECT * FROM
+                            JOIN `vysledky_vysledek` USING (id_zapasu) WHERE `id_utkani` = ' . $utkani['id_utkani'] . ' AND `domaci` < `hoste` GROUP BY `id_zapasu`) hos USING (`id_zapasu`)';
+					$q3 = mysql_query($sql);
+					while ($zapas = mysql_fetch_array($q3)) {
+						$zapasy[$zapas['id_zapasu']] = $zapas;
+					}
+$sql = 'SELECT * FROM
                         (SELECT count(`id_vysledku`) AS domaci, `id_zapasu` FROM `vysledky_zapas`
                             JOIN `vysledky_vysledek` USING (id_zapasu) WHERE `id_utkani` = ' . $utkani['id_utkani'] . ' AND `domaci` > `hoste` GROUP BY `id_zapasu`) dom
                         LEFT OUTER JOIN
@@ -169,9 +173,12 @@ SELECT * FROM
 USING (`id_zapasu`) order by `id_zapasu`
                         ';
                     $q3 = mysql_query($sql);
+					while ($zapas = mysql_fetch_array($q3)) {
+						$zapasy[$zapas['id_zapasu']] = $zapas;
+					}
                     $domaci = 0;
                     $hoste = 0;
-                    while ($zapas = mysql_fetch_array($q3)) {
+                    foreach ($zapasy as $zapas) {
                         if ($zapas['domaci'] > $zapas['hoste']) {
                             $domaci++;
                         }
