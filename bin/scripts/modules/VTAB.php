@@ -208,6 +208,8 @@ order by body desc, zapasy, skore_rozdil desc, skore_plus desc
 	}
 
 	// sorting by vzajemna utkani
+	// pouze v posledním kole
+	if ($maxPoradi == $actual_poradi)
 	foreach ($table as $i => $tym) {
 		if (isset($table[$i+1])
 				&& $tym['body'] == $table[$i+1]['body']
