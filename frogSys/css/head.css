@@ -1,0 +1,33 @@
+/* CSS Document */
+
+
+@import url("../../frogSys/css/head/tags.css");
+@import url("../../frogSys/css/head/main.css");
+@import url("../../frogSys/css/head/menu.css");
+@import url("../../frogSys/css/head/admin_menu.css");
+@import url("../../frogSys/css/head/edit_panes.css");
+@import url("../../frogSys/css/head/kalendar.css");
+@import url("../../frogSys/css/head/other.css");
+@import url("../../frogSys/css/head/page_in.css");
+@import url("../../frogSys/css/head/zakladni.css");
+
+/* MODULES */
+@import url("../../frogSys/css/head/modules/HTML.css");
+@import url("../../frogSys/css/head/modules/MENU.css");
+@import url("../../frogSys/css/head/modules/PLAK.css");
+@import url("../../frogSys/css/head/modules/SMAP.css");
+@import url("../../frogSys/css/head/modules/SHOP.css");
+@import url("../../frogSys/css/head/modules/KOSI.css");
+@import url("../../frogSys/css/head/modules/GALE.css");
+@import url("../../frogSys/css/head/modules/NOVI.css");
+@import url("../../frogSys/css/head/modules/DISK.css");
+@import url("../../frogSys/css/head/modules/VYSL.css");
+@import url("../../frogSys/css/head/modules/VTAB.css");
+@import url("../../frogSys/css/head/modules/VSTA.css");
+@import url("../../frogSys/css/head/modules/VTYM.css");
+
+
+/** Designový CSS
+        Všechny změny co se týče implementace nového designu pouze do tohoto souboru
+*/
+@import url("../../grafics/css/design.css");

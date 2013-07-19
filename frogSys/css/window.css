@@ -1,0 +1,162 @@
+/* CSS Document */
+
+
+
+
+.window_objekt {
+	position: absolute;
+	left: -150px;
+	top: -150px;
+	min-width: 150px;
+	min-height: 150px;
+	width: 1px;
+	height: 1px;
+	overflow: visible;
+	z-index: 50;
+}
+
+.window_close {
+	position: absolute;
+  right:10px;
+  top:10px;
+}
+
+.window_table {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+}
+
+.window_text {
+	overflow: visible;
+	position: relative;
+	text-align: center;
+	height: 100%;
+	width: 100%;
+	color:#646464;
+
+}
+
+.window_text a {
+	color:#019eb1;
+}
+
+.window_text a:hover {
+	color:#019eb1;
+}
+
+.window_lt {
+	width: 8px;
+	height: 40px;
+	min-width: 8px;
+	min-height: 40px;
+	background: url('../../frogSys/images/window/win-left-top.png') no-repeat;
+	overflow: hidden;
+	padding: 0px;
+	cursor: Move;
+}
+
+.window_t {
+	background-image: url('../../frogSys/images/window/win-bg-top.png');
+	overflow: hidden;
+	text-align: left;
+	cursor: Move;
+}
+
+.window_rt {
+	width: 8px;
+	height: 40px;
+	min-width: 8px;
+	min-height: 40px;
+	background: url('../../frogSys/images/window/win-right-top.png') no-repeat;
+	overflow: hidden;
+	padding: 0px;
+	cursor: Move;
+}
+
+.window_lm {
+	background-image: url('../../frogSys/images/window/win-left-mid.png');
+	overflow: hidden;
+	padding: 0px;
+	width:8px;
+}
+
+.window_m {
+	background:white;
+	padding:6px;
+}
+
+.window_rm {
+	background: url('../../frogSys/images/window/win-right-mid.png');
+	overflow: hidden;
+	padding: 0px;
+	width:8px;
+}
+
+.window_lb {
+	width: 8px;
+	height: 7px;
+	min-width: 8px;
+	min-height: 7px;
+	background: url('../../frogSys/images/window/win-left-bottom.png') no-repeat;
+	overflow: hidden;
+	padding: 0px;
+}
+
+.window_b {
+	background: url('../../frogSys/images/window/win-bg-bottom.png');
+	overflow: hidden;
+        padding: 0px;
+}
+
+.window_rb {
+	width: 8px;
+	height: 7px;
+	min-width: 8px;
+	min-height: 7px;
+	background: url('../../frogSys/images/window/win-right-bottom.png') no-repeat;
+	overflow: hidden;
+	padding: 0px;
+	cursor: se-resize;
+}
+
+
+
+
+.window_popisek {
+	overflow: hidden;
+	color:white;
+	padding-left:5px;
+}
+
+
+
+.window_buton {
+	position: relative;
+	float: left;
+	bottom: 5px;
+	width: 80px;
+	height: 30px;
+	text-align: center;
+}
+
+
+#info_box {
+	position: absolute;
+	display: none;
+	z-index: 1000;
+	border: 1px solid white;
+	background: transparent url('../../frogSys/images/window/black.png') repeat;
+	color: white;
+	padding: 5px 10px;
+	max-width: 300px;
+}
+
+
+#obrys_objekt {
+	position: fixed; 
+	left: 0px; 
+	top: 0px; 
+	z-index: 41;
+	overflow: hidden;
+}

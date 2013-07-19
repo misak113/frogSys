@@ -1,0 +1,70 @@
+
+.novinka {
+    position: relative;
+    width: 97%;
+    margin: 10px 10px 20px 10px;
+}
+
+.novinka h2.nazev {
+    width: 100%;
+    border-bottom: 1px solid black;
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 10px;
+}
+.novinka .nazev a {
+    position: relative;
+    text-decoration: none;
+}
+
+.novinka .datum {
+    font-family: Courier new;
+    font-size: 11px;
+    color: #D3D3D3;
+    margin: 1px 1px 1px 2px;
+}
+
+.novinka .text {
+    position: relative;
+    font-size: 13px;
+    color: #888888;
+    margin: 5px;
+    line-height: 20px;
+    text-indent: 30px;
+}
+
+
+.strankovani {
+    margin: 100px 5px 5px 5px;
+    text-align: center;
+    width: 100%;
+    font-size: 13px;
+    position: relative;
+}
+
+.strankovani a, .strankovani span.aktual {
+    margin: 4px 4px 4px 4px;
+    text-decoration: none;
+    color: #999999;
+}
+
+.strankovani span.aktual {
+    font-weight: bold;
+    
+}
+
+
+.edit_pane_Novinka, .edit_pane_NovinkaNazev, .edit_pane_NovinkaText {
+    position: absolute;
+    top: 1px;
+    right: 20px;
+}
+
+.edit_pane_Novinka .delete {
+    position: absolute;
+    right: 5px;
+}
+.edit_pane_Novinka .checkbox {
+    position: absolute;
+    right: 25px;
+}

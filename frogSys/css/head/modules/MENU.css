@@ -1,0 +1,81 @@
+
+/* plugin - menu_in */
+.menu_in {
+	margin: 10px 10px 20px 20px;
+}
+
+.menu_in_item {
+	position: relative;
+	margin: 5px 10px;
+}
+
+.menu_in_item a {
+	color:#009eb1;
+	text-decoration:none;
+}
+
+.menu_in_item a:hover {
+	color:#16b1c4;
+}
+
+
+
+.menu_in .add_menu_in {
+	position: relative;
+	margin: 13px 10px;
+	width: 20px;
+	height: 20px;
+}
+
+.menu_in_item_obrys {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	z-index: 41;	
+}
+
+.menu_in_item .aktual {
+    font-weight: bold;
+}
+
+
+
+
+
+
+.href_table {
+	margin: 10px;
+	height: 400px;
+	overflow: auto;
+}
+
+.href_ikon {
+	position: relative;
+	margin: 3px 10px;
+	width: 52px;
+	height: 16px;
+}
+
+.href_ikon .delete {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 16px;
+	height: 16px;
+}
+
+.href_ikon .zobraz {
+	position: absolute;
+	left: 18px;
+	top: 0px;
+	width: 16px;
+	height: 16px;
+}
+
+.href_ikon .nastav {
+	position: absolute;
+	left: 36px;
+	top: 0px;
+	width: 16px;
+	height: 16px;
+}
