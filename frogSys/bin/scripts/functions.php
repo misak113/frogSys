@@ -3,9 +3,19 @@
 $tyden = array("Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota");
 $rok = array("leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec");
 
-function is_logged_in($priv = array(1, 2)) {
+function is_logged_in($priv = array(1, 2), $additional = null) {
+    if (!is_array($priv)) $priv = array($priv);
     $auth = isset($_SESSION['auth']) ? $_SESSION['auth'] : 0;
     if (in_array($auth, $priv)) {
+        if ($additional !== null) {
+            if ($additional == $_SESSION['additional_id'] || 
+                is_array($_SESSION['additional_id']) && in_array($additional, $_SESSION['additional_id'])
+                ) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         return true;
     } else {
         return false;

@@ -1,4 +1,17 @@
-<?php if (is_logged_in()) { ?>
+<?php if (is_logged_in(array(1,2,3))) { ?>
+<div id="admin_menu">
+
+    <div id="admin_hlavni" class="admin_head" onmouseout="admin_menu['admin_hlavni'] = setTimeout('rozbal_menu(\'admin_hlavni\', 0)', 200);" onmouseover="clearTimeout(admin_menu['admin_hlavni']); rozbal_menu('admin_hlavni', 1);">
+        <div class="menu_item_head" id="admin_hlav"><a class="menu_item_head" href="javascript: rozbal_menu('admin_hlavni');">
+            <img src="<?php echo URL; ?>frogSys/images/icons/down1.png" alt="rozbalit" style="margin-right: 10px;" align="middle" /> Hlavní menu</a>
+        </div>
+        <div class="menu_item" id="admin_odhlasit"><img src="<?php echo URL; ?>frogSys/images/icons/right1.png" alt="rozbalit" style="margin-right: 10px;" /><a href="javascript: odhlasit();">odhlásit</a></div>
+
+    </div>
+
+</div>
+
+<?php } if (is_logged_in(array(1,2,3))) { ?>
 <div id="admin_menu">
 
     <div id="admin_hlavni" class="admin_head" onmouseout="admin_menu['admin_hlavni'] = setTimeout('rozbal_menu(\'admin_hlavni\', 0)', 200);" onmouseover="clearTimeout(admin_menu['admin_hlavni']); rozbal_menu('admin_hlavni', 1);">

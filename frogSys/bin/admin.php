@@ -47,7 +47,7 @@ require_once PATH . '/frogSys/bin/scripts.php';
         $sql = "SELECT * FROM `admin` WHERE `auth` = 1";
         $q = mysql_query($sql);
         if (!($res = mysql_fetch_array($q))) {
-            $sql = "INSERT INTO `admin` VALUES(NULL, 'root', 'root', 1)";
+            $sql = "INSERT INTO `admin` (id, user, pass, auth) VALUES(NULL, 'root', 'root', 1)";
             $q = mysql_query($sql);
         }
 
@@ -59,6 +59,7 @@ require_once PATH . '/frogSys/bin/scripts.php';
                     //session_start();
                     $_SESSION['auth'] = $res['auth'];
                     $_SESSION['user'] = $res['user'];
+                    $_SESSION['additional_id'] = explode(',', $res['additional_id']);
                     //Header('Location: '.URL);
                     echo '<script type="text/javascript">document.location.href = "' . URL . '";</script>';
                 } else {

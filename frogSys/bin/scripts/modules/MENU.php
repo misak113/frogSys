@@ -22,7 +22,7 @@
                                         $aktual = " class=\"aktual\"";
                                     }
                                 
-			if (!is_logged_in()) {
+			if (!is_logged_in(array(1,2,3))) {
 				?>
                             <a href="<?php echo URL; ?><?php echo $menu_link; ?>/<?php echo $res2['link']; ?>/" <?php echo $aktual; ?>>
 				<?php

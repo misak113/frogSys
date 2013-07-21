@@ -89,6 +89,10 @@
 			include PATH."/frogSys/bin/ajax/edit/modules/VSTA.php";
 		}
 
+	} else if (is_logged_in(3)) { // @todo povoleno všem 3, jen je to ve scripts schováno
+		if ($_POST['predmet'] == "vysledky") {
+			include PATH."/frogSys/bin/ajax/edit/modules/VYSL.php";
+		}
 	} else {
 		echo "Nemáte právo pro administraci!";
 	}

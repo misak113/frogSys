@@ -2,13 +2,15 @@
 require_once "../../../config/database.php";
 include "../../bin/scripts.php";
 
-if (is_logged_in()) {
+if (is_logged_in(array(3))) {
     if ($_POST['predmet'] == "odhlasit") {
         if ($_POST['action'] == "odhlasit") {
             $_SESSION['auth'] = null;
             $_SESSION['user'] = null;
         }
     }
+}
+if (is_logged_in()) {
     if ($_POST['predmet'] == "admins") {
         if ($_POST['action'] == "edit_form") {
             echo "<table>";
@@ -35,7 +37,7 @@ if (is_logged_in()) {
             if (is_logged_in(array(1))) {
                 $rand = mt_rand(1000, 9999);
                 $pass = mt_rand(10000, 99999);
-                $sql = "INSERT INTO `admin` VALUES(NULL, 'user$rand', '$pass', 2)";
+                $sql = "INSERT INTO `admin` (id, user, pass, auth) VALUES(NULL, 'user$rand', '$pass', 2)";
                 $q = mysql_query($sql);
                 $sql = "SELECT * FROM `admin` WHERE `user` = 'user$rand'";
                 $q = mysql_query($sql);
@@ -121,7 +123,7 @@ if (is_logged_in()) {
         }
         if ($_POST['action'] == "set_seting") {
             $text = $_POST['text'];
-            $text = str_replace(array("\n","'"), array(" ","&#39;"), $text);
+            $text = str_replace(array("\"", "\n","'"), array("&quot;"," ","&#39;"), $text);
             $sql = "INSERT INTO `seting` VALUES(NULL, '".$_POST['name']."', '".$text."')";
             mysql_query($sql);
             $sql = "UPDATE `seting` SET `value` = '".$text."' WHERE `name` = '".$_POST['name']."'";

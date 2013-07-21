@@ -50,6 +50,6 @@
         '#fil: css/head.css'
     );
 
-    loadCss($load_css, "frogSys/", is_logged_in(), URL, PATH);
-    loadJs($load_js, "frogSys/", is_logged_in(), URL, PATH);
+    loadCss($load_css, "frogSys/", is_logged_in(array(1,2,3)), URL, PATH);
+    loadJs($load_js, "frogSys/", is_logged_in(array(1,2,3)), URL, PATH);
 ?>

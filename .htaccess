@@ -1,0 +1,61 @@
+
+ErrorDocument 404 "/index.php?page=404"
+
+RewriteEngine on
+Options +FollowSymlinks
+
+####### Redirect na verzi domény s www #######
+#RewriteCond %{HTTP_HOST} ^stredoceskynohejbal.cz
+#RewriteRule (.*) http://www.stredoceskynohejbal.cz/$1 [R=301,QSA,L]
+
+RewriteBase /avantcore/stredoceskynohejbal.cz/
+
+
+
+
+
+
+
+
+
+####### Zjištění sránky z adresy (drobečkově) #######
+RewriteCond %{REQUEST_URI} ^/(.*)/
+RewriteRule ^(.*)/$ index.php?page=$1 [NC,L,QSA]
+
+####### Přístup do frogSys administrační verze #######
+RewriteCond %{REQUEST_URI} ^(.*)/admin
+RewriteRule ^admin$ frogSys/bin/admin.php [NC,L,QSA]
+
+####### Zobrazení automatické sitemap #######
+RewriteCond %{REQUEST_URI} ^(.*)/sitemap.xml
+RewriteRule ^sitemap.xml$ frogSys/bin/sitemap.php [NC,L,QSA]
+
+####### Načtení favicon.ico z designu #######
+RewriteCond %{REQUEST_URI} ^(.*)/favicon.ico
+RewriteRule ^favicon.ico$ frogSys/images/design/favicon.ico [NC,QSA]
+
+####### Načtení index.php z frogSys #######
+#RewriteCond %{REQUEST_URI} ^/index.php
+#RewriteRule ^index.php$ /frogSys/index.php [NC,L,QSA]
+
+####### Zobrazení robots.txt z frogSys #######
+RewriteCond %{REQUEST_URI} ^(.*)/robots.txt
+RewriteRule ^robots.txt$ frogSys/robots.txt [NC,L,QSA]
+
+
+
+####### Přepisování cest k obrázkům pokud existují v grafics #######
+RewriteCond %{QUERY_STRING} !^last=true$
+RewriteRule ^(.*/)*frogSys/(images/.+\.((jpg)|(png)|(gif)|(ico)))$ grafics/$2 [QSA]
+RewriteCond %{QUERY_STRING} !^last=true$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*/)*grafics/(.+\.((jpg)|(png)|(gif)|(ico)))$ frogSys/$2?last=true [QSA]
+
+
+####### Obrázky top_.jpg #######
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^frogSys/images/design/top/top_.+\.jpg$ grafics/images/design/top/top_.jpg [QSA,L]
+
+
+php_flag display_errors On
+
