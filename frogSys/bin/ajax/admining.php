@@ -2,11 +2,22 @@
 require_once "../../../config/database.php";
 include "../../bin/scripts.php";
 
-if (is_logged_in(array(3))) {
+if (is_logged_in(array(1,2,3))) {
     if ($_POST['predmet'] == "odhlasit") {
         if ($_POST['action'] == "odhlasit") {
             $_SESSION['auth'] = null;
             $_SESSION['user'] = null;
+        }
+    }
+    if ($_POST['predmet'] == "pages") {
+        if ($_POST['action'] == "get_names") {
+            $sql = "SELECT * FROM `menu` WHERE `id` = ".$_POST['page']."";
+            $q = mysql_query($sql);
+            $res = mysql_fetch_array($q);
+            $sql = "SELECT * FROM `menu_in` WHERE `href` = ".$_POST['sub_page']."";
+            $q2 = mysql_query($sql);
+            $res2 = @mysql_fetch_array($q2);
+            echo @$res['name']." &gt; ".@$res2['name'];
         }
     }
 }
@@ -92,17 +103,6 @@ if (is_logged_in()) {
                 echo "Přihlašovací údaje byly změněny.";
             }
 
-        }
-    }
-    if ($_POST['predmet'] == "pages") {
-        if ($_POST['action'] == "get_names") {
-            $sql = "SELECT * FROM `menu` WHERE `id` = ".$_POST['page']."";
-            $q = mysql_query($sql);
-            $res = mysql_fetch_array($q);
-            $sql = "SELECT * FROM `menu_in` WHERE `href` = ".$_POST['sub_page']."";
-            $q2 = mysql_query($sql);
-            $res2 = @mysql_fetch_array($q2);
-            echo @$res['name']." &gt; ".@$res2['name'];
         }
     }
     if ($_POST['predmet'] == "titulek") {

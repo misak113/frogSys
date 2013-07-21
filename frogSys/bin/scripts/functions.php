@@ -3,20 +3,41 @@
 $tyden = array("Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota");
 $rok = array("leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec");
 
-function is_logged_in($priv = array(1, 2), $additional = null) {
+/**
+ * @param array|int $priv
+ * @param int $additional
+ */
+function is_logged_in($priv = array(1, 2), $additional = null) {//_d($priv);_d($_SESSION['auth']);
+    // udělá pole z priv
     if (!is_array($priv)) $priv = array($priv);
-    $auth = isset($_SESSION['auth']) ? $_SESSION['auth'] : 0;
+    // vše v poli na int
+    foreach ($priv as $key => &$value) { $priv[$key] = (int)$value; }
+    // stáhne auth z session
+    $auth = (int)(isset($_SESSION['auth']) ? $_SESSION['auth'] : 0);
+    // pokud má právo, porovnává dál
     if (in_array($auth, $priv)) {
+        // pokud je super admin, nebo hlavní admin, rovnou vracej true
+        if ($auth == 1 || $auth == 2) {
+            return true;
+        }
+        // pokud je zadán additional, kontŕoluje ten
         if ($additional !== null) {
-            if ($additional == $_SESSION['additional_id'] || 
-                is_array($_SESSION['additional_id']) && in_array($additional, $_SESSION['additional_id'])
-                ) {
+            $sessionAdditional = isset($_SESSION['additional_id']) ? $_SESSION['additional_id'] : 0;
+            // pokud additional neni pole, tak ho udělej
+            if (!is_array($sessionAdditional)) $sessionAdditional = array($additional);
+            // vše v poli na int
+            foreach ($sessionAdditional as $key => &$value) { $sessionAdditional[$key] = (int)$value; }
+            // pokud je v sessione tennto additional, vrať true
+            if (in_array($additional, $sessionAdditional)) {
                 return true;
             } else {
+                // pokud nemá pravo na tento additional, vrať false
                 return false;
             }
+        } else {
+            // pokud není additional zadán, vrať že může true
+            return true;
         }
-        return true;
     } else {
         return false;
     }
@@ -482,4 +503,6 @@ class Watch {
 	}
 }
 
-?>
+function _d($dump) {
+    var_dump($dump);
+}
