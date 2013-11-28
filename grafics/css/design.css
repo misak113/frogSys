@@ -265,3 +265,13 @@ a.cw_order {
 .polozka_plan_akci .plak_typ_kategorie {
     display: inline;
 }
+
+
+.novinka {
+  border-bottom: 1px solid black;
+  margin-bottom: 33px;
+}
+
+.novinka .datum {
+  color: #A3A3A3;
+}
