@@ -85,13 +85,23 @@ function writeNovinkySouhrne($page_part) {
         if ($res = mysql_fetch_array($q)) {
             $pages = floor($res['pocet']/$count_on_page);
             if ($pages > 0) {
-            for ($i=0;$i<=$pages;$i++) {
-                if ($i == $str) {
-                    echo '<span class="aktual">'.($i+1).'</span>';
-                } else {
-                    echo "<a href=\"".URL."$menulink/?str=$i\">".($i+1)."</a>  ";
-                }
-            }
+            $writeTecky = false;
+              for ($i=0;$i<=$pages;$i++) {
+                  if ($i == $str) {
+                      echo '<span class="aktual">'.($i+1).'</span>';
+                  } else {
+                      echo "<a href=\"".URL."$menulink/?str=$i\">".($i+1)."</a>  ";
+                  }
+                  
+                  // omezení na prvních 5 stránek
+                  if ($i == 5 && $str <=5) {
+                    $writeTecky = true;
+                    break;
+                  }
+              }
+              if ($writeTecky) {
+                echo "<a href=\"".URL."$menulink/?str=".($i+1)."\" title=\"".($i+2)." až ".($pages+1)."\">...</a>  ";
+              }
             }
         }
         if ($str < $pages) {
