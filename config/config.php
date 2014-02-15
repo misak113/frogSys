@@ -7,7 +7,7 @@
   define('DB_NAME', 'activecollab'); 
   define('DB_CAN_TRANSACT', true); 
   define('TABLE_PREFIX', 'acx_'); 
-  define('ROOT_URL', 'http://devel.avantcore.cz'); 
+  define('ROOT_URL', 'http://localhost/avantcore/deve.avantcore.cz');
   define('URL_BASE', ROOT_URL . '/');
   define('ASSETS_URL', ROOT_URL . '/public/assets');
   //define('PATH_INFO_THROUGH_QUERY_STRING', true); 
