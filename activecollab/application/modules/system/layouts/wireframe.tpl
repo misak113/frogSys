@@ -217,15 +217,7 @@
 	<script type="text/javascript" src="/AjaxIM/js/im.load.js?php"></script>
 	<script type="text/javascript">
 		var ajaxIMLogin = function() { AjaxIM.client.login(username, password); };
-		var ajaxIMRegister = function () {
-			AjaxIM.request(
-				AjaxIM.client.actions.register,
-				{username: username, password: password},
-				function(response) {
-					ajaxIMLogin();
-				});
-		};
-		AjaxIM.loaded(ajaxIMRegister);
+		AjaxIM.loaded(ajaxIMLogin);
 	</script>
 {/literal}
 
