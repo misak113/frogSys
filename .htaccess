@@ -1,0 +1,16 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^(.+) - [PT,L]
+
+  RewriteRule ^projects_icons/(.*)$ public/projects_icons/$1 [L]
+  RewriteRule ^avatars/(.*)$ public/avatars/$1 [L]
+  RewriteRule ^logos/(.*)$ public/logos/$1 [L]
+  RewriteRule ^thumb.php$ public/thumb.php [L]
+  RewriteRule ^captcha.php$ public/captcha.php [L]
+  RewriteRule ^$ public/index.php [L]
+  RewriteRule ^(.*) public/index.php?path_info=$1 [L]
+</IfModule>
