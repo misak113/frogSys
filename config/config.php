@@ -1,5 +1,5 @@
 <?php
-  define('ROOT', 'C:\Users\misak113\dev\avantcore\devel.avantcore.cz');
+  define('ROOT', 'C:\Users\misak113\dev\avantcore\devel.avantcore.cz\activecollab');
   define('PUBLIC_FOLDER_NAME', 'public'); 
   define('DB_HOST', 'localhost'); 
   define('DB_USER', 'root');
