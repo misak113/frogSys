@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__.'/helpers/function.webalize.php';
+
   /**
    * System module functions
    *

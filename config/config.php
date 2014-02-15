@@ -7,11 +7,11 @@
   define('DB_NAME', 'activecollab'); 
   define('DB_CAN_TRANSACT', true); 
   define('TABLE_PREFIX', 'acx_'); 
-  define('ROOT_URL', 'http://localhost/avantcore/devel.avantcore.cz');
+  define('ROOT_URL', 'http://devel.avantcore.dev');
   define('URL_BASE', ROOT_URL . '/');
   define('ASSETS_URL', ROOT_URL . '/public/assets');
-  //define('PATH_INFO_THROUGH_QUERY_STRING', true); 
-  define('FORCE_QUERY_STRING', true); 
+  //define('PATH_INFO_THROUGH_QUERY_STRING', true);
+  define('FORCE_QUERY_STRING', true);
   define('LOCALIZATION_ENABLED', false); 
   define('ADMIN_EMAIL', 'zabka.michael@seznam.cz'); 
   define('DEBUG', 1); 

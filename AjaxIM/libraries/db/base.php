@@ -14,6 +14,7 @@ class BaseDatabase {
 
 class BaseUser {
     static $db = null;
+	public $autosave;
     
     function __construct($username, $password, $user_id, $ip, $last_login) {
     }

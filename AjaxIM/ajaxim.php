@@ -59,6 +59,7 @@ if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
 
 // import the server library
 require_once('libraries/server/' . IM_LIBRARY . '.php');
+/** @var Default_IM $im */
 $im_class = IM_LIBRARY . '_IM';
 $im = new $im_class();
 $action = preg_replace('/^' . preg_quote($_SERVER['SCRIPT_NAME'], '/') . '\/(.+?)(\?.+)?$/', '\1', $_SERVER['REQUEST_URI']);

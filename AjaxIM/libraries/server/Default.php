@@ -51,7 +51,7 @@ class Default_IM extends IM {
             $_SESSION['username'] = $user->username;
             $_SESSION['user_id'] = intval($user->user_id);
             
-            $online = Friend::of($user->user_id);
+            $online = Friend::of($user->user_id, true);
             
             return array('r' => 'logged in', 's' => session_id(), 'f' => $online);
         } else {
@@ -139,7 +139,7 @@ class Default_IM extends IM {
                     // hash the password
                     $password = md5($password);
                     $pw_str = substr($password, 0, 8);
-                    $password = $pw_str . md5($pw_str . $password);
+                    //$password = $pw_str . md5($pw_str . $password);
                     
                     $register_sql = "INSERT INTO " . MYSQL_PREFIX . "users
                         (username, password, last_known_ip)
@@ -230,7 +230,7 @@ class Default_IM extends IM {
                 $no_msg_count++;
                 sleep(2.5 + min($no_msg_count * 1.5, 7.5));
             }
-        } while(!$messages && time() - $start < 30);
+        } while(!$messages && time() - $start < 20);
 
         if($messages)
             return $this->_pollParseMessages($messages);

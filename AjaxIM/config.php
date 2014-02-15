@@ -10,7 +10,7 @@
     define('MYSQL_USERNAME', 'root');
     define('MYSQL_PASSWORD', '');
     define('MYSQL_HOSTNAME', 'localhost');
-    define('MYSQL_DATABASE', 'ajax_im');
+    define('MYSQL_DATABASE', 'activecollab');
     define('MYSQL_PREFIX', 'ajaxim_');
     
     // Session cookie used by Ajax IM

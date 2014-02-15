@@ -53,8 +53,9 @@ class MySQL_User extends BaseUser {
             
             // hash given password using actual password hash, then test against real password
             $pw_hash = substr($user->password, 0, 8);
+            //$password = $pw_hash . md5($pw_hash . $password);
             
-            if($user->password == $pw_hash . md5($pw_hash . $password)) {
+            if($user->password == $password) {
                 $user_obj = new MySQL_User($user->username, $user->password, $user->user_id,
                     $user->last_known_ip, $user->last_login);
                 
@@ -193,7 +194,7 @@ class MySQL_Status extends BaseStatus {
         }
         $status_sql .= " LIMIT 1";
         
-        $prep = self::$db->prepare($sql);
+        $prep = self::$db->prepare($status_sql);
         $prep->execute(array(':user' => $user));        
         $status = $prep->fetch(PDO::FETCH_OBJ);
         
@@ -250,13 +251,7 @@ class MySQL_Message extends BaseMessage {
     public static function send($from=0, $to=0, $message='') {
         if(!self::$db)
             self::$db = MySQL_Database::instance();
-            
-        if(isset($this) && $this->from && !$from) {
-            $from = $this->from;
-            $to = $this->to;
-            $message = $this->message;
-        }
-                
+
         $send_sql = "INSERT INTO " . MYSQL_PREFIX . "messages (from_id, to_id, type, message)
             VALUES(:from, :to, 'm', :message)";
         $prep_send = self::$db->prepare($send_sql);
@@ -535,12 +530,6 @@ class MySQL_Friend extends BaseFriend {
     }
     
     public static function of($user=0, $offline=false) {
-        if(!$user && (isset($this) && !$this->user))
-            return array();
-            
-        if(isset($this) && $this->user && !$user)
-            $user = $this->user;
-
         if(!self::$db)
             self::$db = MySQL_Database::instance();
         
@@ -582,15 +571,9 @@ class MySQL_Friend extends BaseFriend {
     }
 
     public static function find($friend, $user=0) {
-        if(!$user && (isset($this) && !$this->user))
-            return false;
-    
         if(!self::$db)
             self::$db = MySQL_Database::instance();
-            
-        if($this->user && !$user)
-            $user = $this->user;
-        
+
         $friend_find_sql = "SELECT users.username as u, status.status as s, groups.name as g FROM " . MYSQL_PREFIX . "friends as friends
             LEFT JOIN " . MYSQL_PREFIX . "users as users ON friends.friend_id = users.user_id
             LEFT JOIN " . MYSQL_PREFIX . "status as status ON users.user_id = status.user_id
@@ -636,7 +619,7 @@ class MySQL_Friend extends BaseFriend {
                 }
                 
                 $updategroup_sql = "UPDATE " . MYSQL_PREFIX . "friends SET group_id=:group_id WHERE id=:id";
-                $updategroup = self::$db->prepare($updatemsg_sql);
+                $updategroup = self::$db->prepare($updategroup_sql);
                 
                 $updategroup->execute(array(
                     ':group_id' => $this->group,
@@ -650,11 +633,11 @@ class MySQL_Friend extends BaseFriend {
                 return $this->group;
             } else if($this->id) {
                 $getgroup_sql = "SELECT group FROM " . MYSQL_PREFIX . "friends WHERE id=:id LIMIT 1";
-                $getgroup = self::$db->prepare($getmsg_sql);
+                $getgroup = self::$db->prepare($getgroup_sql);
                 $getgroup->execute(array(':id' => $this->id));
                 
                 if($getgroup->rowCount()) {
-                    $group_obj = $getmsg->fetch(PDO::FETCH_OBJ);
+                    $group_obj = $getgroup->fetch(PDO::FETCH_OBJ);
                     $this->group = $group_obj->group;
                     return $this->group;
                 } else {

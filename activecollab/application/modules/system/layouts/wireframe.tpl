@@ -199,12 +199,33 @@
     </div>
 
 
+
+<script type="text/javascript">
+	{php}
+	$logged_user = $GLOBALS['application']->smarty->_tpl_vars['logged_user'];
+	$username = str_replace(' ', '', webalize($logged_user->getFirstName() . $logged_user->getLastName()));
+	echo "var username = '$username';";
+	echo "var password = '".md5($logged_user->getPassword())."';";
+	{/php}
+</script>
 {literal}
-	<script type="text/javascript" src="{$root_url}/AjaxIM/js/jquery-1.3.2.js"></script>
-	<script type="text/javascript" src="{$root_url}/AjaxIM/js/im.load.js?php"></script>
+	<style>
+		#imjs-bar {
+			z-index: 10000;
+		}
+	</style>
+	<script type="text/javascript" src="/AjaxIM/js/im.load.js?php"></script>
 	<script type="text/javascript">
-		var ajaxIMLogin = function() { AjaxIM.client.login('{$userName}', '{$ajaxIMPassword}'); };
-		AjaxIM.loaded(ajaxIMLogin);
+		var ajaxIMLogin = function() { AjaxIM.client.login(username, password); };
+		var ajaxIMRegister = function () {
+			AjaxIM.request(
+				AjaxIM.client.actions.register,
+				{username: username, password: password},
+				function(response) {
+					ajaxIMLogin();
+				});
+		};
+		AjaxIM.loaded(ajaxIMRegister);
 	</script>
 {/literal}
 

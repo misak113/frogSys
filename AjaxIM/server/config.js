@@ -14,7 +14,7 @@
 // you do not want to specify a host, set it to {{{null}}}.
 exports.ports = {
     public: [8000, 'localhost'],
-    private: [11998, 'localhost']
+    private: [11998, '127.0.0.1']
 };
 
 // === {{{ cookie }}} ===
