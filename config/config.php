@@ -3,11 +3,11 @@
   define('PUBLIC_FOLDER_NAME', 'public'); 
   define('DB_HOST', 'localhost'); 
   define('DB_USER', 'root');
-  define('DB_PASS', 'misak');
+  define('DB_PASS', '');
   define('DB_NAME', 'activecollab'); 
   define('DB_CAN_TRANSACT', true); 
   define('TABLE_PREFIX', 'acx_'); 
-  define('ROOT_URL', 'http://localhost/avantcore/deve.avantcore.cz');
+  define('ROOT_URL', 'http://localhost/avantcore/devel.avantcore.cz');
   define('URL_BASE', ROOT_URL . '/');
   define('ASSETS_URL', ROOT_URL . '/public/assets');
   //define('PATH_INFO_THROUGH_QUERY_STRING', true); 
